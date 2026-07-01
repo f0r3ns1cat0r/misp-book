@@ -1,0 +1,94 @@
+---
+title: "Translations - i18n & l10n"
+---
+
+# MISP and Internationalization (i18n)
+
+## Requirements
+
+Please read the following [CakePHP documentation about i18n & l10n](https://book.cakephp.org/2.0/en/core-libraries/internationalization-and-localization.html).
+
+## Add one .md per translation effort
+
+Please add one Markdown file per translation effort, such as `ja_JP.md` (Japanese_Japan) or `it_CH.md` (Italian_Switzerland).
+In that file, briefly describe the current status of the translation, what has already been translated, and any sections that may be tricky.
+It is also a good place to explain how technical terms are handled in your language, for example whether they are translated directly, adapted from English, or usually kept in English.
+
+## Style
+
+Please follow whatever is the purest and most intelligible form of written language in the native tongue being translated.
+
+## Formatting
+
+It is important to use correct formatting. This is wrong:
+
+```
+<p><?php echo __('Are you sure you want to delete Proposal #') . $id . '?' ?></p>
+```
+
+You want to have ultimate flexibility and that line should look more like this:
+
+```
+<p><?php echo __('Are you sure you want to delete Proposal #{$id}?');?></p>
+```
+
+In the above example, we use an alternative notation for the PHP format string.
+With this approach, the generated po-template file ([default.pot](https://github.com/MISP/MISP/blob/2.4/app/Locale/default.pot)) includes the name of the variable to be translated in the `msgid` entry.
+That is easier to read than a non-descriptive `%s` and gives the translator more context about how the phrase is used in MISP.
+
+In case you have HTML-Tags, move them out of the sentence, out of the php code if possible:
+```
+<p><?php echo __('<h1>Are you sure you want to:<br />Delete Proposal #%s?', $id);?></h1></p>
+```
+
+```
+<p><h1><?php echo __('Are you sure you want to:%sDelete Proposal #{$id}?', '<br />');?></h1></p>
+```
+
+
+
+## Issues
+
+Sometimes it may be impossible to translate certain phrases.
+You might also notice bad formatting or awkward sentence segmentation.
+In that case, please open an [issue on GitHub](https://github.com/MISP/MISP/issues).
+
+## Quirks
+
+Lines like this:
+
+```
+echo $this->Form->button('Submit', array('class' => 'btn btn-primary'));$
+```
+
+Should be prepared as such:
+
+```
+echo $this->Form->button(__('Submit'), array('class' => 'btn btn-primary'));
+```
+
+Or another case:
+
+```
+echo $this->Form->input('sharing_group_id', array(
+    'options' => array($sharingGroups),
+    'label' => 'Sharing Group',
+));
+```
+
+To:
+
+```
+echo $this->Form->input('sharing_group_id', array(
+    'options' => array($sharingGroups),
+    'label' => __('Sharing Group'),
+));
+```
+
+## Let us know!
+
+Are you planning to do a translation or localization? Please open a ticket on the [issue system](https://github.com/MISP/MISP-book/issues). This will allow us and others to track what is being worked on. You can keep it very light, as all the details should be in your markdown in misp-book.
+
+## Reach out to the community
+
+Want to chat with other MISP contributors? Make sure to join our [MISP Gitter channel](https://gitter.im/MISP/MISP).

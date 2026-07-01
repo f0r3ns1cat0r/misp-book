@@ -1,6 +1,0 @@
-# MISP Extended Events
-
-Starting with version 2.4.90, MISP can extend an event.
-This allows users to build full events that extend an existing one, creating a combined event view that includes the original event together with all extending events.
-
-[More](http://www.misp-project.org/2018/04/19/Extended-Events-Feature.html)

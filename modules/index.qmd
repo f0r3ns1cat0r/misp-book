@@ -1,0 +1,20 @@
+---
+title: "Modules"
+---
+
+MISP modules are self-contained modules that provide expansion and other services for MISP.
+They are written in Python 3 and follow a simple API interface.
+The goal is to extend MISP functionality without modifying core components.
+The API is exposed through a REST interface that is independent of the main MISP installation and configuration.
+
+Support for MISP modules is included in MISP starting with version 2.4.28.
+
+[More](https://www.circl.lu/assets/files/misp-training/switch2016/2-misp-modules.pdf)
+
+[MISP Modules GitHub Repository](https://github.com/MISP/misp-modules)
+
+## Installation
+
+[Installation guide for Ubuntu](https://github.com/MISP/misp-modules#how-to-install-and-start-misp-modules-in-a-python-virtualenv-recommended)
+
+[Installation guide for RHEL/CentOS](https://github.com/MISP/misp-modules#how-to-install-and-start-misp-modules-on-rhel-based-distributions-)

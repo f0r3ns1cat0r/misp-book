@@ -1,0 +1,91 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "MISP User Guide"
+  subtitle: "Open Source Threat Intelligence Sharing Platform"
+  author: "The MISP Project & Contributors"
+  date: today
+  favicon: assets/misp-2-verti.png
+  cover-image: cover.jpg
+  # Served from a subpath; keep canonical/sitemap URLs correct (A2).
+  site-url: https://www.circl.lu/doc/misp/
+  repo-url: https://github.com/MISP/misp-book
+  repo-branch: main
+  repo-actions: [edit, issue]        # "Edit this page" / "Report an issue"
+  search: true
+  sidebar:
+    logo: assets/misp-2-verti.png
+    style: docked
+    collapse-level: 1
+  page-footer:
+    left: "MISP User Guide — dual-licensed AGPLv3 & CC-BY-SA 4.0"
+    right: "Built with [Quarto](https://quarto.org)"
+  downloads: [pdf, epub]             # replaces the old manual PDF/EPUB sidebar links
+  # Reading order derived from the former SUMMARY.md (all chapters).
+  chapters:
+    - index.qmd
+    - book-convention/index.qmd
+    - quick-start/index.qmd
+    - requirements/index.qmd
+    - get-your-instance/index.qmd
+    - general-layout/index.qmd
+    - general-concepts/index.qmd
+    - user-management/index.qmd
+    - using-the-system/index.qmd
+    - delegation/index.qmd
+    - extended-events/index.qmd
+    - administration/index.qmd
+    - managing-feeds/index.qmd
+    - updating-python/index.qmd
+    - automation/index.qmd
+    - pymisp/index.qmd
+    - create-event-report/index.qmd
+    - taxonomy/index.qmd
+    - galaxy/index.qmd
+    - misp-objects/index.qmd
+    - sightings/index.qmd
+    - warninglists/index.qmd
+    - noticelists/index.qmd
+    - categories-and-types/index.qmd
+    - sharing/index.qmd
+    - connectors/index.qmd
+    - modules/index.qmd
+    - misp-zmq/index.qmd
+    - keyboard-shortcuts/index.qmd
+    - translation/index.qmd
+    - faq/index.qmd
+    - dev-faq/index.qmd
+    - best-practices/index.qmd
+    - user-stories/index.qmd
+    - user-personas/index.qmd
+  appendices:
+    - glossary.qmd
+
+# Executable PyMISP/REST cells run locally against the dev instance and are
+# frozen into _freeze/ (committed), so CI renders without a live instance (D3/A10).
+execute:
+  freeze: auto
+
+format:
+  html:
+    theme:
+      light: [cosmo, assets/misp.scss]
+      dark: [darkly, assets/misp.scss]
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    code-block-bg: true
+    link-external-newwindow: true
+    number-sections: false
+  epub:
+    cover-image: cover.jpg
+    toc: true
+    number-sections: false
+  typst:
+    papersize: a4
+    toc: true
+    number-sections: false
+    fontsize: 10pt

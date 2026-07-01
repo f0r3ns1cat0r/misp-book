@@ -5,7 +5,8 @@ MISP Book provides general documentation for MISP, including usage, API document
 Installation guides are maintained in the [INSTALL](https://github.com/MISP/MISP/tree/2.4/INSTALL) and [download](https://www.misp-project.org/download/) sections of the core and website repositories respectively.
 By cloning this repository and pulling regularly, users can maintain an up-to-date offline copy of the documentation instead of relying solely on the web.
 
-MISP Book is generated in HTML, PDF, EPUB, and MOBI formats using [Honkit](https://github.com/honkit/honkit), a framework for writing documentation in Markdown.
+MISP Book is generated in HTML, PDF, and EPUB formats using [Quarto](https://quarto.org), a framework for writing documentation in Markdown.
+Each chapter is a plain-Markdown `index.qmd` file in its own directory, so you can edit any chapter and open a pull request without installing anything. See [README.md](README.md) for how to build the book locally.
 The documentation is regularly published on [misp-project.org](https://www.misp-project.org/) and the [CIRCL website](https://www.circl.lu/doc/misp/).
 
 ## Documentation guidelines
@@ -52,7 +53,7 @@ You can submit a pull request or share your improvements in any other way that s
 
 ## Style guidelines
 
-- Familiarize yourself with the terms defined in the [glossary](https://www.circl.lu/doc/misp/GLOSSARY.html). Use these terms consistently and accurately throughout your writing.
+- Familiarize yourself with the terms defined in the [glossary](https://www.circl.lu/doc/misp/glossary.html). Use these terms consistently and accurately throughout your writing.
 - The language in this book is American English. All screenshots and examples are in English.
 
 ## Markdown conventions
@@ -65,6 +66,8 @@ When making contributions, please try to observe the following style conventions
 - Insert a newline at, and only at, the end of each sentence. This results in one sentence per line, which produces more useful diffs and facilitates translation while preserving readability.
 - If appropriate, make numerals in numbered lists match between Markdown source and HTML output. If a user needs to read the Markdown source directly, this makes the steps easier to follow.
 - Use Atx-style headings: `# h1`, `## h2`, `### h3`, and so on.
+- Always leave a blank line **before every heading** and **before and after every code fence**. Quarto/Pandoc will otherwise fold a heading into the preceding paragraph or a code block, so it silently disappears from the rendered book.
+- Fence code blocks with triple backticks on their own lines (```` ``` ````) and tag the language; do not write triple backticks inline in a sentence.
 - When writing code blocks, use syntax highlighting where possible and use [...] for omitted content.
 
 ([This](https://daringfireball.net/projects/markdown/) is a great resource for learning Markdown.)
