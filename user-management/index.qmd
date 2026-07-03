@@ -2,15 +2,74 @@
 title: "User Management and Global Actions"
 ---
 
-### First run of the system
-When first logging into MISP with the username and password provided by your administrator, there are a number of things that need to be done, before you can start using the system.
+This chapter covers managing your own MISP account — first login, your profile,
+notification preferences, API keys, multi-factor authentication and personal
+settings. Creating and administering *other* users, and the role/permission model,
+are covered in the [Administration](../administration/index.qmd) chapter.
 
-*   **Accepting the Terms of use:** The terms of use are shown immediately after logging in for the first time, make sure to read through this page before clicking "Accept Terms" at the bottom of the page.
-*   **Changing the password:** After accepting the ToU, you'll be prompted to change your password, but keep in mind that it has to be pass to the [MISP password policy](https://misp.gitbooks.io/misp-book/content/quick-start/#password-policy). Enter the same password into the confirm password field, before clicking submit to finalise the change.
-![Changing the password](figures/password.png)
-*   **Setting up the GnuPG Key:** In order for the system to be able to encrypt the messages that you send through it, it needs to know your GnuPG key. Navigate to the Edit profile view (My Profile on the left -> Edit profile in the top right corner). Paste the key into the GnuPG Key field and click submit.
-*   **Subscribing to Auto-alerts:** Turning auto-alerts on will allow the system to send you e-mail notifications about any new public events entered into the system by other users and private events added by members of your organisation. To turn this on, navigate to the Edit profile view (My profile on the left navigation menu -> Edit profile in the top right corner). Tick the auto-alert checkbox and click submit to enable this feature.
-![Use these checkboxes to subscribe to auto-alerts and contact reporter e-mails.](figures/alerts.png)
-*   **Subscribing to e-mails sent via the "Contact Reporter" functionality:** This feature is turned on right below the autoalerts and will allow you to receive e-mails addressed to your organisation whenever a user tries to ask about an event that was posted by a user of your organisation. Keep in mind that you can still be addressed by such a request even when this setting is turned off, if someone tries to contact you as the event creator directly or your organisation for an event that you personally have created then you will be notified.
-*   **Reviewing the Terms & Conditions:** To review the Terms & Conditions or to read the User Guide, use the appropriate button on the left navigation menu.
-*   **Making sure that compatibility mode is turned off (IE9&IE10):** Compatibility mode can cause some elements to appear differently than intended or not appear at all. Make sure you have this option turned off.
+## First run of the system
+
+When you first log in with the credentials provided by your administrator, there
+are a few things to do before you start using the system:
+
+*   **Accept the terms of use** — shown immediately after your first login. Read
+    the page and click **Accept Terms** at the bottom.
+*   **Change your password** — you are then prompted to set your own password. It
+    must satisfy the [MISP password policy](../quick-start/index.qmd#password-policy).
+    Enter it in both fields and submit.
+
+    ![Changing the password](figures/password.png)
+
+*   **Set up your PGP/GnuPG key** — so MISP can encrypt the emails it sends you.
+    Go to **My Profile → Edit profile** and paste your public key into the
+    *GnuPG Key* field.
+*   **Subscribe to notifications** — in the same Edit profile view, tick the
+    relevant boxes (see below).
+
+    ![Use these checkboxes to subscribe to auto-alerts and contact-reporter emails.](figures/alerts.png)
+
+## Your profile
+
+**My Profile** (`Global Actions → My Profile`) shows your account details and,
+via **Edit profile**, lets you manage:
+
+*   your display name and PGP/GnuPG (and optional S/MIME) key for encrypted mail;
+*   **Receive alerts when events are published** (auto-alert) — email whenever a
+    new event you are eligible to see is published;
+*   **Receive alerts from "contact reporter" requests** — email when another user
+    contacts your organisation about one of its events. (You may still be
+    contacted directly as an event's creator even with this off.)
+
+## API keys
+
+To use the [REST API](../automation/index.qmd) or [PyMISP](../pymisp/index.qmd),
+create an authentication key under **My Profile → Auth Keys**. Modern MISP uses
+*advanced* auth keys: each key is stored hashed, shown only once at creation, and
+can carry a comment, an expiry, an IP allowlist and a read-only flag. See the
+[automation chapter](../automation/index.qmd) for the full workflow.
+
+## Multi-factor authentication
+
+If your instance enables it, you can secure your account with TOTP/HOTP
+multi-factor authentication from **My Profile**. See
+[Multi-factor authentication](../using-the-system/index.qmd#multi-factor-authentication-totphotp)
+for the user-facing walkthrough, and the
+[administration chapter](../administration/index.qmd) for enabling it
+instance-wide.
+
+## Personal settings
+
+**My Settings** (`Global Actions → My Settings`) holds per-user preferences,
+including your interface **theme**, dashboard configuration, and the
+**publish alert filter** — a JSON filter that narrows which published-event
+emails you receive (by tag, creator organisation or threat level). See
+[Setting a Publish Alert Filter](../administration/index.qmd#various-administration-tips-tricks)
+in the administration chapter for the filter syntax.
+
+## User administration and roles
+
+Administrators (site and organisation admins) create, edit, disable and contact
+users, and assign them roles. A role sets a user's base permission level and a
+set of feature permissions. All of this is covered in the
+[Administration → Users](../administration/index.qmd#users) and
+[Roles](../administration/index.qmd#roles) sections.
