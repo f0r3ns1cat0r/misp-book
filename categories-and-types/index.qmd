@@ -4,6 +4,14 @@ title: "Categories and Types"
 
 ### Attribute Categories vs. Types
 
+::: {.callout-note}
+This reference is derived from MISP's own `Attribute::categoryDefinitions` and
+`typeDefinitions` (the authoritative `category_type_mappings`). To keep it from drifting,
+regenerate it from a running instance via `GET /attributes/describeTypes.json` (or the bundled
+`describeTypes.json`) rather than editing cells by hand. It reflects MISP 2.5.42
+(16 categories, 194 types).
+:::
+
 |Category| Antivirus detection | Artifacts dropped | Attribution | External analysis | Financial fraud | Internal reference |
 | --- |:---:|:---:|:---:|:---:|:---:|:---:|
 |AS| | | | X | | |
@@ -39,6 +47,7 @@ title: "Categories and Types"
 |dom-hash| | | | X | | |
 |domain| | | | X | | |
 |domain&#124;ip| | | | X | | |
+|edge-extension-id| | | | | | |
 |email| | | X | | | |
 |email-attachment| | | | | | |
 |email-body| | | | | | |
@@ -163,6 +172,7 @@ title: "Categories and Types"
 |ssdeep| | X | | | | |
 |ssh-fingerprint| | | | | | |
 |stix2-pattern| | X | | | | |
+|suricata| | | | X | | |
 |target-email| | | | | | |
 |target-external| | | | | | |
 |target-location| | | | | | |
@@ -178,6 +188,7 @@ title: "Categories and Types"
 |uri| | | | | | |
 |url| | | | X | | |
 |user-agent| | | | X | | |
+|uuid| | | | | | |
 |vhash| | X | | | | |
 |visa-number| | | | | | |
 |vulnerability| | | | X | | |
@@ -233,6 +244,7 @@ title: "Categories and Types"
 |dom-hash| X | | | | | |
 |domain| X | | X | | | |
 |domain&#124;ip| X | | | | | |
+|edge-extension-id| | | X | X | | |
 |email| X | | X | | | |
 |email-attachment| | | X | | | |
 |email-body| | | X | | | |
@@ -357,6 +369,7 @@ title: "Categories and Types"
 |ssdeep| | | X | X | | |
 |ssh-fingerprint| X | | | | | |
 |stix2-pattern| X | | X | X | | |
+|suricata| X | | | | | |
 |target-email| | | | | | |
 |target-external| | | | | | |
 |target-location| | | | | | |
@@ -372,6 +385,7 @@ title: "Categories and Types"
 |uri| X | | | | | |
 |url| X | | X | | | |
 |user-agent| X | | X | | | |
+|uuid| | X | | | | |
 |vhash| | | X | X | | |
 |visa-number| | | | | | |
 |vulnerability| | | X | X | | |
@@ -427,6 +441,7 @@ title: "Categories and Types"
 |dom-hash| | | | |
 |domain| | | | |
 |domain&#124;ip| | | | |
+|edge-extension-id| | | | |
 |email| X | X | | |
 |email-attachment| | | | |
 |email-body| | | | |
@@ -551,6 +566,7 @@ title: "Categories and Types"
 |ssdeep| | | | |
 |ssh-fingerprint| | | | |
 |stix2-pattern| | | | |
+|suricata| | | | |
 |target-email| | | | X |
 |target-external| | | | X |
 |target-location| | | | X |
@@ -566,6 +582,7 @@ title: "Categories and Types"
 |uri| | | | |
 |url| | | | |
 |user-agent| | | | |
+|uuid| | | | |
 |vhash| | | | |
 |visa-number| X | | | |
 |vulnerability| | | | |
@@ -641,6 +658,7 @@ title: "Categories and Types"
 *   **dom-hash**: A dom-hash algorithm is a structural fingerprint of an HTML Document Object Model where all tag names are contained in a single string separated by a pipe. The truncated SHA252 value by the first 32-character serves as fingerprint.
 *   **domain**: A domain name used in the malware
 *   **domain&#124;ip**: A domain name and its IP address (as found in DNS lookup) separated by a &#124;
+*   **edge-extension-id**: A browser extension identifier (for example, a Microsoft Edge / Chromium extension ID)
 *   **email**: An email address
 *   **email-attachment**: File name of the email attachment.
 *   **email-body**: Email body
@@ -765,6 +783,7 @@ title: "Categories and Types"
 *   **ssdeep**: A checksum in ssdeep format
 *   **ssh-fingerprint**: A fingerprint of SSH key material
 *   **stix2-pattern**: STIX 2 pattern
+*   **suricata**: An IDS rule in Suricata rule-format
 *   **target-email**: Attack Targets Email(s)
 *   **target-external**: External Target Organizations Affected by this Attack
 *   **target-location**: Attack Targets Physical Location(s)
@@ -780,6 +799,7 @@ title: "Categories and Types"
 *   **uri**: Uniform Resource Identifier
 *   **url**: Uniform Resource Locator
 *   **user-agent**: The user-agent used by the malware in the HTTP request.
+*   **uuid**: A universally unique identifier referencing another object, event, or resource
 *   **vhash**: A VirusTotal checksum
 *   **visa-number**: Visa number
 *   **vulnerability**: A reference to the vulnerability used in the exploit

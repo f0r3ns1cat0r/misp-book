@@ -27,7 +27,7 @@ All the screenshots and examples are in English.
 
 The same code of conduct applies to this book as to the main MISP project.
 Because documentation often reflects the spirit of a software project, please treat the book with the same care and consideration.
-You can read the `Code of Conduct` [here](https://github.com/MISP/MISP/blob/2.4/code_of_conduct.md).
+You can read the `Code of Conduct` [here](https://github.com/MISP/MISP/blob/2.5/code_of_conduct.md).
 
 ## Example install
 
@@ -59,7 +59,7 @@ The following two organisations are regularly used as example:
 
 Starting from MISP 2.4.71, the example organisations with the above mentioned UUID are **blocklisted** to avoid
 large distribution of sample events while testing a MISP instance. If you want to test your distribution, the
-sample organisation blocklisting can be removed in `Administration`/`Manage Org blocklists`.
+sample organisation blocklisting can be removed in `Administration`/`Manage Org blocklists` (this menu is only available when the `MISP.enableOrgBlocklisting` setting is turned on).
 
 ## Example IOCs
 

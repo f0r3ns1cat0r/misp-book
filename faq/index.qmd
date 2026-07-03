@@ -27,7 +27,7 @@ If you want commercial support, feel free to look at the [MISP professional serv
 
 From a hardware perspective, MISP's requirements are quite humble, a web server with 2+ cores and 8-16 GB of memory should be plenty, though more is always better of course. A lot of it depends on the data set and the number of users you are dealing with. 
 
-We recommend a standard LAMP stack on top of Ubuntu >18.04 LTS. For details on the exact dependencies please refer to the [installation guide](https://misp.github.io/MISP/INSTALL.ubuntu1804/) as well as the [requirements for the MISP modules](https://github.com/MISP/misp-modules/blob/main/REQUIREMENTS). 
+We recommend a standard LAMP stack (PHP 8.x) on a current Ubuntu 24.04 LTS or Debian 12/13. For details on the exact dependencies please refer to the [installation guides](https://misp.github.io/MISP/) as well as the [requirements for the MISP modules](https://github.com/MISP/misp-modules/blob/main/REQUIREMENTS).
 
 During a [Hackathon](https://hackathon.hack.lu) a small tool called MISP-Sizer was conceived. It will give you a **very rough** idea on what requirements are if you have a bigger installation. [source-code is here](https://github.com/MISP/MISP-sizer). The reference for sizing a MISP instance is [Sizing your MISP instance](https://www.misp-project.org/sizing-your-misp-instance/).
 
@@ -66,15 +66,9 @@ The workers can be restarted from the web interface:
     
     administration -> server settings -> workers -> restart all
 
-You can also follow the manual process below.
+In MISP 2.5 the workers run under SimpleBackgroundJobs and are managed by Supervisor, so from the command line you restart them with:
 
-If you are on Ubuntu / Debian based systems:
-
-    sudo su -l www-data -s /bin/bash -c "bash /var/www/MISP/app/Console/worker/start.sh"
-
-If you are on RHEL / Fedora based systems:
-
-    su -s /bin/bash apache -c 'bash /var/www/MISP/app/Console/worker/start.sh'
+    sudo supervisorctl restart misp-workers:*
 
 ### How can I redirect HTTP to HTTPs?
 
@@ -153,38 +147,13 @@ You can add a footer logo. Add an image to the directory */var/www/MISP/app/webr
 
 Partial source: [Getting started with MISP](http://www.vanimpe.eu/2015/05/31/getting-started-misp-malware-information-sharing-platform-threat-sharing-part-3/)
 
-### All workers are starting correctly except _schdlr_ . How can I fix this?
-
-This can happen if the [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) of the server hosting the instance has changed. A way to fix this is to flush temporary data stored in redis. This can be done by logging in redis, for example when logging in with redis-cli, and issuing a _*flushall*_ command.
-
 ### How can I import data directly from PDF reports?
 
 /!\ This section needs review, verification and eventual amendments to make sure it works.
 
-You can use a generic script called IOC parser (https://github.com/armbues/ioc_parser) or use a script published by Palo Alto to convert IOC parser output to a MISP event (https://github.com/PaloAltoNetworks-BD/report_to_misp/). You have also the option to select all the text and paste it in the free-text import form.
+The simplest option is to select the text in the report and paste it into the free-text import form. For automated extraction, use the MISP import modules — for example the OCR, PDF or CSV import modules — enabled under **Administration → Server Settings → Plugin settings**.
 
 Another option is the new [OCR import module](https://github.com/MISP/misp-modules) that can be used via the import modules. You will need to install the OCR software tesseract.
-
-### I am having trouble updating beyond version 2.4.50 (stuck loading any page beyond the login), what can I do?
-
-/!\ This applies to an earlier version of MISP, do not randomly try this fix on valuable data. By all means try it on a test-machine and report back if your problem was solved by this.
-
-This is most likely due to the fact that MISP did not clean up expired sessions prior to version 2.4.51 automatically and relied on a site-admin occasionally cleaning it up using the button found on the diagnostics page. Once you upgrade to 2.4.51, MISP will try to cull the table with each page load by a site-admin, which in some cases if the table has grown to extreme sizes it will get stuck on. To resolve the issue, log into mysql:
-
-`mysql -u [misp-db-user-name] -p [misp-db-name];`
-
-and execute the following commands:
-
-   DROP cake_sessions;
-   CREATE TABLE IF NOT EXISTS `cake_sessions` (
-     `id` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-     `data` text COLLATE utf8_bin NOT NULL,
-     `expires` int(11) NOT NULL,
-     PRIMARY KEY (`id`),
-     INDEX `expires` (`expires`)
-   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-After this everything should work and the session table will be trimmed each time a site-admin loads a page.
 
 ### I have many failed jobs when doing email notification. What should I do?
 
@@ -195,10 +164,6 @@ location in MISP:
   ```
   https://<YOUR MISP URL>/users/verifyGPG
   ```
-
-### Upgrading from MISP 2.4.65 to MISP 2.4.66 - Unable to merge due to the Composer file.
-
-In MISP 2.4.66, Composer is included by default to avoid the risk of downloading a rogue PHP Composer version (if the composer repository is compromised or MiTM are performed) via the download and php execution. But when upgrading (via a git pull), the git merge process might complain about the composer phar file still being there. You can safely remove that file and `git pull origin 2.4` again.
 
 ### I have issues with pushing events
 
@@ -232,15 +197,13 @@ To configure the redis session handling in PHP, edit :
 
 ### Is there TAXII support? 
 
-A TAXII 1 implementation can be found at https://github.com/MISP/MISP-Taxii-Server . 
-This is mostly a TAXII server hooked up to MISP, meant to receive STIX files to its in box and uploading them to MISP.
-There is also an experimental feature to push MISP events to the TAXII server when they're published - that's in `scripts/push_published_to_taxii.py`. It seems to work, but may occasionally re-upload duplicate events to MISP.
+Yes. MISP 2.5 can push events to TAXII 2.x collections directly: configure a TAXII server under **Sync Actions → TAXII Servers** (see the [Synchronisation and Sharing](../sharing/index.qmd) chapter).
 
-TAXII 2 is provided in the future once the specification, which is at time of writing in draft, reaches a stable form.
+For TAXII 1.x, a separate server implementation is available at https://github.com/MISP/MISP-Taxii-Server, which receives STIX files into its inbox and uploads them to MISP.
 
 ### Wipe MISP data - Remove all data
 
-If you need to start from scratch with your MISP database and remove all data you can use the [`misp-wipe`](https://github.com/MISP/MISP/tree/2.4/tools/misp-wipe)  script provided in the `tools/` folder.
+If you need to start from scratch with your MISP database and remove all data you can use the [`misp-wipe`](https://github.com/MISP/MISP/tree/2.5/tools/misp-wipe) script provided in the `tools/` folder.
 
 ### Constantly acknowledging my self-signed certificate drives me nuts
 
@@ -398,7 +361,7 @@ Then find the individual event's metadata that was deleted
 
 ## Permission issues
 
-If you have any permission issues, please [set the permissions](https://misp.github.io/MISP/INSTALL.ubuntu1804/#5-set-the-permissions) to something sane first.
+If you have any permission issues, please [set the permissions](https://misp.github.io/MISP/) to something sane first.
 
 ### RHEL/CentOS
 
@@ -444,7 +407,7 @@ Fix:
 ```bash
 sudo setsebool -P httpd_can_network_connect on
 # Perhaps a reload is not needed, but good practice wants us to test it anyways.
-sudo systemctl restart rh-php72-php-fpm.service
+sudo systemctl restart php-fpm.service
 sudo systemctl restart httpd.service
 ```
 
@@ -572,7 +535,7 @@ Yes, you want to flip your instances "Live-mode".
 This wants to be done on the CLI if you experience issues:
 
 ```bash
-$PATH_TO_MISP/app/Console/cake "MISP.live" 0
+$PATH_TO_MISP/app/Console/cake Admin live 0
 ```
 
 Other related MISP Settings
@@ -859,85 +822,6 @@ The new WarningList will now show up. In case of errors, check the permissions o
 To modify the list or to add entries to it, go back to the file via the CLI, modify the file and reload it via the GUI ("Update WarningLists".
 
 
-## How to upgrade PHP on RHEL/CentOS?
-
-To our knowledge, there is no way to "upgrade" PHP. You'll need to install the new PHP version like you're doing a fresh install.
-You may try copying your old `php.ini` to your new PHP config directory which may work. We would recommend redoing the config though.
-
-### Example: Upgrade from PHP 7.2 to 7.3 on CentOS 7
-
-#### Enable repository
-
-```
-$ sudo yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-$ sudo yum-config-manager --enable remi-php73
-```
-
-#### Install packages
-
-```
-$ sudo yum install -y php73-php php73-php-cli php73-php-fpm php73-php-devel php73-php-mysqlnd php73-php-mbstring php73-php-xml php73-php-bcmath php73-php-opcache php73-php-gd php73-php-pecl-redis4 php73-php-pecl-gnupg php73-php-pear
-```
-
-> Confirm GPG key if required:
->
-> ```
-> Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-> Importing GPG key 0x00F97F56:
->  Userid     : "Remi Collet <RPMS@FamilleCollet.com>"
->  Fingerprint: 1ee0 4cce 88a4 ae4a a29a 5df5 004e 6f47 00f9 7f56
->  Package    : remi-release-7.6-2.el7.remi.noarch (installed)
->  From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-> Is this ok [y/N]: y
-> ```
-
-#### Install required PEAR-modules
-
-```
-$ sudo php73-pear channel-update pear.php.net
-Updating channel "pear.php.net"
-Update of Channel "pear.php.net" succeeded
-$ sudo php73-pear install /var/www/MISP/INSTALL/dependencies/Console_CommandLine/package.xml
-install ok: channel://pear.php.net/Console_CommandLine-1.2.2
-$ sudo php73-pear install /var/www/MISP/INSTALL/dependencies/Crypt_GPG/package.xml
-install ok: channel://pear.php.net/Crypt_GPG-1.6.3
-```
-
-#### PHP configuration
-
-Edit `/etc/opt/remi/php73/php.ini`:
-
-> ```
-> date.timezone = "Europe/Berlin"
-> max_execution_time = 300
-> memory_limit = 512M
-> upload_max_filesize = 50M
-> post_max_size = 50M
-> ```
-
-#### Switch to PHP 7.3
-
-```
-$ sudo systemctl stop rh-php70-php-fpm
-$ sudo systemctl start php73-php-fpm
-# check if everything's fine
-$ sudo systemctl status php73-php-fpm
-```
-
-Now check if the MISP web UI is accessible and if the diagnostics page shows any errors.
-
-> The diagnostics page will show "PHP CLI Version (>7.2 recommended): Unknown (Issues determining version)". That's a [known issue](https://github.com/MISP/MISP/issues/2334).
-
-#### Disable/enable services
-
-```
-$ sudo systemctl disable rh-php70-php-fpm
-Removed symlink /etc/systemd/system/multi-user.target.wants/rh-php70-php-fpm.service.
-$ sudo systemctl enable php73-php-fpm
-Created symlink from /etc/systemd/system/multi-user.target.wants/php73-php-fpm.service to /usr/lib/systemd/system/php73-php-fpm.service.
-```
-
-
 ## How to add a galaxy to an event via PyMISP
 
 A galaxy can be assigned like a tag. You can use the add tag function and copy the full conntector-tag. Example `misp-galaxy:ransomware=“Locky”`, which can be found in `/galaxy_clusters/view/`
@@ -954,108 +838,7 @@ For that, we'll use the Import Regex feature in MISP.
 3. From that point onward, users will still be able to add attachement but they won't be accepted by the system anymore.
     - Note: If you allowed specific file extensions, only file ending with the provided extension will be accepted. Please, bear in mind that it only looks at the filename and skip MIME checks alltogether.
 
-## Updating PHP from 7.2 to 7.4.5 on Ubuntu 18.04
-
-### Installation
-
-1. Disable and Uninstall Currently Installed SSDEEP
-```bash
-sudo phpdismod ssdeep
-sudo pecl uninstall ssdeep
-sudo apt purge ssdeep
-sudo rm -rf /etc/php/7.2/mods-available/ssdeep.ini
-```
-
-2. Install PHP 7.4.5
-```bash
-sudo apt install software-properties-common -qy
-sudo add-apt-repository ppa:ondrej/php -y
-sudo apt update
-sudo apt install -qy \
-    libapache2-mod-php7.4 \
-    php7.4 \
-    php7.4-cli \
-    php7.4-dev \
-    php7.4-json \
-    php7.4-xml \
-    php7.4-mysql \
-    php7.4-opcache \
-    php7.4-readline \
-    php7.4-mbstring \
-    php-redis \
-    php-gnupg \
-    php-gd
-sudo apt update
-sudo apt upgrade -y
-```
-
-3. Install SSDEEP
-```bash
-cd /usr/local/src
-sudo rm -rf ssdeep-2.14.1.tar.gz ssdeep-2.14.1
-sudo wget https://github.com/ssdeep-project/ssdeep/releases/download/release-2.14.1/ssdeep-2.14.1.tar.gz
-sudo tar zxvf ssdeep-2.14.1.tar.gz
-cd ssdeep-2.14.1
-sudo ./configure --datadir=/usr --prefix=/usr --localstatedir=/var --sysconfdir=/etc
-sudo make
-sudo make install
-```
-
-4. Test SSDEEP
-```bash
-ssdeep -h
-```
-
-5. Install ssdeep_php
-```bash
-  sudo pecl channel-update pecl.php.net
-  sudo pecl install ssdeep
-```
-
-6. Enable SSDEEP in both 7.2 and 7.4 (** as root** `sudo su`)
-```bash
-echo 'extension=ssdeep.so' >  /etc/php/7.2/mods-available/ssdeep.ini
-echo 'extension=ssdeep.so' >  /etc/php/7.4/mods-available/ssdeep.ini
-```
-
-7. Enable SSDEEP PHP Mod
-```bash
-sudo phpenmod ssdeep
-```
-
-8. Set PHP 7.4.5 to default PHP
-```bash
-sudo a2dismod php7.2
-sudo a2enmod php7.4
-sudo update-alternatives --set php /usr/bin/php7.4
-```
-
-9. [Optional] Set better values for defaults
-```bash
-sudo sed -i "s/max_execution_time = 30/max_execution_time = 300/" /etc/php/7.4/apache2/php.ini ; \
-sudo sed -i "s/memory_limit = 128M/memory_limit = 2048M/" /etc/php/7.4/apache2/php.ini ; \
-sudo sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 500M/" /etc/php/7.4/apache2/php.ini ; \
-sudo sed -i "s/post_max_size = 8M/post_max_size = 500M/" /etc/php/7.4/apache2/php.ini ; \
-sudo sed -i "s/max_execution_time = 30/max_execution_time = 300/" /etc/php/7.4/cli/php.ini ; \
-sudo sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 500M/" /etc/php/7.4/cli/php.ini ; \
-sudo sed -i "s/post_max_size = 8M/post_max_size = 5000M/" /etc/php/7.4/cli/php.ini ;
-```
-
-10. Restart Apache to implement changes
-```bash
-sudo sudo systemctl restart apache2
-```
-
-### Verification of php 7.2 to 7.4
-
-1.   **Administration** > **Server Settings & Maintenance**
-
-2.   **Diagnostics**
-
-3. Scroll down to the **PHP Settings** section and verify
-
-
-### What are the required steps after a MISP installation to have a properly running instance?
+## What are the required steps after a MISP installation to have a properly running instance?
 
 - First login with the installation credentials and change the password immediately (especially if your instance is publicly accessible)
 - Set the base_url to the hostname of your machine (apache virtualhost name)

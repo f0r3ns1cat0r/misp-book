@@ -2,9 +2,6 @@
 title: "Appendices"
 ---
 
-# Summary
-
-
 # Appendix A: External Authentication
 
 #### The external authentication mechanism described
@@ -509,7 +506,7 @@ Functions that have not been tied into the new ACL yet show up here. These funct
 # Appendix C: Official MISP developments
 
 This section lists the projects that can be found on the main [MISP GitHub](https://github.com/MISP/repositories) page
- e know of but not officially support and rely on their respective maintainers to keep up to date to the MISP 2.4 developments.
+ e know of but not officially support and rely on their respective maintainers to keep up to date to the MISP 2.5 developments.
 
 
 | Project | Description | Status |
@@ -525,7 +522,7 @@ This section lists the projects that can be found on the main [MISP GitHub](http
 
 # Appendix D: Third-party development
 
-This section lists some projects we know of but not officially support and rely on their respective maintainers to keep up to date to the MISP 2.4 developments.
+This section lists some projects we know of but not officially support and rely on their respective maintainers to keep up to date to the MISP 2.5 developments.
 
 | Project | Description | Status |
 | -- | -- | -- |
@@ -595,14 +592,18 @@ A brief list of online ressources that around #ThreatIntel
 
 # Appendix F: LDAP Authentication
 
-MISP supports LDAP authentication from version 2.4.xxx. This manual will show how to configure LDAP authentication. 
+MISP supports LDAP authentication. This manual will show how to configure LDAP authentication.
+
+::: {.callout-warning}
+The configuration keys in this appendix are being revised against the current `LdapAuth` plugin. For the authoritative, up-to-date option list and the exact settings required to enable LDAP (in particular `Security.auth => ['LdapAuth.Ldap']`), refer to the plugin README at [app/Plugin/LdapAuth/README.md](https://github.com/MISP/MISP/blob/2.5/app/Plugin/LdapAuth/README.md).
+:::
 
 #### Installation and configuration
 
 1. Install `mod_ldap` PHP module
     ```bash
     # for Centos or RHEL
-    yum install rh-php72-php-ldap
+    sudo dnf install php-ldap
     # for Ubuntu or debian
     apt install php-ldap
     ```
@@ -672,11 +673,9 @@ Because LDAP and MISP users are paired by e-mail address, it is possible to migr
 * `Security.require_password_confirmation` setting currently does not work with LDAP authentication. But on the other hand, since user cannot change e-mail address and password, this setting is not important.
 
 # Appendix G: SimpleBackgroundJobs Migration guide
-As of **MISP** version `2.4.151` we introduced a simpler way to handle background jobs without relying in CakeResque as this library is no longer mantained.
+Since **MISP 2.5**, background jobs are handled by **SimpleBackgroundJobs**, a simpler system that no longer relies on the unmaintained CakeResque library. SimpleBackgroundJobs is now the default (and only) background-job backend — CakeResque has been removed.
 
-For the time being both background jobs backends will be supported, but we plan to phase out the CakeResque one in a near future.
-
-The new backend requires [Supervisor](http://supervisord.org/) and some extra PHP packages.
+The backend requires [Supervisor](http://supervisord.org/) and some extra PHP packages. On a fresh 2.5 install these are set up for you by the installer scripts (the required packages are already declared in MISP's `composer.json`); the steps below are mainly relevant when migrating an older instance.
 
 **This guide is intended for Ubuntu/Debian systems**
 

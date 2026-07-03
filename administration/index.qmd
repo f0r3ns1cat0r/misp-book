@@ -230,78 +230,33 @@ Each of the setting pages is a table with each row representing a setting. Colou
 
 ![The workers tab.](figures/settings_3.png)
 
-The workers tab shows a list of the workers that MISP can use. You can restart workers using the "restart all workers" button. If the button doesn't work, make sure that the workers were started using the apache user. This can however only be done using the command line, refer to the INSTALL.txt documentation on how to let the workers automatically start on each boot.
+The workers tab shows a list of the workers that MISP can use. In MISP 2.5 the background worker system is **SimpleBackgroundJobs**, managed by [Supervisor](http://supervisord.org/) and backed by Redis; the legacy CakeResque worker system has been removed. You can restart the workers from this page with the "restart all workers" button, but starting and stopping them is normally handled by Supervisor (the `misp-workers` service installed by the setup scripts).
 
-*   **Worker Type**: The worker type is determined by the queue it monitors. MISP currently has 6 queues (cache, default, prio, email, update and a special _schdlr_ queue).
+*   **Worker Type**: The worker type is determined by the queue it monitors. MISP has 6 queues: `default`, `email`, `cache`, `prio`, `update` and `scheduler`.
 *   **Worker Id**: The ID is made up of the machine name, the PID of the worker and the queue it monitors.
-*   **Status**: Displays OK if the worker is running. If the _schdlr_ worker is the only one not running, make sure that you copy the config file into the cakeresque directory as described in the INSTALL.txt documentation.
+*   **Status**: Displays OK if the worker is running.
 
 ### Worker types
 
-**cache** 
+Each worker monitors one Redis-backed queue:
 
-  Role:
-  Interdependence:
-
-
-**default** 
-
-  Role:
-  Interdependence:
+*   **default**: General-purpose background jobs that are not handled by a more specific queue.
+*   **email**: Sending notification and alert e-mails.
+*   **cache**: Building caches — feed caches, warninglist caches and export caches.
+*   **prio**: High-priority, often user-triggered jobs (for example publishing an event) so they are not held up behind long-running tasks.
+*   **update**: Running MISP updates and database schema migrations.
+*   **scheduler**: Enqueues recurring/scheduled jobs onto the other queues at the configured times.
 
 
-**email** 
+### Restarting or starting the workers
 
-  Role:
-  Interdependence:
+Even if the workers are stopped, any actions queued for them are simply on hold — nothing is lost. Starting the workers again resumes any pending operations.
 
-
-**update** 
-
-  Role:
-  Interdependence:
-
-
-**prio** 
-
-  Role:
-  Interdependence:
-
-
-**scheduler** 
-
-  Role:
-  Interdependence:
-
-
-### Workers dead
-
-Even if the workers are dead, any actions related to them are on-hold. Nothing is lost.
-Simply restarting the worker will resume any operations.
-
-You can either relaunch them via the UI or manually by running **sudo -u www-data bash /var/www/MISP/app/Console/worker/start.sh
-** on the CLI.
-For reference, below is the script in question.
+Under Supervisor the workers start automatically (including on boot); you can also restart them from the **Workers** tab in the UI. From the command line, control the worker processes with `supervisorctl` and inspect the queues with the `Worker` console shell (see [Managing the background workers](#managing-the-background-workers)):
 
 ```bash
-#!/usr/bin/env bash
-
-# Check if run as root
-if [ "$EUID" -eq 0 ]; then
-    echo "Please DO NOT run the worker script as root"
-    exit 1
-fi
-
-# Extract base directory where this script is and cd into it
-cd "${0%/*}"
-../cake CakeResque.CakeResque stop --all
-../cake CakeResque.CakeResque start --interval 5 --queue default
-../cake CakeResque.CakeResque start --interval 5 --queue prio
-../cake CakeResque.CakeResque start --interval 5 --queue cache
-../cake CakeResque.CakeResque start --interval 5 --queue email
-../cake CakeResque.CakeResque startscheduler --interval 5
-
-exit 0
+sudo supervisorctl status misp-workers:*
+sudo supervisorctl restart misp-workers:*
 ```
 
 ## Blocklists and block rules
@@ -446,27 +401,24 @@ Another way to browse the logs is to search it by filtering the results accordin
 
 If enabled, MISP can delegate a lot of the time intensive tasks to the background workers. These will then be executed in sequence, allowing the users of the instance to keep using the system without a hiccup and without having to wait for the process to finish. It also allows for certain tasks to be scheduled and automated.
 
-### Command Line Tools for the Background Workers
+### Command line tools for the background workers
 
-The background workers are powered by [CakeResque](https://github.com/kamisama/Cake-Resque), so all of the CakeResque commands work.
-To start all of the workers needed by MISP go to your `/var/www/MISP/app/Console/worker` (assuming a standard installation path) and execute `start.sh`.
-To interact with the workers, here is a list of useful commands. Go to your `/var/www/MISP/app/Console` (assuming a standard installation path) and execute one of the following commands as a parameter to `./cake CakeResque` (for example: `./cake CakeResque tail`):
+In MISP 2.5 the background workers run under **SimpleBackgroundJobs** (Supervisor + Redis); the old CakeResque commands no longer apply. The worker processes are controlled by Supervisor:
 
-*   **start**:           Start a new worker.
-*   **startscheduler**:  Start a new scheduler worker.
-*   **stop**:            Stop a worker.
-*   **pause**:           Pause a worker.
-*   **resume**:          Resume a paused worker.
-*   **cleanup**:         Terminate the job that a worker is working on with immediate effect. You will be presented with a choice of workers to choose from when executing this command.
-*   **restart**:         Stop all Resque workers, and start a new one.
-*   **clear**:           Clear all jobs inside a queue
-*   **reset**:           Reset CakeResque internal worker's saved status
-*   **stats**:           Display some statistics about your workers including the count of successful and failed jobs.
-*   **tail**:            Tail the various (workers) log files that CakeResque creates, just choose the one from the list that you are interested in.
-*   **track**:           Track a job status.
-*   **load**:            Load a set of predefined workers.
+```bash
+sudo supervisorctl status misp-workers:*
+sudo supervisorctl restart misp-workers:*
+```
 
-The other commands should not be required, instead of starting / stopping or restarting workers use the supplied start.sh (it stops all workers and starts them all up again). For further instructions on how to use the console commands for the workers, visit the [CakeResque list of commands](http://cakeresque.kamisama.me/commands#cleanup).
+To inspect the queues and jobs, use the `Worker` console shell from `/var/www/MISP/app/Console`:
+
+*   **showQueues**: Show the configured queues and how many jobs are waiting in each.
+*   **flushQueue [queue]**: Remove all queued jobs from the given queue.
+*   **showJobStatus [worker]**: Show the status of the jobs handled by the workers.
+
+```bash
+sudo -u www-data /var/www/MISP/app/Console/cake Worker showQueues
+```
 
 ### Monitoring the Background Processes
 
@@ -474,7 +426,7 @@ The "Jobs" menu item within the Administration menu allows site admins to get an
 
 *   **Id**: The job's ID (this is the ID of the job's metadata stored in the default datastore, not to be confused with the process ID stored in the redis database and used by the workers)
 *   **Process**: The process's ID.
-*   **Worker**: The name of the worker queue. There are 3+1 workers running if background jobs are enabled: default, cache, email, and a special Scheduler (this should never show up in the jobs table).
+*   **Worker**: The name of the worker queue. If background jobs are enabled there are 6 queues (default, email, cache, prio, update and scheduler); the scheduler queue should never show up in the jobs table.
 *   **Job Type**: The name of the queued job.
 *   **Input**: Shows a basic input handled by the job - such as "Event:50" for a publish email alert job for event 50.
 *   **Message**: This will show what the job is currently doing or alternatively an error message describing why a job failed.
@@ -567,9 +519,9 @@ You can add a logo for your organisations in MISP by uploading them via the tab 
 The filename must be exactly the same as the organisation name that you will use in MISP.
 It is recommended to use PNG files of 48x48 pixels.
 
-### The \_schdlr\_ worker is not starting
+### The scheduler worker is not starting
 
-If you already made sure that you copied the config file under the cakeresque directory, it might be due to the FQDN of the server hosting the instance has changed. A way to fix this is to flush temporary data stored in redis. This can be done by logging in redis, for example when logging in with redis-cli, and issuing a flushall command.
+Under SimpleBackgroundJobs the scheduler runs as one of the Supervisor-managed workers. If it is not running, check `sudo supervisorctl status misp-workers:*` and the Supervisor logs, and confirm the `SimpleBackgroundJobs` settings (Redis host/port/database and the Supervisor host/port/credentials) under **Administration → Server Settings → Diagnostics**.
 
 ### How to redirect HTTP to HTTPS
 
@@ -638,7 +590,7 @@ PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to all
 
 To fix that you need to adjust the php settings:
 ```
-vi /etc/php5/apache2/php.ini
+vi /etc/php/8.3/apache2/php.ini
 ```
 
 Increase to the following values (or more if you want to)
@@ -744,18 +696,7 @@ Navigate to the diagnostics screen of MISP (Administration - Server settings - D
 
 ### Troubleshooting MISP not connecting to redis but redis-cli working
 
-If you have an IPv6 enabled OS, but an older redis version that does not support IPv6 (<v2.8), MISP might fail to connect to the redis server while redis-cli is working.
-The reason is that redis-cli is connecting to 127.0.0.1 directly, while the calls inside the CakeResque library used by MISP are done using "*localhost*" which resolves both to the IPv4 and IPv6 loopback addresses. For some reasons, the use of the IPv6 address is attempted first which fails.
-
-
-You can confirm this by trying to connect to redis using **telnet localhost 6379**. If it fails, the error message should mention the IPv6 loopback address (::1).
-
-
-Two ways to fix it:
-
-1) Upgrade your redis to a server that supports IPv6 (v2.8+). This is the preferred recommendation.
-
-2) Comment the localhost mapping to IPv6 address in /etc/hosts
+Make sure the Redis connection settings MISP uses (host, port, database and password under the **MISP** and **SimpleBackgroundJobs** settings) match your running Redis, and that Redis is reachable from the web and CLI users. On an IPv6-enabled host, if `localhost` resolves to the IPv6 loopback (`::1`) first and Redis only listens on IPv4, use an explicit `127.0.0.1` instead. You can confirm reachability with `redis-cli -h 127.0.0.1 -p 6379 ping`.
 
 
 ### Errors about fields or tables
@@ -774,9 +715,7 @@ The Jobs tab gives you an overview on any currently running jobs or jobs that we
 
 Typically this is one of the places you would turn to even some background process might not complete as expected to get an indication on any issues related to user initiated Jobs.
 
-For ease of use, you can filter the Jobs by 'All', 'Default', 'Email', 'Cache'
-
-### TODO: Explain differences Default, Email, Cache
+For ease of use, you can filter the Jobs by queue (All, Default, Email, Cache, Prio, Update).
 
 You can also purge the entries, either only by completed status or purge all.
 This is not automated and needs to be done manually.
@@ -799,7 +738,7 @@ As a rule of thumb: If you can click on it, MISP can automate it.
 
 ## MISP Backup
 
-Currently there exists this backup script simply called [misp-backup.sh](https://github.com/MISP/MISP/tree/2.4/tools/misp-backup)
+Currently there exists this backup script simply called [misp-backup.sh](https://github.com/MISP/MISP/tree/2.5/tools/misp-backup)
 
 All you need is to copy the the sample config and make sure it is correct. Then launch the script.
 
@@ -856,7 +795,7 @@ If --no_password_change is used, the user will not be required to change their p
     MISP/app/Console/cake Admin clearBruteforce [user_email]
 
 #### Run Database Update
-    MISP/app/Console/cake Admin updateDatabase
+    MISP/app/Console/cake Admin runUpdates
 
 #### Update All JSON Structures
     MISP/app/Console/cake Admin updateJSON
@@ -886,10 +825,10 @@ If --no_password_change is used, the user will not be required to change their p
     MISP/app/Console/cake Admin setDefaultRole [role_id]
 
 #### Get IPs For User ID
-    MISP/app/Console/cake Admin UserIP [user_id]
+    MISP/app/Console/cake User user_ips [user_id]
 
 #### Get User ID For User IP
-    MISP/app/Console/cake Admin IPUser [ip]
+    MISP/app/Console/cake User ip_user [ip]
 
 ### Automating certain console tasks
 If you would like to automate tasks such as caching feeds or pulling from server instances, you can do it using the following command line tools. Simply execute the given commands via the command line / create cron jobs easily out of them.
@@ -922,22 +861,24 @@ If you would like to automate tasks such as caching feeds or pulling from server
     MISP/app/Console/cake Server listServers
 
 ### Managing the background workers
-The background workers can be managed via the CLI in addition to the UI / API management tools.
 
-#### Get List Of Workers
+Under SimpleBackgroundJobs the worker processes are managed by Supervisor, so the old `Admin startWorker` / `restartWorker` / `restartWorkers` / `killWorker` commands are no-ops — they print *"This method does nothing when SimpleBackgroundJobs are enabled."* Use `supervisorctl` to control the processes and the `Worker` shell to inspect the queues.
+
+#### Control The Worker Processes
+    sudo supervisorctl status misp-workers:*
+    sudo supervisorctl restart misp-workers:*
+
+#### Show Queues
+    MISP/app/Console/cake Worker showQueues
+
+#### Flush A Queue
+    MISP/app/Console/cake Worker flushQueue [queue_name]
+
+#### Show Job Status
+    MISP/app/Console/cake Worker showJobStatus [worker]
+
+#### List Workers
     MISP/app/Console/cake Admin getWorkers [all|dead]
-
-#### Start A Worker
-    MISP/app/Console/cake Admin startWorker [queue_name]
-
-#### Restart A Worker
-    MISP/app/Console/cake Admin restartWorker [worker_pid]
-
-#### Restart All Workers
-    MISP/app/Console/cake Admin restartWorkers
-
-#### Kill A Worker
-    MISP/app/Console/cake Admin killWorker [worker_pid]
     
 ## Administration of TOTP/HOTP
 MISP 2.4.172 introduced multi-factor authentication (TOTP/HOTP) support.

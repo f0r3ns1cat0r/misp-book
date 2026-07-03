@@ -16,7 +16,7 @@ Representational state transfer ([REST](https://en.wikipedia.org/wiki/Representa
 
 ## Sharing groups
 Sharing groups in MISP are a more granular way to create re-usable distribution lists for events/attributes that allow users to include organisations from their own instance (local organisations) as well as organisations from directly, or indirectly connected instances (external organisations).
-[More about creating and managing sharing groups](https://www.circl.lu/doc/misp/using-the-system#create-and-manage-sharing-groups)
+[More about creating and managing sharing groups](using-the-system/index.qmd#create-and-manage-sharing-groups)
 
 ## Site admin
 As an admin (not to be confused with Org Admin), you can set up new accounts for users, edit user profiles, delete them, or just have a look at all the viewers' profiles.
@@ -49,8 +49,8 @@ Some other SIEMs or formats (STIX) use the term observable. This is the same as 
 MISP events are encapsulations for contextually related information represented as attribute and object.
 
 ## MISP Extended Events
-MISP can now extend an event (starting from version 2.4.90). This allows users to build full blown events that extend an existing event, giving way to a combined event view that includes a sum total of the event along with all extending events.
-[More](http://www.misp-project.org/2018/04/19/Extended-Events-Feature.html)
+MISP can extend an event (since version 2.4.90). This allows users to build full blown events that extend an existing event, giving way to a combined event view that includes a sum total of the event along with all extending events.
+[More](extended-events/index.qmd)
 
 ## MISP feeds
 MISP includes a set of public OSINT feeds in its default configuration. The feeds can be used as a source of correlations for all of your events and attributes without the need to import them directly into your system. The MISP feed system allows for fast correlation but also a for quick comparisons of the feeds against one another.
@@ -90,8 +90,8 @@ Basically, sighting is a system allowing people to react on attributes on an eve
 
 ## MISP Taxonomies
 [Taxonomy](https://en.wikipedia.org/wiki/Taxonomy_(general)) is the practice and science of classification. The word is also used as a count noun: a taxonomy, or taxonomic scheme, is a particular classification. The word finds its roots in the Greek language τάξις, taxis (meaning 'order', 'arrangement') and νόμος, nomos ('law' or 'science').
-Taxonomies that can be used in MISP (2.4) and other information sharing tool and expressed in Machine Tags (Triple Tags). A machine tag is composed of a namespace (MUST), a predicate (MUST) and an (OPTIONAL) value. Machine tags are often called triple tag due to their format.
-For more details on taxonomies and classification [the documentation](https://www.circl.lu/doc/misp-taxonomies/). Partial source ["Taxonomy_(general)"](https://en.wikipedia.org/wiki/Taxonomy_(general)) - [CCBYSA](https://creativecommons.org/licenses/by-sa/3.0/).
+Taxonomies that can be used in MISP (2.5) and other information sharing tools, expressed in Machine Tags (Triple Tags). A machine tag is composed of a namespace (MUST), a predicate (MUST) and an (OPTIONAL) value. Machine tags are often called triple tag due to their format.
+For more details on taxonomies and classification see [the taxonomies catalogue](https://www.misp-project.org/taxonomies.html). Partial source ["Taxonomy_(general)"](https://en.wikipedia.org/wiki/Taxonomy_(general)) - [CCBYSA](https://creativecommons.org/licenses/by-sa/3.0/).
 There is a Python module available to work with Taxonomies in a Pythonic way called [PyTaxonomies](https://github.com/MISP/PyTaxonomies).
 [MISP taxonomies GitHub Repo](https://github.com/MISP/misp-taxonomies)
 

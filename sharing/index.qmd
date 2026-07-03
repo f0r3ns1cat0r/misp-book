@@ -19,7 +19,7 @@ The following figure shows the concept how different MISP instances could tie to
 In MISP, two ways exist to get events from remote sources:
 
 * **Use case 1**: From another MISP server (also called MISP instance), by synchronising two MISP servers.
-* **Use case 2**: From a link, by using [Feeds](../managing-feeds).
+* **Use case 2**: From a link, by using [Feeds](../managing-feeds/index.qmd).
 
 The example below illustrate the synchronisation between two MISP servers (use case 1).
 An organisation B (OrgB) wants to synchronise its MISP server, called ServerB, with the MISP server of an organisation A (Org A), called ServerA. The following steps can be taken to syncronise ServerB with ServerA:
@@ -40,7 +40,7 @@ For additional information on the synchronisation process, refer to the [MISP Gi
 ## Pull vs Push synchronisation
 Synchronisation can be set up using the pull or push option. A combination of the two is possible as well. This section discusses the main practical differences between the two and the benefit of using both in conjunction.
 
-To automatically execute pull and push synchronisations on a schedule, please use a scheduling service such as cron to execute the relevant command line functions mentioned in the related [administration](../administration/#automating-certain-console-tasks) section.
+To automatically execute pull and push synchronisations on a schedule, please use a scheduling service such as cron to execute the relevant command line functions mentioned in the related [administration](../administration/index.qmd#automating-certain-console-tasks) section.
 
 For a table overview of which community distributions lead to a sync on push or pull scenarios as well as how the distribution level automatically decreases on sync, please refer to the  [syncing scenarios with communities distribution](#syncing-scenarios-with-communities-distribution) section.
 
@@ -52,7 +52,7 @@ A disadvantage of the push mechanism is that connection issues or dead workers m
 Data with distribution set to 'Your organisation only' or 'This community only' will not be synchronised using the push mechanism (unless the internal instance flag is set for the server to be synced to).
 
 ### Pull
-In contrast to a push, pull synchronisation is only performed on command. This could be a manual trigger by an admin from the servers page or a cron job executing a pull command. See [administration](../administration/#automating-certain-console-tasks) for the available command line interface commands.
+In contrast to a push, pull synchronisation is only performed on command. This could be a manual trigger by an admin from the servers page or a cron job executing a pull command. See [administration](../administration/index.qmd#automating-certain-console-tasks) for the available command line interface commands.
 
 A pull will also fetch objects with a distribution set to 'this community only' and even your 'organisation only', if the auth key belongs to the organisation owning the related event.
 
@@ -160,7 +160,7 @@ The following section describes how distribution mechanisms of events and attrib
 
 ### Distribution settings
 
-The below five distribution settings are available for events and attributes. Descriptions of those settings can be found [here](../using-the-system/#creating-an-event).
+The below five distribution settings are available for events and attributes. Descriptions of those settings can be found [here](../using-the-system/index.qmd#creating-an-event).
 
 * Your organisation only
 * This community only
@@ -170,7 +170,7 @@ The below five distribution settings are available for events and attributes. De
 
 Events that are not published are only distributed/shared to the local organisations on the same MISP server/instance (within the limit of the distribution model).
 Only events that are **published** will be shared with remote organisations on other MISP servers via push/pull mechanisms.
-More details on publishing events [here](../using-the-system/#publish-an-event).
+More details on publishing events [here](../using-the-system/index.qmd#publish-an-event).
 
 #### Visibility of data - events objects and attributes
 Assuming that none of the ancestors of the object of attribute are too restrictive, you can view an event/object/attribute on an instance if:
@@ -191,7 +191,7 @@ Specifically, communities are not reversible. Taking the example of <a href="#mi
 
 ### Sharing-groups
 
-There is an article about sharing groups in [here](../using-the-system/#create-and-manage-sharing-groups)
+There is an article about sharing groups in [here](../using-the-system/index.qmd#create-and-manage-sharing-groups)
 
 ### Distribution mechanisms
 

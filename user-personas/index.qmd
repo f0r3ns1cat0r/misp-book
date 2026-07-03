@@ -52,7 +52,7 @@ Lead Threat Intelligence Analyst
 - Research the evolution of high-risk malware families, validate malware signatures and domain reputations.
 - Use indicators to query security logs/systems and databases, identify compromised systems, and add/modify signatures (used by firewalls, intrusion detection systems, etc), and block or alert on activity matching the indicators.
 - Correlate shared indicators from feeds with those captured by other security and network tools to produce intelligence placed in the context of wider threat landscapes.
-- Integrate with existing security solutions so as to centralize security in one place. Leverage integrations to alert on information leaks (AIL 2), hunt down threats (McAfee OpenDXL), share attacker’s techniques (ATT&CK), query and prioritize indicators (MVISION EDR), speed up investigations (Cytomic Orion), and enhance the power of threat data (Carbon Black).
+- Integrate with existing security solutions so as to centralize security in one place. Leverage integrations to alert on information leaks (AIL 2), hunt down threats (OpenDXL), share attacker’s techniques (ATT&CK), query and prioritize indicators (Trellix EDR), speed up investigations (Cytomic Orion), and enhance the power of threat data (Carbon Black).
 
 
 ### Adam
@@ -264,7 +264,7 @@ Disinformation researcher and journalist
 #### She uses MISP to:
 - Write/read event reports, create misinformation events using relevant techniques found in a report or sighting.
 - Join sharing groups and communities (e.g [Cogsec Collab](https://www.misp-project.org/2020/03/26/cogsec-collab-misp-community.html)) that connect misinformation researchers and responders, share incident data with organizations focusing on response and counter-campaigns.
-- Integrate with the AM!TT Framework (as a galaxy) in order to describe misinformation tactics/techniques, break an incident into techniques that can be analyzed/countered, and check for disinformation through mapping.
+- Integrate with the DISARM Framework (as a galaxy, formerly AM!TT) in order to describe misinformation tactics/techniques, break an incident into techniques that can be analyzed/countered, and check for disinformation through mapping.
 - Monitor feeds, investigate disinformation using shared indicators in feeds, generate structured intelligence using the automated correlation engine, and decide if there are any falsehoods in data.
 - Enrich threat data by adding object types, new relationship types (to make the graphs that users can traverse in MISP richer), and taxonomies to cover things like types of threat actors.
 - Classify events, indicators, and threats using taxonomies (such as the Admiralty Scale taxonomy), which ranks the reliability of a source and the credibility of the information.
@@ -273,7 +273,7 @@ Disinformation researcher and journalist
 - Distill essential information from a large piece of data, making it clear to the reader what really matters.
 - Integrate MISP with TheHive for enhanced disinformation investigation and reporting.
 - Verify that an article (or image, video, etc) doesn’t contain disinformation and verify that a source (publisher, domain, etc) doesn’t distribute disinformation.
-- Extend MISP for disinformation, adding object types for incidents and narratives, and using [AMITT](https://www.misp-project.org/galaxy.html#_misinformation_pattern) for attack patterns.
+- Extend MISP for disinformation, adding object types for incidents and narratives, and using [DISARM](https://www.misp-project.org/galaxy.html) (formerly AMITT) for attack patterns.
 
 ## Other personas
 Malcolm represents users that we care about but aren't so important to us.
