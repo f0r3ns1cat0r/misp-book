@@ -148,7 +148,7 @@ Taxonomy tags can drive what MISP shares with connected instances. When you conf
 
 Tags can be used to:
 
-* Set events for further processing by external tools (e.g. VirusTotal auto-expansion using Viper).
+* Set events for further processing by external tools (for example to trigger automated enrichment or export via a [workflow](../workflows/index.qmd) or an external integration).
 
 * Ensure a classification manager classes the events before release (e.g. release of information from air-gapped/classified networks).
 
@@ -183,6 +183,27 @@ If taxonomies are set as required, a message will be visible on the tag list of 
 An event will not be published if it is not tagged with at least one of tag of each required taxonomy.
 
 ![publishing-without-required](./figures/publishing-without-required.png)
+
+### Exclusive taxonomies
+
+A taxonomy — or an individual predicate within one — can be marked **exclusive**. Exclusivity
+means only one value may apply at a time: for an exclusive *taxonomy*, an event may carry only a
+single tag from that whole namespace; for an exclusive *predicate*, only one value of that
+predicate may be set. `tlp` is the classic example — an event should have exactly one TLP level.
+If you try to add a second, conflicting tag from an exclusive taxonomy or predicate, MISP warns
+you of the conflict rather than applying it. Exclusivity is defined in the taxonomy's JSON, not
+toggled from the UI.
+
+### Bulk actions and normalising custom tags
+
+The *List Taxonomies* index supports **bulk actions** across selected taxonomies — enable,
+disable, set required/optional, and highlight/remove highlight — so you can configure many
+taxonomies in one step instead of one at a time.
+
+If your instance has accumulated free-text (custom) tags that happen to match a taxonomy's
+machine-tag format, the **Normalise custom tags to taxonomy format** action converts them into
+proper taxonomy tags, so they benefit from the taxonomy's metadata (expanded labels, exclusivity,
+numerical values) and display consistently.
 
 ## Future functionalities related to MISP taxonomies
 

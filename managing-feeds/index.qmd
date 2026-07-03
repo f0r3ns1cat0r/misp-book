@@ -25,6 +25,10 @@ Then you will see the Feeds page with a table of configured feeds.
 
 ![List feeds side menu](./figures/feedspage.png)
 
+The index can be filtered by **scope** using the tabs at the top: **All**, **Default** (the feeds
+shipped with MISP) and **Custom** (feeds you added yourself). Selecting feeds with the checkboxes
+reveals **bulk actions**, so you can enable or disable many feeds at once instead of toggling each
+individually.
 
 ### Default feeds
 
@@ -58,6 +62,7 @@ Here you will have access to a dynamic form. Let's check each field by order. Th
 * Caching enabled: Should the feed data be cached
 * Lookup visible: If this is not checked, correlations will only show up for you; if checked, correlations are visible for other users as well
 * Disable correlation: If this is checked, correlations will be disabled for all events coming from this Feed
+* Unpublish event: If checked, the target event is unpublished whenever the feed updates it (useful when you want to review changes before they are re-published)
 * Name: Name to identify the feed; not required to be unique
 * Provider: Name of the content provider
 * Input Source: Where does the input come from  
@@ -68,7 +73,9 @@ Here you will have access to a dynamic form. Let's check each field by order. Th
 
 * URL: URL of the feed, where it is located (for Local hosted files, point to the manifest.json; e.g., /home/user/feed-generator/output/manifest.json)
 
-* The Source Format can be:  
+* Headers: Any HTTP headers to pass with the feed request, as a line-break-separated list in `headername: value` format. This is how you consume a feed that requires authentication — for example an `Authorization` header carrying an API token or bearer key.
+
+* The Source Format can be:
 ![Source Format](./figures/sourceformat.png)
   * MISP Feed: The source points to a list of JSON formatted files like MISP events.  
   Example: https://www.circl.lu/doc/misp/feed-osint
@@ -104,7 +111,7 @@ Here you will have access to a dynamic form. Let's check each field by order. Th
   * Sharing Group. In this case, a new field Sharing Group appears where you must select a group.
   * Inherit from Feed (only for MISP feeds). In this case the original distribution and Sharing Group from the feed will be used. Note that the `feed_generator.py` needs to be configured with  `with_distribution = True`. Data will be imported as "Your organisation only" if the distribution is not present in the feed.
 
-* Default Tag: A default tag can be added to the created event(s)
+* Default Tag: A default tag can be added to the created event(s). You can select either a single tag or a [tag collection](../sharing/index.qmd) (a preset bundle of tags), so that every event created from the feed is consistently labelled.
 
 * Filter rules: Here you can define which tags or organisations are allowed or blocked.  
 ![Filter rules](./figures/filterrules.png)

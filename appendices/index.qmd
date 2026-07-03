@@ -592,85 +592,155 @@ A brief list of online ressources that around #ThreatIntel
 
 # Appendix F: LDAP Authentication
 
-MISP supports LDAP authentication. This manual will show how to configure LDAP authentication.
+MISP can authenticate users against an LDAP server through the shipped **`LdapAuth`** plugin
+(`app/Plugin/LdapAuth`). When enabled, a user logs in on the normal MISP login form with their
+LDAP credentials; if the account does not yet exist in MISP it is created on first login. The
+authoritative option reference is the plugin's own
+[README](https://github.com/MISP/MISP/blob/2.5/app/Plugin/LdapAuth/README.md); the summary below
+covers the essentials.
 
-::: {.callout-warning}
-The configuration keys in this appendix are being revised against the current `LdapAuth` plugin. For the authoritative, up-to-date option list and the exact settings required to enable LDAP (in particular `Security.auth => ['LdapAuth.Ldap']`), refer to the plugin README at [app/Plugin/LdapAuth/README.md](https://github.com/MISP/MISP/blob/2.5/app/Plugin/LdapAuth/README.md).
+#### Prerequisites
+
+Install the PHP LDAP extension:
+
+```bash
+# RHEL / CentOS / Fedora
+sudo dnf install php-ldap
+# Debian / Ubuntu
+sudo apt install php-ldap
+```
+
+#### Configuration
+
+LDAP is configured entirely in `app/Config/config.php`, in **two** parts. Both are required — the
+second is the step most commonly missed, and without it LDAP is simply never used.
+
+**1. Add the `LdapAuth` settings block** with your server details and a reader account used to
+search the directory:
+
+```php
+'LdapAuth' => [
+    'ldapServer'         => 'ldap://ldap.example.com',
+    'ldapDn'             => 'dc=example,dc=com',
+    'ldapReaderUser'     => 'cn=reader,dc=example,dc=com',
+    'ldapReaderPassword' => 'password',
+    'ldapSearchFilter'   => '(objectClass=inetOrgPerson)',
+    'ldapSearchAttribute'=> 'mail',
+    'ldapEmailField'     => ['mail'],
+    'ldapDefaultOrg'     => 1,
+    'ldapDefaultRoleId'  => 3,
+    'updateUser'         => true,
+],
+```
+
+**2. Enable the plugin** by adding it to the `Security.auth` array — this is what actually turns
+LDAP on:
+
+```php
+'Security' => [
+    // ... your existing Security settings ...
+    'auth' => [
+        0 => 'LdapAuth.Ldap',
+    ],
+],
+```
+
+::: {.callout-important}
+Configuring the `LdapAuth` block alone does **not** enable LDAP. You must also add
+`'LdapAuth.Ldap'` to `Security.auth`. If you skip this step, LDAP login silently does nothing.
 :::
 
-#### Installation and configuration
+#### Key settings
 
-1. Install `mod_ldap` PHP module
-    ```bash
-    # for Centos or RHEL
-    sudo dnf install php-ldap
-    # for Ubuntu or debian
-    apt install php-ldap
-    ```
-2. Prepare variables for configuration
+The plugin exposes many options; the most important are:
 
-* `{{ LDAP_SERVER }}` – a full LDAP URI of server. For example: `ldap://example.com`.
-* `{{ LDAP_BASE_DN }}` – DN for path that contains users. For example: `cn=users,cn=accounts,dc=example,dc=com`.
-* `{{ LDAP_BIND_DN }}` – user that can read. For example: `uid=misp,cn=sysaccounts,cn=etc,dc=example,dc=com`.
-* `{{ LDAP_BIND_PASSWORD }}` – password for that user.
-* `{{ LDAP_USER_GROUP }}` – group with access to MISP. For example: `cn=misp-users,cn=groups,cn=accounts,dc=example,dc=com`.
-   
-3. Configure MISP ApacheSecureAuth in `app/Config/config.php`
+| Setting | Purpose | Default |
+|---|---|---|
+| `ldapServer` | LDAP server URI (`ldap://host:port` or `ldaps://…`) | — |
+| `ldapDn` | Search-base DN containing your users | — |
+| `ldapReaderUser` / `ldapReaderPassword` | Bind account used to search the directory | — |
+| `ldapSearchFilter` | Filter used to locate the user entry | — |
+| `ldapSearchAttribute` | Attribute matched against the login identifier | `mail` |
+| `ldapEmailField` | Attribute(s) holding the user's e-mail | `['mail']` |
+| `ldapDefaultOrg` | Organisation ID assigned to newly created LDAP users | — |
+| `ldapDefaultRoleId` | Default role ID, or a group→role mapping (see below) | `3` |
+| `updateUser` | Refresh a user's e-mail and role from LDAP on each login | `true` |
+| `mixedAuth` | Allow both LDAP and local (MISP password) authentication | `true` |
+| `starttls` | Use StartTLS for a secure connection | `false` |
+| `ldapNetworkTimeout` | Connection timeout in seconds (`-1` = none) | `-1` |
+| `ldapProtocol` | LDAP protocol version | `3` |
 
-    ```php
-    'LdapAuth' => array(
-      'enabled' => true,
-      'name' => 'My Identity provider',
-      'ldapServer' => '{{ LDAP_SERVER }}',
-      'ldapDN' => '{{ LDAP_BASE_DN }}',
-      'ldapSearchFilter' => '(objectclass=inetuser)',
-      'ldapReaderUser' => '{{ LDAP_BIND_DN }}',
-      'ldapReaderPassword' => '{{ LDAP_BIND_PASSWORD }}',
-      'ldapUserGroup' => '{{ LDAP_USER_GROUP }}',
-      'updateUser' => true,
-    );
-    ```
+#### Mapping LDAP groups to MISP roles
 
-Required variables:
+`ldapDefaultRoleId` can be a single role ID, or an array mapping an LDAP group to a MISP role ID,
+so group membership drives the assigned role:
 
-* `enabled` – if it is true, all users must log in through LDAP account.
-* `ldapServer` – a full LDAP URI of the form ldap://hostname:port or ldaps://hostname:port for TLS encryption.
-* `ldapDN` – DN for a path that contains users.
+```php
+'ldapDefaultRoleId' => [
+    'misp_admin'     => 1,
+    'misp_orgadmin'  => 2,
+    'misp_user'      => 3,
+    'misp_publisher' => 4,
+    'misp_syncuser'  => 5,
+    'misp_readonly'  => 6,
+],
+```
 
-Optional variables:
+For **Microsoft Active Directory**, set `ldapUseMemberOf => true` to resolve group membership from
+the user's `memberOf` attribute; when you do, the keys in the mapping above must be the full group
+DN (for example `CN=MISP Admins,OU=Groups,DC=example,DC=com`) rather than the short group name.
 
-* `name` – identity provider name. Will be shown in the login screen and user editing for. Can contain HTML.
-* `ldapReaderUser` – DN or RDN LDAP user with permission to read LDAP information about users.
-* `ldapReaderPassword` – password for that user.
-* `ldapSearchFilter` - LDAP search filter.
-* `ldapSearchAttribute` - LDAP attribute that contains username. Default: `uid`.
-* `ldapEmailField` - LDAP attribute (string) or attributes (array) that will be checked if contains user e-mail address. If you want to change or add field, you should also add that field/fields to `ldapAttributes`. Default: `mail`.
-* `ldapAttributes` – fields that will be fetched from LDAP server. Default: `mail` and `memberof`.
-* `ldapUserGroup` - LDAP group that must be assigned to user to access MISP. Default: not set.
-* `createUser` - if `true`, MISP will create new user from LDAP. Default `true`.
-* `updateUser` - if `true`, MISP will update existing users information (e-mail address and role) from LDAP after login. Default: `false`.
-* `ldapDefaultOrg` – default organization ID for user from LDAP. By default it is the first organization in the database.
-* `ldapDefaultRoleId` - default role for newly created user. It can be integer or array when key contains LDAP group and value assigned role ID. Must be defined if `updateUser` is set to `true` (without that variable, user will be disabled).
-* `ldapProtocol` - protocol version used. Default: 3.
-* `ldapNetworkTimeout` - timeout for communication with LDAP server in seconds. Default: 5 seconds.
-* `ldapAllowReferrals` - follow referrals returned by the LDAP server. Default: `false`.
-* `ldapStartTls` - enable STARTTLS. Default: `true`.
+#### TLS / LDAPS
 
-#### Debugging
+For encrypted connections use an `ldaps://` URI or enable `starttls`. A set of
+`ldapTls*` options (`ldapTlsRequireCert`, `ldapTlsCustomCaCert`, `ldapTlsCrlCheck`,
+`ldapTlsProtocolMin`) map to the corresponding PHP `LDAP_OPT_X_TLS_*` constants for cases where you
+need a custom CA or to relax certificate checking during testing — see the plugin README for the
+full list.
 
-Setting LDAP authentication can be sometimes tricky. For debugging, you can check MISP error log (by default in `/var/www/MISP/app/tmp/logs/error.log`) or debug log (by default in `/var/www/MISP/app/tmp/logs/debug.log`) that can contain useful information with problem description.
+#### Diagnostics
 
-#### Migrating existing user to LDAP
+The plugin ships a standalone test script that reads your `LdapAuth` configuration and walks
+through a bind and a user search, which is the fastest way to debug a connection:
 
-Because LDAP and MISP users are paired by e-mail address, it is possible to migrate existing user account to LDAP managed. When you enable LDAP support and LDAP user will try to log in, an existing user in MISP with the same e-mail address will be found and then assigned to LDAP user.
+```bash
+php app/Plugin/LdapAuth/Controller/Component/Auth/TestLdapAuth.php
+```
+
+You can also inspect `app/tmp/logs/error.log` for the raw error responses from the LDAP server. A
+good troubleshooting order is: set `debug => true`, start with `starttls => false`, and if you hit
+`LDAP user search failed: Operations error`, set `ldapAllowReferrals => 0`.
+
+#### Migrating existing users to LDAP
+
+LDAP and MISP users are paired by e-mail address. When you enable LDAP and an LDAP user logs in,
+an existing MISP user with the same e-mail address is found and linked to the LDAP identity, so
+existing accounts are preserved.
 
 #### Caveats
 
-* When a user is disabled in LDAP or is removed from the required group, it will be not automatically disabled in MISP. That means that user will be disabled when he tries to login (with form or with Auth key), but for example, notification e-mails will still work until he tries to log in.
-* When a user is disabled in LDAP and also in MISP and then enabled in LDAP, it will be enabled in MISP for next login just when `updateUser` is set to `true`.
-* Currently it is not possible to log in with both LDAP and local (MISP) accounts.
-* Admins can change users email address. But when `updateUser` is set to true, when the user will log in again, the e-mail address will be updated from LDAP.
-* `Security.require_password_confirmation` setting currently does not work with LDAP authentication. But on the other hand, since user cannot change e-mail address and password, this setting is not important.
+* A user disabled in LDAP (or removed from the required group) is not disabled in MISP
+  automatically — the block takes effect the next time they try to log in.
+* With `mixedAuth` enabled (the default) both LDAP and local MISP authentication are accepted; set
+  it to `false` to force LDAP only.
+* The `Security.require_password_confirmation` setting does not apply to LDAP authentication.
+
+#### Other external authentication plugins
+
+`LdapAuth` is one of several external authentication plugins shipped with MISP. Each is enabled the
+same way — configured in `app/Config/config.php` and added to `Security.auth` — and each has its own
+README under `app/Plugin/`:
+
+* **OidcAuth** — [OpenID Connect](https://github.com/MISP/MISP/blob/2.5/app/Plugin/OidcAuth/README.md)
+  (e.g. Keycloak, generic OIDC identity providers).
+* **AadAuth** — [Microsoft Entra ID / Azure Active Directory](https://github.com/MISP/MISP/blob/2.5/app/Plugin/AadAuth/README.md).
+* **ShibbAuth** — Apache Shibboleth / SAML via an Apache module.
+* **CertAuth** — client-certificate (X.509) authentication.
+* **LinOTPAuth** — [LinOTP](https://github.com/MISP/MISP/blob/2.5/app/Plugin/LinOTPAuth/README.md)
+  one-time-password authentication (do not combine with MISP's built-in TOTP).
+
+Choose at most one primary identity source for a given deployment, and consult the relevant
+plugin README for its exact option list.
 
 # Appendix G: SimpleBackgroundJobs Migration guide
 Since **MISP 2.5**, background jobs are handled by **SimpleBackgroundJobs**, a simpler system that no longer relies on the unmaintained CakeResque library. SimpleBackgroundJobs is now the default (and only) background-job backend — CakeResque has been removed.
