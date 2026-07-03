@@ -1,0 +1,178 @@
+{
+  "generated_at": "2026-07-03T14:03:37.225Z",
+  "misp_version": "2.5.42",
+  "theme": "light",
+  "shots": [
+    {
+      "file": "general-layout/figures/MenuBarAdmin.png",
+      "url": "/events/index",
+      "selector": "#topBar",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:13.345Z"
+    },
+    {
+      "file": "general-layout/figures/EventActions.png",
+      "menu": "Event Actions",
+      "selector": ".dropdown-menu",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:14.689Z"
+    },
+    {
+      "file": "general-layout/figures/Galaxies.png",
+      "menu": "Galaxies",
+      "selector": ".dropdown-menu",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:15.974Z"
+    },
+    {
+      "file": "general-layout/figures/InputFilter.png",
+      "menu": "Input Filters",
+      "selector": ".dropdown-menu",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:17.296Z"
+    },
+    {
+      "file": "general-layout/figures/GlobalActions.png",
+      "menu": "Global Actions",
+      "selector": ".dropdown-menu",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:18.669Z"
+    },
+    {
+      "file": "general-layout/figures/SyncActions.png",
+      "menu": "Sync Actions",
+      "selector": ".dropdown-menu",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:20.013Z"
+    },
+    {
+      "file": "general-layout/figures/Administration.png",
+      "menu": "Administration",
+      "selector": ".dropdown-menu",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:21.440Z"
+    },
+    {
+      "file": "using-the-system/figures/event_detail.png",
+      "url": "/events/view/33",
+      "selector": "table:has(td:text-is(\"Event ID\")), .event-metadata, #main-view-container table",
+      "wait": 1500,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:24.470Z"
+    },
+    {
+      "file": "using-the-system/figures/add_event.png",
+      "url": "/events/add",
+      "selector": "#EventAddForm",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:25.308Z"
+    },
+    {
+      "file": "using-the-system/figures/add_attribute.png",
+      "url": "/attributes/add/33",
+      "selector": "#AttributeAddForm",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:26.230Z"
+    },
+    {
+      "file": "using-the-system/figures/add_attachment.png",
+      "url": "/attributes/add_attachment/33",
+      "selector": "#AttributeAddAttachmentForm",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:28.093Z"
+    },
+    {
+      "file": "using-the-system/figures/list_events2.png",
+      "url": "/events/index/searchtag:tlp:white",
+      "selector": "table.table",
+      "rows": 8,
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:30.547Z"
+    },
+    {
+      "file": "quick-start/figures/ListEvents.png",
+      "url": "/events/index/searchtag:tlp:white",
+      "selector": "table.table",
+      "rows": 8,
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:33.023Z"
+    },
+    {
+      "file": "administration/figures/list_roles.png",
+      "url": "/roles/index",
+      "selector": "table.table",
+      "rows": 12,
+      "filtered": false,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:34.503Z"
+    },
+    {
+      "file": "administration/figures/jobs.png",
+      "url": "/jobs/index",
+      "selector": "table.table",
+      "rows": 8,
+      "filtered": false,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:35.973Z"
+    },
+    {
+      "file": "administration/figures/correlationExclusions.png",
+      "url": "/correlation_exclusions/index",
+      "selector": "table.table",
+      "rows": 8,
+      "filtered": false,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:37.225Z"
+    }
+  ]
+}
