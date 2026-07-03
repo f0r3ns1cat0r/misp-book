@@ -54,8 +54,7 @@ sudo -u www-data /var/www/MISP/app/Console/cake Password admin@admin.test Passwo
 
 If you need a password generator use:
 - Ubuntu / Debian: [pwgen](https://linux.die.net/man/1/pwgen)
-- Website: [LastPass PW Generator](https://lastpass.com/generatepassword.php)
-- Built-in generator in Keepass* and other password manager
+- Built-in generator in KeePass and other password managers
 - Built-in generator in various web browsers
 
 **All Generator tools are only possibilities without any guarantee!**
@@ -180,7 +179,7 @@ If you click on your Event's number, you can see all the information related to 
 
 ## Export Events for Log Search
 
-Export functionality is designed to automatically generate signatures for intrusion detection systems. To enable signature generation for a given attribute, the Signature field of this attribute must be set to Yes. Note that not all attribute types are applicable for signature generation, currently we only support NIDS signature generation for IP, domains, host names, user agents etc., and hash list generation for MD5/SHA1 values of file artifacts. Support for more attribute types is planned.
+MISP can export your data in many formats for use in other tools — from plain MISP JSON/XML to detection rules (Suricata, Snort, Bro/Zeek), host and hash lists, CSV and STIX. Attributes flagged **for Intrusion Detection System** (the `to_ids` flag) are the ones included in the detection-rule exports; attributes without it are treated as context only. Use the export options to download the format you need — see the [automation](../automation/index.qmd) chapter for the full list of formats and the API.
 
 ![Quick Export](figures/Export.jpg)
 
@@ -190,4 +189,16 @@ Simply click on any of the following buttons to download the appropriate data fo
 
 ## Enable a Taxonomy
 
-## Enable and fetch a feeds
+Most taxonomies are disabled out of the box. To start tagging with one, go to
+**Event Actions → List Taxonomies**, find the taxonomy you want (for example
+`tlp`), and enable it — you can also enable all of its tags at once. Its tags then
+appear in the tag picker on events and attributes. See the
+[Taxonomies](../taxonomy/index.qmd) chapter for more.
+
+## Enable and fetch a feed
+
+MISP ships with a set of public OSINT feeds. To use one, go to **Sync Actions →
+Feeds**, enable a feed (the CIRCL OSINT feed is a good starting point), and then
+either **cache** it — for fast correlation against your data without importing —
+or **fetch** it to import its events into your instance. See the
+[Managing feeds](../managing-feeds/index.qmd) chapter for the details.

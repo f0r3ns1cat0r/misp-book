@@ -20,6 +20,7 @@ This menu contains all of the main functions of the site as a series of dropdown
 *   **Galaxies:** Shortcut to the list of [MISP Galaxies](../galaxy/) on the MISP instance.
 *   **Input Filters:** Input filters alter what and how data can be entered into this instance. Apart from the basic validation of attribute entry by type, it is possible for the site administrators to define regular expression replacements and blocklists for certain values in addition to blocking certain values from being exportable. Users can view these replacement and blocklist rules here while an administrator can alter them.
 *   **Global Actions:** This menu gives you access to information about MISP and this instance. You can view and edit your own profile, view the manual, read the news or the terms of use again, see a list of the active organisations on this instance and a histogram of their contributions by attribute type.
+*   **API:** Links to the OpenAPI/Swagger reference for this instance's API and to the built-in REST client.
 *   **MISP:** Simple link to your BASEURL
 *   **Name:** Name (Auto generated from Mail address) of current logged in user
 *   **Envelope:** Link to User Dashboard where you can consult some of your notifications and changes since last visit. Like some of the proposals received for your organisation.
@@ -35,7 +36,8 @@ This menu contains all of the main functions of the site as a series of dropdown
 *   **Global Actions:** See description given earlier for user.
 *   **Sync Actions:** With administrator access rights, shows a list of the connected instances and allows the initiation of a push and a pull. See [sharing and synchronisation](../sharing/).
 *   **Administration:** Administrators can add, edit or remove user accounts and user roles. Roles define the access rights to certain features such as publishing of events, usage of the REST interface or synchronization of any user belonging to the given role. Site administrators can also access a contact form, through which it is possible to reset the passwords of users, or to just get in touch with them via encrypted e-mails.
-*   **Audit:** If you have audit permissions, you can view the logs for your organisation (or for site admins for the entire system) here or even search the logs if you are interested in something specific.
+*   **Logs:** If you have audit permissions, you can browse the instance's logs here (this menu was formerly called *Audit*). See the Logs section below.
+*   **API:** See description given earlier for user.
 *   **MISP:** See description given earlier for user.
 *   **Admin:** User role.
 *   **Envelope:** See description given earlier for user.
@@ -51,15 +53,17 @@ This menu contains all of the main functions of the site as a series of dropdown
 *   **Add Event:** Allows you to fill out an event creation form and create the event object, which you can start adding attributes.
 *   **List Attributes:** Lists all the attributes in the system that are not private or belong to your organisation. You can modify, delete or view each individual attribute from this view.
 *   **Search Attributes:** You can set search terms for a filtered attribute index view here.
-*   **REST client** MISP Online REST client where you can make calls directly to the API via a Web UI.
+*   **List Collections:** List collections — named bundles of events and other elements that can be managed and synchronised together.
+*   **List Event Reports:** List the rich-text event reports on this instance.
+*   **List Analyst Data:** List analyst data (notes, opinions and relationships) on this instance.
 *   **View Proposals:** Shows a list of all proposals that you are eligible to see.
 *   **Events with proposals:** Shows all of the events created by your organisation that has pending proposals.
 *   **List Tags:** List all the tags that have been created by users with tag creation rights on this instance.
 *   **List Tag Collections:** List all the tag collections that have been created by users with tag creation rights on this instance. Tag collections allow you to assign a collection of tags to an event or attribute in one action.
 *   **Add Tag:** Create a new tag.
 *   **List Taxonomies:** List all of the taxonomies installed on the MISP instance. This is also the place to activate the taxonomies as a Org Admin/Site Admin.
-*   **List Templates:** List all of the event templates created by users with template creation rights on this instance.
-*   **Add Template:** Create a new template.
+*   **List Event Templates:** List all of the event templates created by users with template creation rights on this instance.
+*   **Add Event Template:** Create a new event template.
 *   **Export:** Export the data accessible to you in various formats.
 *   **Automation:** If you have authentication key access, you can view how to use your key to use the REST interface for automation here.
 
@@ -111,6 +115,7 @@ This menu contains all of the main functions of the site as a series of dropdown
 *  **Add SightingDB Connection:** Create a SightingDB connection.
 *  **List Communities:** A list of communities that chose to advertise their existence to the general MISP user-base.
 *  **Cerebrates:** Connect your MISP to one or several Cerebrate instances to act as lookup directories for organisation and sharing group information.
+*  **TAXII Servers:** Configure TAXII 2.x server endpoints to push MISP data to.
 *  **Event ID translator:** Allows to translate a local ID into the corresponding event ID on sync servers configured.
 
 #### Administration
@@ -147,12 +152,26 @@ The system will automatically generate a message for you, but it is also possibl
 *   **Manage Event Blocklists:** List of blocklisted events on MISP instance.
 *   **blocklist Organisation:** Link to for where you can quickly add an organisation to a blocklist with it's UUID. For more information, see [administration](../administration/).
 *   **Manage Org blocklists:** List of blocklisted Organisations on this instance.
+*   **Workflows:** Manage event-driven automation workflows (site admins, when enabled).
+*   **Top Correlations / Correlation rules / Over-correlating values:** Tools to inspect and tune the correlation engine.
+*   **Benchmarking:** Per-user and per-endpoint performance metrics (site admins, when enabled).
 
-#### Audit
+The **Sharing Group Blueprints**, **List Object Templates** and **Decaying Models** tools are reached from the *Global Actions* menu.
 
-![Audit](figures/Audit.png)
-*   **List Logs:** View the logs of the instance.
-*   **Search Logs:** Search the logs by various attributes.
+#### Logs
+
+The *Audit* menu has been renamed **Logs** and now groups four views (see the
+[administration](../administration/index.qmd#logs) chapter):
+
+*   **Application Logs:** The legacy application log — logins/logouts, failed authentication and other application events.
+*   **Audit Logs:** The detailed audit trail of data changes (shown when the audit log is enabled).
+*   **Access Logs:** The per-request HTTP access log (site admins only).
+*   **Search Logs:** Search the application log.
+
+#### API
+
+*   **OpenAPI:** The browsable OpenAPI/Swagger reference for this instance's API.
+*   **REST client:** The built-in interactive REST client for building, sending and inspecting API calls.
 
 ## The left bar
 The menu items in this menu bar are different depending on the current page you are on. The blue highlight shows you what page you are on.
