@@ -2,19 +2,82 @@
 title: "Modules"
 ---
 
-MISP modules are self-contained modules that provide expansion and other services for MISP.
-They are written in Python 3 and follow a simple API interface.
-The goal is to extend MISP functionality without modifying core components.
-The API is exposed through a REST interface that is independent of the main MISP installation and configuration.
+**MISP modules** extend MISP with expansion, import, export and action services
+without touching the core. They are self-contained Python 3 programs that run as a
+separate service exposing a small REST interface, which MISP calls when it needs
+them. This keeps the module ecosystem — well over a hundred modules — decoupled
+from the MISP application, so it can be installed, updated and scaled
+independently. The modules are maintained in the
+[misp-modules](https://github.com/MISP/misp-modules) repository.
 
-Support for MISP modules is included in MISP starting with version 2.4.28.
+## Module families
 
-[More](https://www.circl.lu/assets/files/misp-training/switch2016/2-misp-modules.pdf)
+Modules come in five families, each hooking into a different part of MISP:
 
-[MISP Modules GitHub Repository](https://github.com/MISP/misp-modules)
+*   **Enrichment (expansion)** — take an attribute (or object) and look up extra
+    information about it, adding new attributes/objects to the event. This is the
+    largest family (passive DNS, VirusTotal, Shodan, WHOIS, sandbox lookups, and
+    many more).
+*   **Enrichment (hover)** — a lightweight variant of expansion that shows a
+    lookup result on the fly when you hover over (or click) a value, without
+    adding anything to the event.
+*   **Import** — parse an external format or source into MISP attributes/objects,
+    surfaced under the event's **Populate from…** menu.
+*   **Export** — serialise event data into an external format, surfaced under the
+    event's **Download as…** menu.
+*   **Action** — perform an action in response to something happening in MISP (for
+    example sending a notification), typically triggered from a workflow.
+*   **Cortex** — query [Cortex](https://github.com/TheHive-Project/Cortex)
+    analysers, treated as its own family alongside the native enrichment modules.
 
-## Installation
+## Running the module server
 
-[Installation guide for Ubuntu](https://github.com/MISP/misp-modules#how-to-install-and-start-misp-modules-in-a-python-virtualenv-recommended)
+The modules run as a separate service (`misp-modules`), usually in a Python
+virtualenv on the MISP host (or a dedicated host), listening on a local port that
+MISP connects to. Follow the repository's installation instructions:
 
-[Installation guide for RHEL/CentOS](https://github.com/MISP/misp-modules#how-to-install-and-start-misp-modules-on-rhel-based-distributions-)
+*   [Install in a Python virtualenv (recommended)](https://github.com/MISP/misp-modules#how-to-install-and-start-misp-modules-in-a-python-virtualenv-recommended)
+*   [Install on RHEL-based distributions](https://github.com/MISP/misp-modules#how-to-install-and-start-misp-modules-on-rhel-based-distributions-)
+
+## Enabling and configuring modules in MISP
+
+Once the module service is running, enable and point MISP at it under
+**Administration → Server Settings → Plugin**. Each family has its own settings:
+
+*   Turn the family on with its `*_services_enable` setting
+    (`Enrichment_services_enable`, `Import_services_enable`,
+    `Export_services_enable`, `Action_services_enable`, `Cortex_services_enable`).
+*   Tell MISP where the module service is with the matching `*_services_url` and
+    `*_services_port` settings (the enrichment and Cortex families each have their
+    own URL/port).
+*   For hover lookups, enable `Enrichment_hover_enable` (and, optionally,
+    `Enrichment_hover_popover_only` to require a click rather than an automatic
+    hover).
+
+Individual modules are then toggled with their own `Plugin.<Family>_<name>_enabled`
+setting — for example `Plugin.Enrichment_dns_enabled` — so you can enable only the
+modules you need.
+
+## Using modules
+
+Where a module surfaces depends on its family (see also
+[enrichment](../using-the-system/index.qmd#enrichment) in the Using the System
+chapter):
+
+*   **Expansion / Cortex** — from an event, use **Enrich Event** to run the
+    applicable modules over the whole event, or the per-attribute enrichment
+    (asterisk) and Cortex (eye) actions on a single attribute.
+*   **Hover** — hover over a value (or click its magnifier) to see the lookup
+    result inline.
+*   **Import** — pick the module under the event's **Populate from…** menu.
+*   **Export** — pick the module under the event's **Download as…** menu.
+
+## Module endpoints
+
+MISP talks to the module service through a couple of endpoints, which you can also
+call directly:
+
+*   **`GET /modules/index`** — list the modules MISP currently sees as enabled,
+    with the attribute types they accept.
+*   **`POST /modules/queryEnrichment`** — run an enrichment module against a piece
+    of data (see the [automation](../automation/index.qmd) chapter).

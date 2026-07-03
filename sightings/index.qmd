@@ -58,6 +58,43 @@ Clicking on the tool will show sighting details for the whole event.
 
 ![sighting event popup](./figures/sightingeventpopup.png)
 
+### Sighting policies and privacy
+
+Because sightings reveal who is looking at which indicators, MISP gives
+administrators several controls over how much of that is shared (all under
+Administration → Server Settings):
+
+*   **Sightings_policy** — who can see the reported sightings on an event: the
+    event-owner organisation only (the default; everyone always sees their own
+    contribution), the *sighting reporters* (the owner plus any organisation that
+    contributed a sighting), or *everyone* who can see the event.
+*   **Sightings_anonymise** — strip the reporting organisation from sightings so
+    consumers see the counts but not who reported them.
+*   **Sightings_anonymise_as** — when pushing sightings to other servers, report
+    them all as a single organisation, hiding the individual reporters on this
+    instance behind one identity.
+*   **Sightings_range** — how many days back a sighting is considered relevant
+    (default 365).
+
+### SightingDB
+
+For high-volume sighting data, MISP can offload sightings to one or more external
+**SightingDB** servers instead of storing every sighting in the main database.
+Enable it with `Sightings_sighting_db_enable` and configure the SightingDB
+servers from the administration menu; matching attributes then gain an additional
+SightingDB column in the event view.
+
+### Real-time sharing and blocklists
+
+*   With `Sightings_enable_realtime_publish` set, new sightings are pushed to your
+    sync partners as they are created, rather than only when the event is
+    (re)published. You can also push sighting updates on demand with **Publish
+    Sightings** in the event menu.
+*   To ignore sightings from a specific organisation (for example a noisy source),
+    add it to the **sighting blocklist** — see
+    [Blocklists](../administration/index.qmd#sighting-blocklist) in the
+    administration chapter.
+
 ### Using sightings on an event (API)
 
 Please have a look at the [automation API](../automation/index.qmd#sightings-api)
