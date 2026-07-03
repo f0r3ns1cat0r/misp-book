@@ -20,10 +20,10 @@ In the next screenshot you see a bad practice example. The tlp:white tag is adde
 [TLP-Tags](https://github.com/MISP/misp-taxonomies/blob/main/tlp/machinetag.json): TLP utilizes a simple four color schema for indicating how intelligence can be shared.
 
 #### Confidence
-[Confidence-Tags/Vetting State](https://github.com/MISP/misp-taxonomies/blob/main/cssa/machinetag.json): There are huge differences in the quality of data, whether it was vetted upon sharing. As this means that the author was confident that the shared data is or at least was a good indicator of compromise.
+There are huge differences in the quality of data and in how well it was vetted before sharing. Communicate your confidence explicitly so recipients can weight the intelligence accordingly. Common vocabularies are the [estimative-language](https://github.com/MISP/misp-taxonomies/blob/main/estimative-language/machinetag.json) taxonomy (confidence in an analytic judgement) and the [admiralty-scale](https://github.com/MISP/misp-taxonomies/blob/main/admiralty-scale/machinetag.json) taxonomy (source reliability and information credibility).
 
 #### Origin
-[Origin-Tags](https://github.com/MISP/misp-taxonomies/blob/main/cssa/machinetag.json): Describes where the information came from, whether it was in an automated fashion or in a manual investigation. This should give an impression how value this intelligence is, as manual investigation should supersede any automatic generation of data.
+[information-origin](https://github.com/MISP/misp-taxonomies/blob/main/information-origin/machinetag.json): Describes where the information came from — for example whether it was produced in an automated fashion or through manual investigation. This gives an impression of how much the intelligence should be trusted, as manual investigation generally supersedes automatically generated data.
 
 #### Permissible Actions Protocol
 [PAP-Tags](https://github.com/MISP/misp-taxonomies/blob/main/PAP/machinetag.json): An even more advanced approach of data classification is using the Permissible Actions Protocol. It indicates how the received data can be used to search for compromises within the individual company or constituency.
@@ -46,4 +46,14 @@ Some attributes like filename|sha512 and ip-dst|port now have equivalent objects
 
 ## Use proposals when possible to request author to make changes to an event
 If possible, use proposals when you want to inform the original analyst/author (e.g. a security vendor or a CSIRT) about a specific mistake or error which needs to be corrected. The advantages of using the proposal system include the lack of a need to create a new event as well as the process itself being very simple and fast.
+
+## Make use of the 2.5 collaboration and lifecycle features
+
+MISP 2.5 adds several capabilities that materially improve the quality and longevity of shared intelligence. Build them into your day-to-day workflow.
+
+- **Report sightings.** When you observe an indicator (or confirm it is a false positive), record a [sighting](../sightings/index.qmd). Sightings keep indicators current, feed reputation back to the author, and are the raw signal that decaying models consume. This is far more valuable than silently consuming a feed.
+- **Prefer decaying models over manual `to_ids` toggling.** Rather than flipping the IDS flag by hand as indicators age, let [decaying models](../decaying-models/index.qmd) score them over time and filter your exports on the decay score. This keeps detection content fresh automatically and consistently.
+- **Add context with Analyst Data instead of altering others' events.** Use [Notes, Opinions and Relationships](../analyst-data/index.qmd) to attach your assessment, a second opinion, or a link to related material without needing to own or copy the event. Reserve proposals for correcting factual errors; use an Opinion to express (dis)agreement, and a Note to add analysis.
+- **Record temporal context with `first_seen` / `last_seen`.** Where an indicator's activity window is known, set the first_seen/last_seen fields so downstream consumers can reason about timelines rather than just presence.
+- **Keep correlations meaningful.** Disable correlation on intrinsically noisy attributes, and maintain [correlation exclusions](../administration/index.qmd) for known-benign values (your own infrastructure, popular CDNs, sinkholes). Over-correlating values dilute the value of the correlation graph for everyone.
 

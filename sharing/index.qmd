@@ -134,6 +134,19 @@ Allows you to set filtering rules for data to be pushed out (tag based and organ
 20. **Pull rules**
 Allows you to set filtering rules for data to be pulled in (tag based and organisation based). Please see [rules](#rules) for more info.
 
+### Synchronising analyst data and collections (2.5)
+
+MISP 2.5 adds four more synchronisation toggles to the server form, alongside the galaxy-cluster
+options, so that the newer collaborative data types can travel between instances:
+
+- **Push analyst data** / **Pull analyst data** — synchronise [Analyst Data](../analyst-data/index.qmd) (notes, opinions and relationships) with the remote instance.
+- **Push collections** / **Pull collections** — synchronise [Collections](../collections/index.qmd) (bundles of events and galaxy clusters) with the remote instance.
+
+Like the other sync options, each direction is independent, both instances must support the
+feature, and the usual distribution-degradation rules apply.
+
+Adding, editing and removing sync servers is restricted to site administrators.
+
 ## Test connection
 The connection test can be used to test the connection to the remote server and will give a feedback about local and remote version of MISP.
 
@@ -331,6 +344,78 @@ These E-Mail alerts are an opt-in feature
 
 ![Change user settings](figures/profile_receive_alerts.png)
 
+
+## Cerebrate
+
+[Cerebrate](https://github.com/cerebrate-project/cerebrate) is a companion open-source platform
+that acts as a **directory and distributed trust source** for a community: it holds authoritative
+records of **organisations** and **sharing groups** that many MISP instances can then draw from,
+instead of each instance maintaining that information by hand. Connecting your MISP to a Cerebrate
+lets you pull those organisations and sharing groups in, keeping identities and sharing-group
+memberships consistent across the community.
+
+Cerebrate connections are managed under *Sync Actions → Cerebrates* and are **site-admin only**.
+To add one, provide:
+
+- **Name** and **URL** of the Cerebrate node,
+- an **Authkey** for its API (stored encrypted),
+- the local **owner organisation** that represents this connection, an optional **description**,
+  and a **Skip proxy** option, plus
+- **Pull organisations** and **Pull sharing groups** toggles for what you want to retrieve.
+
+From a configured Cerebrate you can **preview** the remote organisations and sharing groups —
+each is annotated with whether it already exists locally and what differs — before pulling. You
+can then **pull all** organisations or sharing groups (creating the missing ones and updating the
+rest), or **download** an individual organisation or sharing group. Pulled organisations are
+matched by UUID; a name clash is resolved by suffixing the imported name.
+
+## Sharing group blueprints
+
+Maintaining sharing groups by hand becomes tedious when membership follows a rule ("every
+national CSIRT", "all organisations in the finance sector", "everyone except this org"). A
+**Sharing Group Blueprint** captures that rule as JSON and lets MISP **generate and keep a sharing
+group in sync automatically**.
+
+Blueprints are managed under *Global Actions → List Sharing Group Blueprints*. Creating or editing
+one requires the sharing-group permission, and non-site-admins only see their own organisation's
+blueprints. A blueprint has a **name** and a **rules** definition (edited as JSON). The rules
+select organisations by properties — organisation id/uuid/name/sector/nationality/type, or
+sharing-group id/uuid — combined with the boolean operators **OR**, **AND** and **NOT**.
+
+Once defined, you can:
+
+- **Execute** the blueprint — MISP resolves the rules to a set of organisations and either creates
+  a new sharing group or updates the membership of the one it already manages.
+- **Preview the organisations** the rules currently resolve to before executing.
+- **Detach** the generated sharing group from the blueprint (making it a normal, manually managed
+  sharing group).
+- **Encode as a sync rule** (site admins) — transpose the resolved organisations directly into a
+  sync server's push or pull rules.
+
+## TAXII 2.x servers
+
+MISP can act as a **TAXII 2.1 client**, pushing your intelligence — converted to STIX 2.x — to a
+remote TAXII 2.1 collection, and browsing the collections and objects a TAXII server exposes. This
+is the standards-based path for sharing with platforms that speak TAXII rather than MISP's native
+synchronisation. The STIX conversion relies on the [misp-stix](https://github.com/MISP/misp-stix)
+library.
+
+TAXII servers are configured under *Sync Actions → TAXII Servers* and are **site-admin only**. The
+form asks for:
+
+- a **name** and **owner** label,
+- the **discovery URL** of the TAXII server and a **Skip proxy** option,
+- an **Enabled** toggle,
+- the **authentication type** — *basic* (username and password) or *bearer* (an API token),
+- the **API root** and **collection**, which are populated dynamically by querying the server
+  (only collections you can write to are offered for pushing), and
+- a **filters** definition (a MISP REST search filter, as JSON) that decides which events are
+  pushed.
+
+Once a server is configured you can **push** events to it (filtered by the rules you set — run as
+a background job when jobs are enabled), and **browse** the server's collections and the STIX
+objects within a collection. TAXII push complements the [automation](../automation/index.qmd)
+chapter's STIX export formats.
 
 ## Recommendation
 

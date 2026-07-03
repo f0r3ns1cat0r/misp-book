@@ -19,33 +19,54 @@ MISP ZeroMQ functionality can be used for various models of integration or to ex
 
 The following notification topic channels exist and can be included in the MISP ZeroMQ pub-sub:
 
-- `misp_json` - events published
-- `misp_json_attribute` - attribute updated or created
+- `misp_json` - a full event serialisation, emitted when an event is published
+- `misp_json_event` - event created, updated or deleted
+- `misp_json_object` - object created or updated
+- `misp_json_object_reference` - object reference created or deleted
+- `misp_json_attribute` - attribute created, updated or deleted
+- `misp_json_tag` - tag created, updated or attached/detached
 - `misp_json_sighting` - sighting added to an attribute or an event
-- `misp_json_user` - user updates or creation
-- `misp_json_organisation` - organisation updates or creation
-- `misp_json_self` -  keep-alive messages sent every minute
+- `misp_json_warninglist` - warninglist created or updated
+- `misp_json_conversation` - discussion (conversation) messages
+- `misp_json_workflow` - workflow execution notifications
+- `misp_json_user` - user login, creation or update
+- `misp_json_organisation` - organisation creation or update
+- `misp_json_audit` - audit-log entries
+- `misp_json_self` - keep-alive messages sent every minute
+
+Each channel maps to a matching `Plugin.ZeroMQ_*_notifications_enable` setting, so a site
+admin decides per channel which activity is published (see below). Every message carries an
+`action` field (for example `add`, `edit`, `delete`) describing what happened.
 
 ### MISP ZeroMQ configuration
 
-To enable MISP ZeroMQ, the feature must be enabled in the Plugin setting tab.
+To enable MISP ZeroMQ, set `Plugin.ZeroMQ_enable` to `true` under
+*Administration → Server Settings & Maintenance → Plugin settings* (the *Plugin* tab).
 
-Prior to enabling it, make sure that you have pyzmq installed by running
+The ZeroMQ server ships with MISP and runs from the MISP Python virtualenv. Its
+dependencies (`pyzmq`, `redis`) are installed with the rest of MISP's Python packages, so on
+a standard install you do not need to install them by hand. If they are missing, install them
+into the MISP virtualenv rather than system-wide:
 
 ~~~~
-sudo pip install pyzmq
-sudo pip install redis
+sudo -H -u www-data /var/www/MISP/venv/bin/pip install pyzmq redis
 ~~~~
 
 If you have problems and the plugin does not start, the logfile may be helpful.
 
 ~~~~
-sudo cat /var/www/MISP/app/tmp/logs/mispzmq.error.log 
+sudo cat /var/www/MISP/app/tmp/logs/mispzmq.error.log
 ~~~~
 
 ![ZeroMQ configuration](./figures/zmq-config.png)
 
-Each notification channel can be enabled (from event publication to sightings), the MISP site admin can decide which types of messages to publish.
+Each notification channel has its own `Plugin.ZeroMQ_<type>_notifications_enable` toggle
+(`attribute`, `audit`, `event`, `object`, `object_reference`, `organisation`, `sighting`,
+`tag`, `user`, `warninglist`), so the MISP site admin can decide exactly which types of
+messages are published. Related settings control the binding (`ZeroMQ_host`, `ZeroMQ_port`),
+optional authentication (`ZeroMQ_username`, `ZeroMQ_password`), the backing Redis
+(`ZeroMQ_redis_host`, `ZeroMQ_redis_port`, `ZeroMQ_redis_database`, `ZeroMQ_redis_namespace`,
+`ZeroMQ_redis_password`) and whether attachments are included (`ZeroMQ_include_attachments`).
 
 By default, the ZMQ pub-sub channel is available to localhost only on TCP port 50000. The binding of the pub-sub channel can be updated in the
 configuration interface as shown above
@@ -73,11 +94,12 @@ optional arguments:
   -s, --stats           print regular statistics on stderr
   -p PORT, --port PORT  set TCP port of the MISP ZMQ (default: 50000)
   -r HOST, --host HOST  set host of the MISP ZMQ (default: 127.0.0.1)
-  -o ONLY, --only ONLY  set filter (misp_json, misp_json_attribute or
-                        misp_json_sighting) to limit the output a specific
-                        type (default: no filter)
+  -o ONLY, --only ONLY  set filter (misp_json, misp_json_event,
+                        misp_json_attribute or misp_json_sighting) to limit the
+                        output for a specific type; may be repeated (default: no
+                        filter)
   -t SLEEP, --sleep SLEEP
-                        sleep time (default: 2)
+                        sleep time (default: 0.1)
 ~~~~
 
 The `sub.py` will output the JSON objects for the subscribed topic, by default, all the topic channels are dumped:
