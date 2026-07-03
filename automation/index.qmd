@@ -2,7 +2,34 @@
 title: "Automation and MISP API"
 ---
 
-Automation functionality is designed to automatically generate signatures for intrusion detection systems. To enable signature generation for a given attribute, Signature field of this attribute must be set to Yes. Note that not all attribute types are applicable for signature generation, currently we only support NIDS signature generation for IP, domains, host names, user agents etc., and hash list generation for MD5/SHA1 values of file artefacts. Support for more attribute types is planned. To make this functionality available for automated tools an authentication key is used. This makes it easier for your tools to access the data without further form-based-authentication. The API key can be found and managed under My Profile page (`/users/view/me`) on a MISP instance.
+Almost everything you can do in the MISP web interface you can also do
+programmatically through its **REST API**: creating and updating events and
+attributes, searching, importing and exporting in many formats, and
+administering the instance. Automation is authenticated with an API key rather
+than an interactive login, so scripts and tools can talk to MISP directly. Your
+personal API keys are managed under **Global Actions → My Profile → Auth Keys**.
+
+## The MISP REST API
+
+MISP ships a complete, self-documenting API description. Rather than relying on a
+hand-maintained endpoint list, use these built-in references on your own
+instance:
+
+*   **OpenAPI / Swagger reference** — a browsable OpenAPI 3.0 specification of the
+    API is served at **`/api/openapi`** (rendered with Redoc). It is the
+    authoritative, versioned reference for the endpoints and their request/response
+    schemas for your exact MISP version.
+*   **Built-in REST client** — the interactive REST client at **`/api/rest`** lets
+    you build, send and inspect API calls from within MISP itself, using your
+    session for authentication. It shows the exact headers, URL and body for a
+    call (handy for turning a UI action into a script) and keeps a history of your
+    requests.
+*   **PyMISP** — for Python, the [PyMISP](../pymisp/index.qmd) library wraps the
+    API; see that chapter.
+
+The rest of this chapter is a set of practical recipes for the most common calls.
+Where an endpoint's full parameter set matters, cross-check it against
+`/api/openapi` for your version, as the API evolves between releases.
 
 ## General
 
@@ -18,9 +45,9 @@ https://<misp url>/
 
 ### Automation key
 
-The authentication of the automation is performed via a secure key available in the MISP UI interface. Make sure you keep that key secret as it gives access to the entire database! The API key is available in the event actions menu under automation.
+The authentication of the automation is performed via a secure key. Make sure you keep that key secret, as it gives access to your MISP data! Manage your keys under **Global Actions > My Profile > Auth Keys**.
 
-Since version 2.2 the usage of the authentication key in the URL is deprecated. Instead, pass the auth key in an Authorization header in the request. The legacy option of having the auth key in the URL is temporarily still supported but not recommended.
+Pass the key in an `Authorization` header on every request. URL-based authentication (putting the key in the URL) is no longer supported.
 
 The authorization is performed by using the following header:
 
@@ -45,7 +72,7 @@ You can optionally set an expiration time for the key.
 Finally, it is also possible to make this key read-only, meaning that it will not be possible to do any changes on this instance using this automation key.
 
 After clicking submit you will get a confirmation that the auth key was created, the key will be shown only one time.
-![Screenshot showing success message that is displayed when an ip was successfully pinned for an authkey](./figures/create-authkey-3-authkey-displayed.png)
+![Screenshot showing the newly created auth key, which is displayed only once](./figures/create-authkey-3-authkey-displayed.png)
 
 The same fields are available when editing an automation key.
 
@@ -95,11 +122,21 @@ PyMISP allows you to fetch events, add or update events/attributes, add or updat
 
 ## Status Codes
 
-To be done
+The API uses standard HTTP status codes:
 
-- 50x
+*   **200 OK** — the request succeeded.
+*   **403 Forbidden** — authentication failed (missing/invalid API key) or the
+    key's role lacks permission for the action; also returned for a read-only key
+    attempting a write.
+*   **404 Not Found** — the endpoint or object does not exist (or is not visible
+    to you).
+*   **405 Method Not Allowed** — the HTTP method is not accepted for that
+    endpoint.
+*   **500 Internal Server Error** — an error occurred server-side; check the
+    application logs.
 
-- 400 - 499
+Error responses carry a JSON body with `name`, `message` and the requested `url`
+(see the example below).
 
 ## Error Handling
 
@@ -157,7 +194,7 @@ As an example, if we want to export all the IP addresses that have a TLP marking
 ~~~~
 
 Find below a non exhaustive list of parameters that can be used to filter data in your search (some parameters specific to given export formats are not mentioned):
-- **returnFormat**: Set the return format of the search (Currently supported: json, xml, openioc, suricata, snort - more formats are being moved to restSearch with the goal being that all searches happen through this API). Can be passed as the first parameter after restSearch or via the JSON payload.
+- **returnFormat**: Set the return format of the search. Can be passed as the first parameter after `restSearch` or via the JSON payload. The formats supported by `/events/restSearch` are: `attack`, `attack-sightings`, `cache`, `context`, `context-markdown`, `count`, `csv`, `hashes`, `hosts`, `json`, `kunai`, `netfilter`, `opendata`, `openioc`, `rpz`, `snort`, `stix`, `stix-json`, `stix2`, `suricata`, `text`, `xml`, `yara` and `yara-json`. The exact set can vary by version — see `/api/openapi` for the authoritative list.
 - **limit**: Limit the number of results returned, depending on the scope (for example 10 attributes or 10 full events).
 - **page**: If a limit is set, sets the page to be returned. page 3, limit 100 will return records 201->300).
 - **value**: Search for the given value in the attributes' value field.
@@ -631,7 +668,7 @@ This endpoint exists for convenience reasons and might be slightly less performa
 curl --header "Authorization: YOUR API KEY " --header "Accept: application/json" --header "Content-Type: application/json" -X POST http://10.50.13.60/tags/attachTagToObject/5a0d68b3-6da0-4ced-8233-77bb950d210f/tlp3Awhite
 ~~~
 ~~~
-curl --header "Authorization: YOUR API KEY " -d "{"uuid"="5a0d68b3-6da0-4ced-8233-77bb950d210f" "tag"="tlp:white"}" --header "Accept: application/json" --header "Content-Type: application/json" -X POST http://10.50.13.60/tags/attachTagToObject/
+curl --header "Authorization: YOUR API KEY" --header "Accept: application/json" --header "Content-Type: application/json" -X POST -d '{"uuid":"5a0d68b3-6da0-4ced-8233-77bb950d210f","tag":"tlp:white"}' https://<misp url>/tags/attachTagToObject
 ~~~
 ~~~
 curl \
@@ -728,7 +765,7 @@ Adds an Attribute to an event
 
 #### Example
 ~~~~
-curl --header "Authorization: YOUR API KEY " --header "Accept: application/json" --header "Content-Type: application/json" -d "{"event_id":"3542","value":"1.2.3.4","category":"Network activity","type":"ip-dst"}" http://10.50.13.60/attributes/add/3542
+curl --header "Authorization: YOUR API KEY" --header "Accept: application/json" --header "Content-Type: application/json" -X POST -d '{"event_id":"3542","value":"1.2.3.4","category":"Network activity","type":"ip-dst"}' https://<misp url>/attributes/add/3542
 ~~~~
 
 ### GET /attributes
@@ -1161,31 +1198,34 @@ curl \
 
 ## Server management
 
-### GET /servers/getPyMISPVersion
-
-#### Result
-
-~~~~json
-{"version":"2.4.85"}
-~~~~
-
-#### Example
-
-~~~~
-curl --header "Authorization: YOUR API KEY " --header "Accept: application/json" --header "Content-Type: application/json" http://10.50.13.60/servers/getPyMISPVersion.json
-~~~~
-
 ### GET /servers/getVersion
 
+Returns the MISP version and the calling key's capabilities. The response also
+carries the **recommended PyMISP version** for this instance
+(`pymisp_recommended_version`), which supersedes the deprecated
+`/servers/getPyMISPVersion` endpoint.
+
 #### Result
+
 ~~~~json
-{"version":"2.4.85","perm_sync":true}
+{
+  "version": "2.5.42",
+  "pymisp_recommended_version": "2.5.34.1",
+  "perm_sync": true,
+  "perm_sighting": true,
+  "perm_galaxy_editor": true,
+  "perm_analyst_data": true,
+  "uuid": "5bfba94a-d0a4-4ad0-8d23-73d4011fb691",
+  "request_encoding": ["gzip"],
+  "filter_sightings": true,
+  "collection_sync": true
+}
 ~~~~
 
 #### Example
 
 ~~~~
-curl --header "Authorization: YOUR API KEY " --header "Accept: application/json" --header "Content-Type: application/json" http://10.50.13.60/servers/getPyMISPVersion.json
+curl --header "Authorization: YOUR API KEY" --header "Accept: application/json" https://<misp url>/servers/getVersion
 ~~~~
 
 
@@ -1300,12 +1340,12 @@ Will output all users
     {
         "User": {
             "id": "1",
-            "password": "FOOOOOOOOOO",
+            "password": "*****",
             "org_id": "1",
             "server_id": "0",
             "email": "admin@admin.test",
             "autoalert": false,
-            "authkey": "YOUR API KEY",
+            "authkey": "*****",
             "invited_by": "0",
             "gpgkey": null,
             "certif_public": "",
@@ -1512,6 +1552,15 @@ To query the add or edit APIs for the valid parameters, simply send a GET reques
 
 ## Special Cases
 
+::: {.callout-warning}
+The positional-URL export endpoints described in this section (for example
+`/events/xml/download/...`, `/events/csv/...`, `/events/text/...`,
+`/events/rpz/...` and `restSearch` with parameters baked into the URL path) are
+**legacy**. They still resolve for backward compatibility, but the canonical way
+to export data is a POST to `/events/restSearch` or `/attributes/restSearch` with
+a JSON body and a `returnFormat` (see [Search](#search)). Prefer restSearch for
+new integrations.
+:::
 
 ### XML Export
 
