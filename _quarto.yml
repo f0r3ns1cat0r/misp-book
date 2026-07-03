@@ -23,50 +23,66 @@ book:
     left: "MISP User Guide — dual-licensed AGPLv3 & CC-BY-SA 4.0"
     right: "Built with [Quarto](https://quarto.org)"
   downloads: [pdf, epub]             # replaces the old manual PDF/EPUB sidebar links
-  # Reading order derived from the former SUMMARY.md (all chapters).
+  # Chapters grouped into thematic parts (PRD B6). The root index.qmd is the
+  # preface (before the first part); reading order flows newcomer -> advanced.
   chapters:
     - index.qmd
-    - book-convention/index.qmd
-    - quick-start/index.qmd
-    - requirements/index.qmd
-    - get-your-instance/index.qmd
-    - general-layout/index.qmd
-    - general-concepts/index.qmd
-    - user-management/index.qmd
-    - using-the-system/index.qmd
-    - delegation/index.qmd
-    - extended-events/index.qmd
-    - administration/index.qmd
-    - workflows/index.qmd
-    - managing-feeds/index.qmd
-    - updating-python/index.qmd
-    - automation/index.qmd
-    - pymisp/index.qmd
-    - create-event-report/index.qmd
-    - event-reports/index.qmd
-    - analyst-data/index.qmd
-    - taxonomy/index.qmd
-    - galaxy/index.qmd
-    - misp-objects/index.qmd
-    - sightings/index.qmd
-    - decaying-models/index.qmd
-    - warninglists/index.qmd
-    - noticelists/index.qmd
-    - categories-and-types/index.qmd
-    - sharing/index.qmd
-    - collections/index.qmd
-    - cryptographic-keys/index.qmd
-    - connectors/index.qmd
-    - modules/index.qmd
-    - misp-zmq/index.qmd
-    - keyboard-shortcuts/index.qmd
-    - translation/index.qmd
-    - faq/index.qmd
-    - dev-faq/index.qmd
-    - best-practices/index.qmd
-    - user-stories/index.qmd
-    - user-personas/index.qmd
+    - part: "Getting Started"
+      chapters:
+        - book-convention/index.qmd
+        - general-concepts/index.qmd
+        - requirements/index.qmd
+        - get-your-instance/index.qmd
+        - quick-start/index.qmd
+        - general-layout/index.qmd
+    - part: "Using MISP"
+      chapters:
+        - user-management/index.qmd
+        - using-the-system/index.qmd
+        - extended-events/index.qmd
+        - create-event-report/index.qmd
+        - event-reports/index.qmd
+        - analyst-data/index.qmd
+        - sightings/index.qmd
+        - decaying-models/index.qmd
+        - delegation/index.qmd
+        - best-practices/index.qmd
+    - part: "Data Model & Context"
+      chapters:
+        - categories-and-types/index.qmd
+        - taxonomy/index.qmd
+        - galaxy/index.qmd
+        - misp-objects/index.qmd
+        - warninglists/index.qmd
+        - noticelists/index.qmd
+    - part: "Sharing & Synchronisation"
+      chapters:
+        - sharing/index.qmd
+        - managing-feeds/index.qmd
+        - collections/index.qmd
+        - cryptographic-keys/index.qmd
+    - part: "Automation & Integration"
+      chapters:
+        - automation/index.qmd
+        - pymisp/index.qmd
+        - misp-zmq/index.qmd
+        - modules/index.qmd
+        - connectors/index.qmd
+    - part: "Administration"
+      chapters:
+        - administration/index.qmd
+        - workflows/index.qmd
+        - updating-python/index.qmd
+    - part: "Reference & FAQ"
+      chapters:
+        - keyboard-shortcuts/index.qmd
+        - translation/index.qmd
+        - faq/index.qmd
+        - dev-faq/index.qmd
+        - user-stories/index.qmd
+        - user-personas/index.qmd
   appendices:
+    - appendices/index.qmd
     - glossary.qmd
 
 # Executable PyMISP/REST cells run locally against the dev instance and are
