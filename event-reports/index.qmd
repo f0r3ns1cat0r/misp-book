@@ -1,0 +1,142 @@
+---
+title: "Event Reports"
+---
+
+**Event Reports** are rich-text, markdown documents attached to an event. They let an analyst
+write the *narrative* around an event — the story, the analysis, the context — while keeping that
+narrative tightly linked to the structured data (attributes, objects, tags, galaxies) it
+describes. A report can reference a specific attribute or object inline, so the prose and the
+indicators stay in sync, and MISP can even extract new indicators *out of* a report's text back
+into the event.
+
+::: {.callout-note}
+This is distinct from the [Create an event based on a report](../create-event-report/index.qmd)
+tutorial, which walks through building an event by hand from an external write-up. Here we
+describe the **Event Reports feature** — markdown reports stored on an event.
+:::
+
+A report belongs to exactly one event, has a name and a markdown body, and carries its own
+distribution. Reports are written and read in a built-in markdown editor and appear in a
+collapsible **Event reports** section on the event view.
+
+## Writing a report
+
+The editor offers several view modes — **Edit**, **Split screen** (source and preview side by
+side), **Markdown** (rendered) and **Raw** — plus the usual formatting toolbar (bold, italic,
+headings, lists, quotes, code, tables). Markdown is rendered with a GitHub-flavoured dialect, and
+diagrams (Mermaid) and syntax highlighting are supported.
+
+### Referencing MISP elements inline
+
+Beyond ordinary markdown, reports support a special syntax to embed live references to the
+event's data. These render as styled inline elements and stay linked to the underlying object:
+
+| Syntax | Renders as |
+|---|---|
+| `@[attribute](UUID)` | The referenced attribute (type and value). |
+| `@[object](UUID)` | The referenced object. |
+| `@[tag](TAG_NAME)` | A tag — note tags are referenced by **name**, not UUID (e.g. `@[tag](tlp:green)`). |
+| `@[galaxymatrix](UUID)` | The event's galaxy/ATT&CK matrix widget. |
+| `@![attribute](UUID)` | The picture stored in an attachment-type attribute (the `!` displays the image). |
+| `{{variable_name}}` | A template variable, replaced by its configured value (see below). |
+
+The editor has autocompletion and toolbar buttons that insert these for you, so you can pick the
+element from a list rather than typing UUIDs by hand. References resolve across an
+[extended-event](../extended-events/index.qmd) chain, so a report can point at elements of the
+parent or child events too.
+
+## Creating a report
+
+From the **Event reports** section of an event you can create a report three ways:
+
+- **Add Event Report** — start from a blank markdown document.
+- **Import from URL** — fetch a web page or document and convert it to markdown automatically.
+- **Generate report from Event** — build a report from the event's own data.
+
+### Import from URL
+
+MISP can download a URL and convert its contents into a markdown report. HTML pages are converted
+directly; PDF, DOCX, PPTX, XLSX, ODT and ODS files are converted through the corresponding
+enrichment [misp-modules](../modules/index.qmd). The relevant module must be enabled and permitted
+for your user.
+
+::: {.callout-warning}
+Import-from-URL is **disabled by default** and gated by the `Security.eventreport_enable_arbitrary_urls`
+setting, because **the MISP server itself performs the fetch** — meaning it could be pointed at
+internal addresses the client cannot reach. Enable it deliberately, and only if you trust the
+users who can create reports.
+:::
+
+### Generate report from Event
+
+This produces a report from the event's existing data, driven by a REST-search-style filter. You
+can choose whether to include event metadata, correlations and the ATT&CK matrix, and whether to
+embed element **references** (`@[...]`) or raw values. It is a fast way to turn a structured event
+into a readable, shareable narrative.
+
+## Extracting indicators from a report
+
+Because reports are text, MISP can parse them for indicators and pull them into the event as
+attributes. There are two flows:
+
+- **Interactive suggestions** — as you edit, MISP detects candidate indicators and existing
+  matching attributes, and offers to mark them up. Text that matches an existing attribute is
+  turned into an `@[attribute](uuid)` reference automatically; you accept or reject each
+  suggestion, and accepted ones become new attributes and are linked in the report.
+- **Extract all IoCs** — a one-shot action that detects all indicators in the report, creates
+  attributes for them and rewrites the report to reference them. It optionally **tags the event**
+  with contextual elements (tags and galaxy clusters, such as detected threat actors or ATT&CK
+  techniques) found in the text.
+
+This closes the loop between narrative and structured data: you can paste a write-up, extract its
+indicators, and end up with both a readable report and a populated event.
+
+## Template variables
+
+Reusable snippets are provided by **Event Report Template Variables** — named `{{variable}}`
+placeholders that expand to a configured value (for example a standard TLP banner or a company
+logo). Site administrators define the variables under the Event Reports menus; any report can then
+use `{{variable_name}}` and MISP substitutes the value when rendering and exporting. (There is no
+separate "report template" object in 2.5 — templating is done entirely through these variables.)
+
+## Exporting a report
+
+From the editor's download menu you can export a report as:
+
+- **PDF** — rendered through the `convert_markdown_to_pdf` enrichment module (which must be
+  enabled), with all element references and template variables fully expanded; or via your
+  browser's print-to-PDF.
+- **Markdown** — the raw source.
+- **GFM (simplified)** — GitHub-flavoured markdown with the MISP-specific syntax replaced by plain
+  equivalents, for sharing outside MISP.
+
+## Distribution, visibility and sync
+
+A report has its own distribution setting, using the event levels **0–4** plus **Inherit event**
+(the default), so a report can be shared exactly as widely as the event or more narrowly.
+Visibility follows the same rules as other event data. Reports are part of event
+synchronisation — they are pushed and pulled along with their event (subject to distribution and
+the usual sync filtering), matched by UUID so edits reconcile correctly across instances.
+
+## AI-assisted extraction (experimental)
+
+MISP includes an **experimental** integration that can send a report's markdown to an external LLM
+service to extract additional context — for example an executive summary, a suspected threat
+actor, attributed country or motivation — and optionally tag the event with the corresponding
+galaxy clusters. It is configured through the `Plugin.CTIInfoExtractor_enable`,
+`Plugin.CTIInfoExtractor_url` and `Plugin.CTIInfoExtractor_authentication` settings and calls a
+generic, provider-agnostic HTTP endpoint (you supply the URL and API key of the service you want
+to use). It is disabled by default.
+
+## Permissions and API
+
+Creating, editing, deleting, importing and extracting require the `perm_add` permission; viewing
+and rendering require only a logged-in user (subject to the report's distribution); tagging a
+report requires `perm_tagger`. Editing or deleting a report is limited to the event's creator
+organisation (and site admins).
+
+Event Reports are fully available over the REST API under `/eventReports/` (add, view, index, edit,
+delete, restore, `extractAllFromReport`, `importReportFromUrl`, `reportFromEvent`, `downloadAsPDF`,
+and more), and template variables under `/eventReportTemplateVariables/`. See the
+[Automation & API](../automation/index.qmd) chapter for authentication and the request/response
+envelope.

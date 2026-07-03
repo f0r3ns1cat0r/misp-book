@@ -37,19 +37,25 @@ book:
     - delegation/index.qmd
     - extended-events/index.qmd
     - administration/index.qmd
+    - workflows/index.qmd
     - managing-feeds/index.qmd
     - updating-python/index.qmd
     - automation/index.qmd
     - pymisp/index.qmd
     - create-event-report/index.qmd
+    - event-reports/index.qmd
+    - analyst-data/index.qmd
     - taxonomy/index.qmd
     - galaxy/index.qmd
     - misp-objects/index.qmd
     - sightings/index.qmd
+    - decaying-models/index.qmd
     - warninglists/index.qmd
     - noticelists/index.qmd
     - categories-and-types/index.qmd
     - sharing/index.qmd
+    - collections/index.qmd
+    - cryptographic-keys/index.qmd
     - connectors/index.qmd
     - modules/index.qmd
     - misp-zmq/index.qmd

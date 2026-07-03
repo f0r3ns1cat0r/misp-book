@@ -1,0 +1,120 @@
+---
+title: "Collections"
+---
+
+A **Collection** is a named, distributable container that bundles a set of **events** and/or
+**galaxy clusters** into one shareable unit. Collections let you organise data — whether it is
+shared by the community or produced during your own research — into buckets based on a common
+theme: a campaign, an intrusion set, a piece of research, and so on. Collections are
+first-class citizens in MISP: each has its own UUID and obeys the **same distribution and
+sharing rules as events**, so a collection can be shared and synchronised across instances just
+like the intelligence it groups.
+
+Collections are managed from *Global Actions → List Collections*, and creating or editing one
+requires a role with modify permission.
+
+::: {.callout-note}
+A collection groups **events and galaxy clusters** — nothing else. It is distinct from two
+similarly named features:
+
+- A **Sharing Group** is an access-control list (which organisations may see data), not a
+  content bundle — a collection *references* a sharing group when its distribution is set to
+  "Sharing group".
+- A **Tag Collection** is a preset bundle of *tags* applied together to events, unrelated to
+  this feature.
+:::
+
+## What a collection contains
+
+A collection has a small set of metadata plus a list of element references:
+
+| Field | Purpose |
+|---|---|
+| **Name** | A human-readable label for the collection. |
+| **Type** | The kind of grouping: *campaign*, *intrusion set*, *named threat*, *research*, or *other*. |
+| **Description** | Free text describing what the collection is for. |
+| **Distribution** | How widely the collection may be shared (see below). |
+| **Sharing group** | The sharing group to use when distribution is set to "Sharing group". |
+
+Each **element** in a collection is a *reference* (by UUID) to an event or a galaxy cluster,
+optionally with a short per-element description. The collection stores the reference, not a
+copy — so the underlying event or cluster keeps its own ownership and distribution, and an
+element can be removed from a collection without touching the event itself. The same element
+cannot be added to the same collection twice.
+
+## Creating and populating a collection
+
+From *List Collections* choose to create a new collection and fill in its name, type,
+description and distribution. Once it exists you can add elements to it in two ways:
+
+- **From the collection** — open the collection and add an element by giving its type (Event or
+  Galaxy Cluster) and UUID.
+- **From an event or cluster** — while viewing an event or a galaxy cluster, use the "add to
+  collection" action to attach it to one of your organisation's existing collections. If you
+  have not created a collection yet, MISP prompts you to create one first.
+
+The collection view lists all of its elements and shows the collection's metadata; the index
+lists your collections with an element count, type, distribution and timestamps, and lets you
+edit or delete each. Deleting a collection removes its element references but leaves the
+referenced events and clusters untouched.
+
+## Distribution and sharing
+
+Collections use the standard event distribution levels:
+
+| Level | Meaning |
+|------:|---------|
+| 0 | Your organisation only |
+| 1 | This community only |
+| 2 | Connected communities |
+| 3 | All communities |
+| 4 | Sharing group |
+
+When the level is *Sharing group*, MISP checks that you are allowed to use the chosen sharing
+group. Visibility follows the same logic as events: you can see a collection if your
+organisation owns it, if it is distributed to your community or wider, or if it belongs to a
+sharing group you are part of.
+
+Note that a collection's distribution governs visibility of the **collection object itself** —
+the list and its metadata. The events and clusters it references each retain their own
+distribution, so being able to see a collection does not automatically grant access to every
+element inside it.
+
+## Synchronising collections between instances
+
+Collections synchronise between MISP instances much like events do, but only when **both**
+instances support the feature and the relevant per-server toggle is enabled. On the sync server
+configuration (see [Sharing](../sharing/index.qmd)) there are two dedicated options:
+
+- **Push collections** — send your eligible collections to the remote instance.
+- **Pull collections** — retrieve collections from the remote instance.
+
+During synchronisation MISP negotiates collection support with the peer, exchanges a compact
+`{uuid: modified}` index to find what is new or newer, and transfers only the differences.
+Distribution degrades by one step on each outbound hop, exactly as for events. Collections
+received from a remote instance are marked as *locked* so that a locally created collection is
+never silently overwritten by an inbound copy; between two synced copies, the one with the more
+recent modification time wins. Editing a collection's elements updates its modification time so
+the change propagates on the next sync. There is no separate revision history — the modification
+timestamp and the locked flag are what keep copies consistent.
+
+## API
+
+Collections are available over the REST API under the `/collections/` and `/collectionElements/`
+controllers, using the standard MISP JSON envelope:
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /collections/index[.json]` | List collections (the REST view includes their elements). |
+| `GET /collections/view/{id or uuid}` | Retrieve a single collection and its elements. |
+| `POST /collections/add` | Create a collection (optionally attaching elements in the same call). |
+| `POST /collections/edit/{id or uuid}` | Edit a collection. |
+| `POST /collections/delete/{id or uuid}` | Delete a collection and its element references. |
+| `POST /collectionElements/add/{collection_id}` | Add an element to a collection. |
+| `GET /collectionElements/index/{collection_id}` | List a collection's elements. |
+| `POST /collectionElements/delete/{element_id}` | Remove an element from a collection. |
+
+Listing and viewing require only a logged-in user (subject to visibility); creating, editing and
+deleting require modify permission. The synchronisation endpoints used between instances require
+the sync permission. See the [Automation & API](../automation/index.qmd) chapter for
+authentication and the request/response envelope.

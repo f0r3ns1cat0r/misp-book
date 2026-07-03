@@ -1,0 +1,117 @@
+---
+title: "Cryptographic Keys & Event Signing"
+---
+
+When an event is shared across a chain of MISP instances, each hop can, in principle, relay or
+modify it before passing it on. **Event signing** lets the originator of an event constrain who is
+allowed to do that. By attaching one or more **cryptographic keys** to an event and putting it
+into **protected mode**, the creator declares: *only instances that can sign updates with one of
+these keys may propagate or change this event*. Every hop then verifies the signature before
+accepting the event, giving tamper-evidence and origin authentication along the whole sharing
+path.
+
+This is a security feature for high-assurance sharing. It does not replace distribution levels or
+sharing groups (which control *who can see* an event) — it controls *who can author and relay*
+updates to a protected event as it travels.
+
+::: {.callout-note}
+Event signing uses **PGP** keys. Both ends of every synchronisation hop must run a MISP version
+that understands protected events (MISP 2.4.156 or newer — so any 2.5.x instance qualifies). An
+older instance simply will not be offered protected events.
+:::
+
+## How it works
+
+- Each **cryptographic key** attached to an event is a **PGP public key** (identified by its
+  fingerprint). The set of keys on an event is the list of authorised signers.
+- An event's own key list travels **with the event** during synchronisation, so every receiving
+  instance knows which keys are authorised. Key revocations propagate too: a key marked revoked
+  upstream is marked revoked locally, and keys removed upstream are removed locally.
+- When a **protected** event is transferred, the sending instance signs the payload with its
+  instance key and includes a detached PGP signature in the transfer. The receiving instance
+  verifies that signature against the event's authorised key list *before* accepting the add or
+  edit. If verification fails, the event is **rejected** — it is never silently accepted in a
+  weakened, unprotected form.
+- An instance will only relay a protected event onward if it can itself sign for it (i.e. it holds
+  a private key matching one of the event's public keys). If it cannot, the event simply stops at
+  that hop rather than being passed on unsigned. This is what "cannot reliably be propagated
+  beyond the reach of those that can sign" means in practice.
+
+### The instance signing key
+
+An instance signs with its configured **GnuPG key** — the same key used for encrypted/signed
+email notifications (the `GnuPG.email` / `GnuPG.password` settings, or the key in the instance's
+GPG homedir when `GnuPG.download_gpg_from_homedir` is enabled). The instance's **public** key is
+published at `…/gpg.asc`. An instance can only participate in protected sharing if it has a GnuPG
+key configured; without one, signing fails and protected events cannot be pushed or served.
+
+## Protecting an event
+
+The typical workflow, performed by a user in the event's creator organisation:
+
+1. **Create the event** as usual.
+2. **Attach the authorised signing keys.** On the event, add each hop's PGP *public* key. Your own
+   instance's key can be added with a single click ("use the instance's signing key"); partner
+   instances are added by pasting their published `gpg.asc` public key. Only a member of the
+   event's creator organisation (or a site admin) may add or remove an event's keys.
+3. **Switch the event to protected mode** using the *Protect* action. This flags the event as
+   protected and, because it is a significant change, **un-publishes it** — so you must
+   **re-publish** it for the change to take effect and propagate.
+
+You can later **Unprotect** the event to remove the restriction (this also un-publishes it,
+requiring a re-publish).
+
+::: {.callout-warning}
+Once an event is protected, it — and its subsequent modifications — will be **rejected by MISP
+instances you synchronise with unless the hop through which the event is propagated can sign with
+one of the listed keys**. Make sure every instance that legitimately needs to relay or update the
+event has a key on the list, or the event will not reach where you expect.
+:::
+
+## Verification on synchronisation
+
+Signature verification happens at every stage of sync, and failure always means the update is
+blocked:
+
+- **Pushing** a protected event to a remote: MISP signs the payload with the instance key and
+  sends the signature. If the remote is too old to understand protected events, or the instance
+  has no valid signing key, the push is aborted.
+- **Receiving** a pushed protected event (over the REST API): the receiver requires a valid
+  signature matching the event's key list, and rejects the add/edit otherwise. (Site-admin and
+  internal-sync trust paths are exempt from this check.)
+- **Pulling** a protected event from a non-internal remote: the puller validates the remote's
+  signature before importing; a bad or missing signature means the event is **not imported** and
+  the failure is logged.
+- **Serving** a pull: MISP signs the served event with the instance key. A protected event whose
+  key list does **not** include this instance's key is omitted from what the instance serves —
+  propagation halts here rather than continuing unsigned.
+
+All signature validation failures are written to the audit log, so you can see when and why a
+protected event was rejected.
+
+## Permissions and the server-signing endpoint
+
+- Attaching or removing an event's keys, and toggling protection, require the `perm_add`
+  permission (plus creator-organisation ownership of the event).
+- MISP also exposes a **server-signing** endpoint, `POST /cryptographicKeys/serverSign`, which
+  signs an arbitrary payload with the instance key and returns the signature. It is gated by a
+  dedicated **Server Signing** role permission (`perm_server_sign`) and is intended for internal
+  services that need to produce instance-signed data.
+
+## API
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /cryptographicKeys/add/Event/{event_id}` | Attach a PGP public key to an event. |
+| `POST /cryptographicKeys/delete/{id}` | Remove a key from an event. |
+| `GET /cryptographicKeys/view/{id}` | View a stored key. |
+| `GET /cryptographicKeys/index` | List cryptographic keys. |
+| `POST /cryptographicKeys/serverSign` | Sign a payload with the instance key (`perm_server_sign`). |
+| `POST /events/protect/{id}` | Put an event into protected mode. |
+| `POST /events/unprotect/{id}` | Remove protected mode from an event. |
+
+During synchronisation the detached signature is carried in the `x-pgp-signature` HTTP header;
+REST clients pushing a protected event must include it. See the
+[Automation & API](../automation/index.qmd) chapter for authentication and the request/response
+envelope, and [Sharing](../sharing/index.qmd) for how synchronisation between instances is
+configured.
