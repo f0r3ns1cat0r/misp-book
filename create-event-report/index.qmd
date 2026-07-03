@@ -26,7 +26,15 @@ Let's populate it with the information we already have:
 * Threat Level: This is self-explanatory. Since the ransomware described in the report does not appear to use a major exploit, we can choose **Low** or **Undefined**. We will use **Undefined** because it can be refined later.
 * Analysis: Give the current stage of the analysis. Since the report is published, we can assume that the analysis is completed.
 * Event Info: This field is effectively the event title, so it makes sense to use the report title here. Because the source is public, we also prefix it with `OSINT`.
-* GFI sandbox: Since we don't have any sample or anything here, we leave this alone.
+
+::: {.callout-note}
+The add-event form no longer has the legacy *GFI sandbox* field. Depending on your version it
+also offers a few optional fields — most notably **Extends event** (to make this event an
+[extension](../extended-events/index.qmd) of another), and, when you set **Distribution** to
+*Sharing group*, a selector for which sharing group to use. See the
+[Using the system](../using-the-system/index.qmd#creating-an-event) chapter for a full reference
+to the current add-event form.
+:::
 
 ![Add Event form filled](figures/add_event_form_filled.png)
 

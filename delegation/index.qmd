@@ -26,6 +26,16 @@ To do this, you first need to set the event distribution to **Your organization 
 Otherwise, the delegation option will not be available.
 ![Delegation impossible](./figures/delegationimpossible.png)
 
+::: {.callout-note}
+The "distribution must be *Your organization only*" restriction is lifted if the site
+administrator has enabled the `MISP.unpublishedprivate` setting on the instance. When that
+setting is on, an event with any distribution level can be delegated.
+:::
+
+An event can only have **one pending delegation request at a time**. If you need to change
+the target organization or the requested distribution, discard the existing request first,
+then create a new one.
+
 When you click **Delegate Publishing**, a pop-up appears.
 ![Delegation Popup](./figures/delagationpopup.png)
 Here you can choose the following options:
@@ -43,6 +53,10 @@ Once the request is sent, a message appears on the event to remind you that the 
 You can also view more details by clicking **View request details**.
 ![Request Details](./figures/requestdetails.png)
 You can discard the request yourself by using either this pop-up or the link in the left-side menu.
+
+Both the requesting and the recipient organization can review pending delegations at any time
+from the top navigation bar under **Global Actions → View delegation requests** (labelled
+*Delegation Requests*), which lists every request awaiting action.
 
 ### Answer a delegation request
 
