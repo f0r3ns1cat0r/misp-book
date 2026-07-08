@@ -314,6 +314,8 @@ and **related servers** where applicable.
 A row of toggle buttons controls which panels are shown in the main content
 area. You can collapse and expand each independently:
 
+![The content-toggle buttons above the event view.](figures/event_toggles.png)
+
 1.  **Pivots** — the pivot thread graph of events you have traversed (see below).
 2.  **Galaxy** — the galaxy clusters attached to the event.
 3.  **Event graph** — an interactive graph of the event's objects, attributes and
@@ -328,6 +330,11 @@ area. You can collapse and expand each independently:
 8.  **Attributes** — the attribute and object table (see below).
 9.  **Discussion** — the event's discussion thread (shown when you have access to
     discussions).
+
+When you open the **Galaxy matrix** panel on an event carrying ATT&CK galaxy
+clusters, MISP highlights the techniques present in the event on the matrix:
+
+![The Galaxy matrix panel highlighting the event's ATT&CK techniques.](figures/attack_matrix.png)
 
 ### The attribute table
 

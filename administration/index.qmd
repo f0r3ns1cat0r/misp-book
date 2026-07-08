@@ -246,11 +246,15 @@ Each of the setting pages is a table with each row representing a setting. Colou
 
 ![The workers tab.](figures/settings_3.png)
 
-The workers tab shows a list of the workers that MISP can use. In MISP 2.5 the background worker system is **SimpleBackgroundJobs**, managed by [Supervisor](http://supervisord.org/) and backed by Redis; the legacy CakeResque worker system has been removed. You can restart the workers from this page with the "restart all workers" button, but starting and stopping them is normally handled by Supervisor (the `misp-workers` service installed by the setup scripts).
+The workers tab shows the workers that MISP can use. In MISP 2.5 the background worker system is **SimpleBackgroundJobs**, managed by [Supervisor](http://supervisord.org/) and backed by Redis; the legacy CakeResque worker system has been removed. You can restart the workers from this page with the "restart all workers" button, but starting and stopping them is normally handled by Supervisor (the `misp-workers` service installed by the setup scripts).
 
-*   **Worker Type**: The worker type is determined by the queue it monitors. MISP has 6 queues: `default`, `email`, `cache`, `prio`, `update` and `scheduler`.
-*   **Worker Id**: The ID is made up of the machine name, the PID of the worker and the queue it monitors.
-*   **Status**: Displays OK if the worker is running.
+The tab is grouped into one section per queue — MISP has 6 queues: `default`, `email`, `cache`, `prio`, `update` and `scheduler`. Each section reports **Jobs in the queue** and an overall **Queue status**, followed by a table of the worker processes currently monitoring that queue:
+
+*   **Worker PID**: The process ID of the running worker.
+*   **User**: The system user the worker runs as (typically `www-data`).
+*   **Worker process**: `OK` when the process is alive.
+*   **Information**: A health message (for example, "The worker appears to be healthy.").
+*   **Actions**: Stop an individual worker.
 
 ### Worker types
 
@@ -525,9 +529,15 @@ Site administrators can schedule recurring maintenance tasks under
 **Administration → Scheduled Tasks**. In 2.5 this is a reworked, cron-style
 scheduler driven by the Supervisor-managed `scheduler` worker (it requires that
 worker to be running, or the page shows a warning). You add tasks explicitly
-rather than editing a fixed list; the schedulable actions are the JSON/definition
-updates: `updateGalaxies`, `updateTaxonomies`, `updateWarningLists`,
-`updateNoticeLists` and `updateObjectTemplates`.
+rather than editing a fixed list, choosing a **type** and the matching action:
+
+*   **Server** — `pull`, `push` or `cache` against a synchronisation server.
+*   **Feed** — `fetch` or `cache` a feed (or all feeds).
+*   **Workflow** — run an ad-hoc workflow.
+*   **Periodic Summary** — send the periodic summary notification.
+*   **TAXII** — push to a TAXII server.
+*   **Admin** — the JSON/definition updates: `updateGalaxies`, `updateTaxonomies`,
+    `updateWarningLists`, `updateNoticeLists` and `updateObjectTemplates`.
 
 Each task row shows its type/action and parameters, the owning user, the
 frequency (every N seconds/minutes/hours/days), the last and next run times, the

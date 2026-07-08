@@ -1,17 +1,162 @@
 {
-  "generated_at": "2026-07-03T14:03:37.225Z",
+  "generated_at": "2026-07-08T09:54:32.404Z",
   "misp_version": "2.5.42",
   "theme": "light",
   "shots": [
     {
-      "file": "general-layout/figures/MenuBarAdmin.png",
-      "url": "/events/index",
-      "selector": "#topBar",
+      "file": "administration/figures/correlationExclusions.png",
+      "url": "/correlation_exclusions/index",
+      "selector": "table.table",
+      "rows": 8,
+      "filtered": false,
       "misp_version": "2.5.42",
       "theme": "light",
       "viewport": "1440x900",
       "scale": 2,
-      "captured_at": "2026-07-03T14:03:13.345Z"
+      "captured_at": "2026-07-03T14:03:37.225Z"
+    },
+    {
+      "file": "administration/figures/jobs.png",
+      "url": "/jobs/index",
+      "selector": "table.table",
+      "rows": 8,
+      "filtered": false,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:35.973Z"
+    },
+    {
+      "file": "administration/figures/list_logs.png",
+      "url": "/logs/index",
+      "selector": "table.table",
+      "filtered": true,
+      "models": [
+        "Organisation",
+        "User",
+        "Task",
+        "Role"
+      ],
+      "rows": 4,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:17.394Z"
+    },
+    {
+      "file": "administration/figures/list_org.png",
+      "url": "/organisations/index",
+      "selector": "table.table",
+      "rows": 10,
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:22.268Z"
+    },
+    {
+      "file": "administration/figures/list_roles.png",
+      "url": "/roles/index",
+      "selector": "table.table",
+      "rows": 12,
+      "filtered": false,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:34.503Z"
+    },
+    {
+      "file": "administration/figures/list_users.png",
+      "url": "/admin/users/index/sort:id/direction:desc",
+      "selector": "table.table",
+      "rows": 6,
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:21.014Z"
+    },
+    {
+      "file": "administration/figures/schedule.png",
+      "url": "/tasks",
+      "selector": "table.table",
+      "rows": 8,
+      "filtered": false,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:19.697Z"
+    },
+    {
+      "file": "administration/figures/search_log.png",
+      "url": "/logs/search",
+      "selector": "#LogSearchForm",
+      "wait": 400,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:18.517Z"
+    },
+    {
+      "file": "administration/figures/settings_1.png",
+      "url": "/servers/serverSettings/diagnostics",
+      "clip": {
+        "x": 190,
+        "y": 92,
+        "width": 1246,
+        "height": 300
+      },
+      "wait": 900,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:13.072Z"
+    },
+    {
+      "file": "administration/figures/settings_2.png",
+      "url": "/servers/serverSettings/MISP",
+      "selector": "table.settingsTableContainer",
+      "rows": 8,
+      "filtered": false,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:14.395Z"
+    },
+    {
+      "file": "administration/figures/settings_3.png",
+      "url": "/servers/serverSettings/workers",
+      "clip": {
+        "x": 190,
+        "y": 92,
+        "width": 1246,
+        "height": 360
+      },
+      "wait": 900,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:15.992Z"
+    },
+    {
+      "file": "general-layout/figures/Administration.png",
+      "menu": "Administration",
+      "selector": ".dropdown-menu",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:21.440Z"
     },
     {
       "file": "general-layout/figures/EventActions.png",
@@ -34,16 +179,6 @@
       "captured_at": "2026-07-03T14:03:15.974Z"
     },
     {
-      "file": "general-layout/figures/InputFilter.png",
-      "menu": "Input Filters",
-      "selector": ".dropdown-menu",
-      "misp_version": "2.5.42",
-      "theme": "light",
-      "viewport": "1440x900",
-      "scale": 2,
-      "captured_at": "2026-07-03T14:03:17.296Z"
-    },
-    {
       "file": "general-layout/figures/GlobalActions.png",
       "menu": "Global Actions",
       "selector": ".dropdown-menu",
@@ -54,6 +189,48 @@
       "captured_at": "2026-07-03T14:03:18.669Z"
     },
     {
+      "file": "general-layout/figures/InputFilter.png",
+      "menu": "Input Filters",
+      "selector": ".dropdown-menu",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:17.296Z"
+    },
+    {
+      "file": "general-layout/figures/LeftMenuBar.png",
+      "url": "/events/view/7183",
+      "selector": "ul.nav-list",
+      "session": "non-admin",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:27.427Z"
+    },
+    {
+      "file": "general-layout/figures/MenuBarAdmin.png",
+      "url": "/events/index",
+      "selector": "#topBar",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:13.345Z"
+    },
+    {
+      "file": "general-layout/figures/MenuBarUser.png",
+      "url": "/events/index",
+      "selector": "#topBar",
+      "session": "non-admin",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:25.992Z"
+    },
+    {
       "file": "general-layout/figures/SyncActions.png",
       "menu": "Sync Actions",
       "selector": ".dropdown-menu",
@@ -62,69 +239,6 @@
       "viewport": "1440x900",
       "scale": 2,
       "captured_at": "2026-07-03T14:03:20.013Z"
-    },
-    {
-      "file": "general-layout/figures/Administration.png",
-      "menu": "Administration",
-      "selector": ".dropdown-menu",
-      "misp_version": "2.5.42",
-      "theme": "light",
-      "viewport": "1440x900",
-      "scale": 2,
-      "captured_at": "2026-07-03T14:03:21.440Z"
-    },
-    {
-      "file": "using-the-system/figures/event_detail.png",
-      "url": "/events/view/33",
-      "selector": "table:has(td:text-is(\"Event ID\")), .event-metadata, #main-view-container table",
-      "wait": 1500,
-      "misp_version": "2.5.42",
-      "theme": "light",
-      "viewport": "1440x900",
-      "scale": 2,
-      "captured_at": "2026-07-03T14:03:24.470Z"
-    },
-    {
-      "file": "using-the-system/figures/add_event.png",
-      "url": "/events/add",
-      "selector": "#EventAddForm",
-      "misp_version": "2.5.42",
-      "theme": "light",
-      "viewport": "1440x900",
-      "scale": 2,
-      "captured_at": "2026-07-03T14:03:25.308Z"
-    },
-    {
-      "file": "using-the-system/figures/add_attribute.png",
-      "url": "/attributes/add/33",
-      "selector": "#AttributeAddForm",
-      "misp_version": "2.5.42",
-      "theme": "light",
-      "viewport": "1440x900",
-      "scale": 2,
-      "captured_at": "2026-07-03T14:03:26.230Z"
-    },
-    {
-      "file": "using-the-system/figures/add_attachment.png",
-      "url": "/attributes/add_attachment/33",
-      "selector": "#AttributeAddAttachmentForm",
-      "misp_version": "2.5.42",
-      "theme": "light",
-      "viewport": "1440x900",
-      "scale": 2,
-      "captured_at": "2026-07-03T14:03:28.093Z"
-    },
-    {
-      "file": "using-the-system/figures/list_events2.png",
-      "url": "/events/index/searchtag:tlp:white",
-      "selector": "table.table",
-      "rows": 8,
-      "filtered": true,
-      "misp_version": "2.5.42",
-      "theme": "light",
-      "viewport": "1440x900",
-      "scale": 2,
-      "captured_at": "2026-07-03T14:03:30.547Z"
     },
     {
       "file": "quick-start/figures/ListEvents.png",
@@ -139,40 +253,77 @@
       "captured_at": "2026-07-03T14:03:33.023Z"
     },
     {
-      "file": "administration/figures/list_roles.png",
-      "url": "/roles/index",
-      "selector": "table.table",
-      "rows": 12,
-      "filtered": false,
+      "file": "using-the-system/figures/add_attachment.png",
+      "url": "/attributes/add_attachment/33",
+      "selector": "#AttributeAddAttachmentForm",
       "misp_version": "2.5.42",
       "theme": "light",
       "viewport": "1440x900",
       "scale": 2,
-      "captured_at": "2026-07-03T14:03:34.503Z"
+      "captured_at": "2026-07-03T14:03:28.093Z"
     },
     {
-      "file": "administration/figures/jobs.png",
-      "url": "/jobs/index",
-      "selector": "table.table",
-      "rows": 8,
-      "filtered": false,
+      "file": "using-the-system/figures/add_attribute.png",
+      "url": "/attributes/add/33",
+      "selector": "#AttributeAddForm",
       "misp_version": "2.5.42",
       "theme": "light",
       "viewport": "1440x900",
       "scale": 2,
-      "captured_at": "2026-07-03T14:03:35.973Z"
+      "captured_at": "2026-07-03T14:03:26.230Z"
     },
     {
-      "file": "administration/figures/correlationExclusions.png",
-      "url": "/correlation_exclusions/index",
-      "selector": "table.table",
-      "rows": 8,
-      "filtered": false,
+      "file": "using-the-system/figures/add_event.png",
+      "url": "/events/add",
+      "selector": "#EventAddForm",
       "misp_version": "2.5.42",
       "theme": "light",
       "viewport": "1440x900",
       "scale": 2,
-      "captured_at": "2026-07-03T14:03:37.225Z"
+      "captured_at": "2026-07-03T14:03:25.308Z"
+    },
+    {
+      "file": "using-the-system/figures/attack_matrix.png",
+      "url": "/events/view/7183",
+      "selector": "#attackmatrix_div",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:32.382Z"
+    },
+    {
+      "file": "using-the-system/figures/event_detail.png",
+      "url": "/events/view/33",
+      "selector": "table:has(td:text-is(\"Event ID\")), .event-metadata, #main-view-container table",
+      "wait": 1500,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:24.470Z"
+    },
+    {
+      "file": "using-the-system/figures/event_toggles.png",
+      "url": "/events/view/7183",
+      "selector": "#eventToggleButtons buttons",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T09:54:30.790Z"
+    },
+    {
+      "file": "using-the-system/figures/list_events2.png",
+      "url": "/events/index/searchtag:tlp:white",
+      "selector": "table.table",
+      "rows": 8,
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-03T14:03:30.547Z"
     }
   ]
 }
