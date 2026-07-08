@@ -68,9 +68,9 @@ Servers can be added by users via
 https://<misp url>/servers/add
 ~~~~
 
-![Add Server](figures/add_server_1.png)
-
-    The Add Server Form has several input fields:
+The Add Server form is grouped into sections — *Instance identification*, *Instance
+ownership and credentials*, *Enabled synchronisation methods* and *Misc settings* —
+and has several input fields:
 
 ![Add Server](figures/add_server_ui.png)
 

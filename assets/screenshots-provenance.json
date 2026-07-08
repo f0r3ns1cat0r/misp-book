@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-08T09:54:32.404Z",
+  "generated_at": "2026-07-08T11:51:04.754Z",
   "misp_version": "2.5.42",
   "theme": "light",
   "shots": [
@@ -149,6 +149,18 @@
       "captured_at": "2026-07-08T09:54:15.992Z"
     },
     {
+      "file": "galaxy/figures/GalaxyView.png",
+      "url": "/galaxies/index/sort:id/direction:asc",
+      "selector": "table.table",
+      "rows": 12,
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:50:58.243Z"
+    },
+    {
       "file": "general-layout/figures/Administration.png",
       "menu": "Administration",
       "selector": ".dropdown-menu",
@@ -241,6 +253,59 @@
       "captured_at": "2026-07-03T14:03:20.013Z"
     },
     {
+      "file": "managing-feeds/figures/addfeedform.png",
+      "url": "/feeds/add",
+      "selector": "#FeedAddForm",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:50:48.974Z"
+    },
+    {
+      "file": "managing-feeds/figures/feedspage.png",
+      "url": "/feeds/index",
+      "selector": "table.table",
+      "rows": 8,
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:50:50.475Z"
+    },
+    {
+      "file": "managing-feeds/figures/listfeeds.png",
+      "menu": "Sync Actions",
+      "selector": ".dropdown-menu",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:50:51.767Z"
+    },
+    {
+      "file": "misp-objects/figures/object_ipport.png",
+      "url": "/objects/add/7183/465",
+      "selector": "div.form",
+      "wait": 800,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:51:00.186Z"
+    },
+    {
+      "file": "misp-zmq/figures/zmq-config.png",
+      "url": "/servers/serverSettings/Plugin",
+      "selector": "#collapse_ZeroMQ",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:51:04.742Z"
+    },
+    {
       "file": "quick-start/figures/ListEvents.png",
       "url": "/events/index/searchtag:tlp:white",
       "selector": "table.table",
@@ -251,6 +316,29 @@
       "viewport": "1440x900",
       "scale": 2,
       "captured_at": "2026-07-03T14:03:33.023Z"
+    },
+    {
+      "file": "sharing/figures/add_server_ui.png",
+      "url": "/servers/add",
+      "selector": "#ServerAddForm",
+      "orgScrubbed": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:51:02.611Z"
+    },
+    {
+      "file": "taxonomy/figures/taxonomies-index.png",
+      "url": "/taxonomies/index/sort:id/direction:asc",
+      "selector": "table.table",
+      "rows": 12,
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:50:56.854Z"
     },
     {
       "file": "using-the-system/figures/add_attachment.png",
@@ -324,6 +412,29 @@
       "viewport": "1440x900",
       "scale": 2,
       "captured_at": "2026-07-03T14:03:30.547Z"
+    },
+    {
+      "file": "warninglists/figures/MISPwarninglist.png",
+      "url": "/warninglists/index/sort:id/direction:asc",
+      "selector": "table.table",
+      "rows": 12,
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:50:53.455Z"
+    },
+    {
+      "file": "warninglists/figures/warninglist-checkValue.png",
+      "url": "/warninglists/checkValue",
+      "selector": ".view",
+      "value": "192.168.0.1",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T11:50:55.472Z"
     }
   ]
 }

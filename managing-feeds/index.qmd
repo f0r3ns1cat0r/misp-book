@@ -17,7 +17,7 @@ and import it back in another MISP instance.
 A site admin role is required to perform these actions.
 :::
 
-To manage feeds you first need to access the Feeds page using the List Feeds item on the top menu:
+To manage feeds you first need to access the Feeds page using the **Feeds** item on the **Sync Actions** top menu:
 
 ![List feeds menu](./figures/listfeeds.png)
 
