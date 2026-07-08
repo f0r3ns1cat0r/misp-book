@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-08T12:01:24.992Z",
+  "generated_at": "2026-07-08T13:35:44.896Z",
   "misp_version": "2.5.42",
   "theme": "light",
   "shots": [
@@ -159,6 +159,26 @@
       "captured_at": "2026-07-08T11:58:56.937Z"
     },
     {
+      "file": "galaxy/figures/EventWithoutCluster.png",
+      "url": "/events/view/7184",
+      "selector": "#galaxies_div",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T13:35:38.930Z"
+    },
+    {
+      "file": "galaxy/figures/GalaxyList.png",
+      "url": "/galaxies/view/2/context:default",
+      "selector": ".view",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T13:27:12.586Z"
+    },
+    {
       "file": "galaxy/figures/GalaxyMenu.png",
       "menu": "Galaxies",
       "selector": ".dropdown-menu",
@@ -167,6 +187,16 @@
       "viewport": "1440x900",
       "scale": 2,
       "captured_at": "2026-07-08T12:01:24.982Z"
+    },
+    {
+      "file": "galaxy/figures/GalaxyPopup.png",
+      "url": "/events/view/7184",
+      "selector": ".popover",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T13:35:41.082Z"
     },
     {
       "file": "galaxy/figures/GalaxyView.png",
@@ -179,6 +209,26 @@
       "viewport": "1440x900",
       "scale": 2,
       "captured_at": "2026-07-08T12:01:23.646Z"
+    },
+    {
+      "file": "galaxy/figures/Matrix.png",
+      "url": "/events/view/7183",
+      "selector": "#attackmatrix_div",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T13:27:17.817Z"
+    },
+    {
+      "file": "galaxy/figures/NewThreatActor.png",
+      "url": "/events/view/7185",
+      "selector": "#galaxies_div",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T13:35:44.884Z"
     },
     {
       "file": "general-layout/figures/Administration.png",
