@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-08T13:35:44.896Z",
+  "generated_at": "2026-07-09T06:55:16.724Z",
   "misp_version": "2.5.42",
   "theme": "light",
   "shots": [
@@ -386,6 +386,27 @@
       "captured_at": "2026-07-08T11:58:51.181Z"
     },
     {
+      "file": "noticelists/figures/noticelist-attribute.png",
+      "url": "/attributes/add/7183",
+      "selector": "notice box",
+      "category": "Other",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T06:44:05.246Z"
+    },
+    {
+      "file": "noticelists/figures/noticelist-index.png",
+      "url": "/noticelists/index",
+      "selector": "table.table",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T06:43:59.341Z"
+    },
+    {
       "file": "quick-start/figures/ListEvents.png",
       "url": "/events/index/searchtag:tlp:white",
       "selector": "table.table",
@@ -409,6 +430,78 @@
       "captured_at": "2026-07-08T11:51:02.611Z"
     },
     {
+      "file": "sharing/figures/rules.png",
+      "url": "/servers/add",
+      "selector": "#genericModal (Set PUSH rules)",
+      "note": "push rules picker scrubbed of polluted tag/org options",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T06:49:32.994Z"
+    },
+    {
+      "file": "taxonomy/figures/enableTaxonomy.png",
+      "url": "/taxonomies/view/8",
+      "selector": ".view",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T14:06:43.885Z"
+    },
+    {
+      "file": "taxonomy/figures/highlight-event.png",
+      "url": "/events/view/7183",
+      "selector": "event tag area",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T14:14:07.250Z"
+    },
+    {
+      "file": "taxonomy/figures/highlight-list-event.png",
+      "url": "/events/index/searchtag:tlp:white",
+      "selector": "table.table",
+      "filtered": true,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T14:14:11.572Z"
+    },
+    {
+      "file": "taxonomy/figures/missing-taxo.png",
+      "url": "/events/view/7184",
+      "selector": "missing-required notice",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T14:07:28.812Z"
+    },
+    {
+      "file": "taxonomy/figures/publishing-without-required.png",
+      "url": "/events/view/7184",
+      "selector": "publish error flash",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T14:07:31.131Z"
+    },
+    {
+      "file": "taxonomy/figures/tag-box.png",
+      "url": "/events/view/7183",
+      "selector": "add-tag picker",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T14:14:09.238Z"
+    },
+    {
       "file": "taxonomy/figures/taxonomies-index.png",
       "url": "/taxonomies/index/sort:id/direction:asc",
       "selector": "table.table",
@@ -419,6 +512,17 @@
       "viewport": "1440x900",
       "scale": 2,
       "captured_at": "2026-07-08T11:50:56.854Z"
+    },
+    {
+      "file": "taxonomy/figures/taxonomy-list.png",
+      "url": "/taxonomies/index/sort:id/direction:asc",
+      "selector": "table.table",
+      "rows": 10,
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T14:06:45.506Z"
     },
     {
       "file": "using-the-system/figures/add_attachment.png",
@@ -494,6 +598,46 @@
       "captured_at": "2026-07-03T14:03:30.547Z"
     },
     {
+      "file": "using-the-system/figures/sgpage1.png",
+      "url": "/sharing_groups/add",
+      "selector": "wizard tab 1",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T06:55:13.182Z"
+    },
+    {
+      "file": "using-the-system/figures/sgpage2.png",
+      "url": "/sharing_groups/add",
+      "selector": "wizard tab 2",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T06:55:14.214Z"
+    },
+    {
+      "file": "using-the-system/figures/sgpage3.png",
+      "url": "/sharing_groups/add",
+      "selector": "wizard tab 3",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T06:55:15.258Z"
+    },
+    {
+      "file": "using-the-system/figures/sgpage4.png",
+      "url": "/sharing_groups/add",
+      "selector": "wizard tab 4",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T06:55:16.716Z"
+    },
+    {
       "file": "warninglists/figures/MISPwarninglist.png",
       "url": "/warninglists/index/sort:id/direction:asc",
       "selector": "table.table",
@@ -515,6 +659,16 @@
       "viewport": "1440x900",
       "scale": 2,
       "captured_at": "2026-07-08T11:50:55.472Z"
+    },
+    {
+      "file": "warninglists/figures/warninglist-warnings.png",
+      "url": "/events/view/7188",
+      "selector": "attributes table (false_positive warning)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-08T14:16:30.671Z"
     }
   ]
 }

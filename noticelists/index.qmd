@@ -17,6 +17,8 @@ example while adding an attribute — MISP shows the corresponding notice inline
 the form, so you are made aware of the implication before you save. Notices are
 purely informational: they warn and inform, they do not block the action.
 
+![The GDPR notice list message displayed inline while adding a personal-data attribute.](./figures/noticelist-attribute.png)
+
 ## Managing notice lists
 
 Notice lists are managed from the administration menu:
@@ -29,6 +31,8 @@ Notice lists are managed from the administration menu:
     update is available on the command line with
     `cake Admin updateNoticeLists` (handy for a cron job — see the
     [administration](../administration/index.qmd) chapter).
+
+![The notice lists index, showing the bundled GDPR notice list.](./figures/noticelist-index.png)
 
 The set of notice lists is maintained by the community in the
 [MISP notice list repository](https://github.com/MISP/misp-noticelist); you can
