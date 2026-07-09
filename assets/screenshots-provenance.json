@@ -149,6 +149,136 @@
       "captured_at": "2026-07-08T09:54:15.992Z"
     },
     {
+      "file": "delegation/figures/acceptdelegation.png",
+      "url": "/event_delegations/acceptDelegation/3",
+      "selector": "#confirmation_box",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:39.057Z"
+    },
+    {
+      "file": "delegation/figures/delagated.png",
+      "url": "/event_delegations/index",
+      "selector": "table",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:32.390Z"
+    },
+    {
+      "file": "delegation/figures/delagationpopup.png",
+      "url": "/event_delegations/delegateEvent/7192",
+      "selector": "#popover_form (org)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:25.136Z"
+    },
+    {
+      "file": "delegation/figures/delegatedevent.png",
+      "url": "/events/view/7191",
+      "selector": "event metadata table",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:34.193Z"
+    },
+    {
+      "file": "delegation/figures/delegationimpossible.png",
+      "url": "/events/view/7193",
+      "selector": "event side menu (dist 1)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:22.313Z"
+    },
+    {
+      "file": "delegation/figures/delegationpopup2.png",
+      "url": "/event_delegations/delegateEvent/7192",
+      "selector": "#popover_form (message)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:26.157Z"
+    },
+    {
+      "file": "delegation/figures/delegationpossible.png",
+      "url": "/events/view/7192",
+      "selector": "event side menu (dist 0)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:20.446Z"
+    },
+    {
+      "file": "delegation/figures/delegationrequested.png",
+      "url": "/events/view/7191",
+      "selector": "tr:has-text(\"Delegation request\")",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:27.986Z"
+    },
+    {
+      "file": "delegation/figures/delegationwaiting.png",
+      "url": "/",
+      "selector": "#topBar .fa-envelope",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:30.932Z"
+    },
+    {
+      "file": "delegation/figures/desireddistribution.png",
+      "url": "/event_delegations/delegateEvent/7192",
+      "selector": "#popover_form (distribution)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:25.688Z"
+    },
+    {
+      "file": "delegation/figures/discarddelegation.png",
+      "url": "/event_delegations/deleteDelegation/3",
+      "selector": "#confirmation_box",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:36.972Z"
+    },
+    {
+      "file": "delegation/figures/recipientdetails.png",
+      "url": "/eventDelegations/view/3",
+      "selector": "#confirmation_box",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:34.928Z"
+    },
+    {
+      "file": "delegation/figures/requestdetails.png",
+      "url": "/eventDelegations/view/3",
+      "selector": "#confirmation_box",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:45:28.728Z"
+    },
+    {
       "file": "faq/figures/misp-module-system-diag.png",
       "url": "/servers/serverSettings/diagnostics",
       "section": "Module System",

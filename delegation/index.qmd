@@ -61,17 +61,14 @@ from the top navigation bar under **Global Actions → View delegation requests*
 ### Answer a delegation request
 
 As the recipient organization, you receive the delegation request.
-You are notified by a red circle around the envelope in the upper-right corner of the screen.
+You are notified by a red envelope in the upper-right corner of the screen.
 ![Notification](./figures/delegationwaiting.png)
-When you click it, you are redirected to the dashboard, where the delegation request appears in the left pane.
-![Dashboard](./figures/dashboard.png)
-Click **View** to open an event list showing all events that other organizations want to delegate to your organization.
-In this example, we see a single event from Acme Factory.
+Open **Global Actions → View delegation requests** to see every event that other organizations want to delegate to your organization. In this example, there is a single request from Acme Factory.
 ![Delegated list](./figures/delagated.png)
-Here are the metadata for that event.
+Opening the event shows its metadata, including a banner about the pending delegation.
 ![Delegated event](./figures/delegatedevent.png)
-You can view the full details by clicking the corresponding link.
-![Delegated event](./figures/recipientdetails.png)
+Click **View request details** to see the full request — the requesting organization, the distribution level it suggested, and its message.
+![Request details](./figures/recipientdetails.png)
 If your role includes publishing rights, you can manage the delegation request by using one of the two links in the left-side menu.
 You can either discard it:
 ![Discard request](./figures/discarddelegation.png)
