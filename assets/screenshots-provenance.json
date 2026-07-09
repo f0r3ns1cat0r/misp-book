@@ -451,6 +451,76 @@
       "captured_at": "2026-07-09T06:49:32.994Z"
     },
     {
+      "file": "sightings/figures/attributesighting.png",
+      "url": "/events/view/7190",
+      "selector": "#Attribute_100099610_tr",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:27:56.246Z"
+    },
+    {
+      "file": "sightings/figures/sightingadd.png",
+      "url": "/sightings/advanced/100099610/attribute",
+      "selector": "#popover_box (Add sighting)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:28:01.099Z"
+    },
+    {
+      "file": "sightings/figures/sightingall.png",
+      "url": "/sightings/advanced/100099610/attribute",
+      "selector": "#popover_box (All)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:27:59.182Z"
+    },
+    {
+      "file": "sightings/figures/sightingevent.png",
+      "url": "/events/view/7190",
+      "selector": "tr:has(#eventSightingCount)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:28:03.529Z"
+    },
+    {
+      "file": "sightings/figures/sightingeventpopup.png",
+      "url": "/sightings/advanced/7190/event",
+      "selector": "#popover_box (event Graph)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:28:05.450Z"
+    },
+    {
+      "file": "sightings/figures/sightinggraph.png",
+      "url": "/sightings/advanced/100099610/attribute",
+      "selector": "#popover_box (Graph)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:27:58.152Z"
+    },
+    {
+      "file": "sightings/figures/sightingmyorg.png",
+      "url": "/sightings/advanced/100099610/attribute",
+      "selector": "#popover_box (My org)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T11:28:00.201Z"
+    },
+    {
       "file": "taxonomy/figures/enableTaxonomy.png",
       "url": "/taxonomies/view/8",
       "selector": ".view",

@@ -50,11 +50,11 @@ Concerning the three icons:
 
 #### At Event level
 
-The total number of sightings is also visible as part of the metadata in front of the Sightings label, as well as a sparkline graph that summarize the evolution of sightings.  
+The total number of sightings across the whole event is shown in the event metadata, next to the **Sightings** label: the overall count, your own organisation's count in green, and — depending on the [sightings policy](#sighting-policies-and-privacy) — a note about whose sightings you are allowed to see.
 
 ![sighting event](./figures/sightingevent.png)
 
-Clicking on the tool will show sighting details for the whole event.
+Clicking the wrench opens the same **Sighting details** popup for the whole event, with the Graph, All and My org tabs (there is no *Add sighting* tab here — sightings are always added against a specific attribute).
 
 ![sighting event popup](./figures/sightingeventpopup.png)
 
