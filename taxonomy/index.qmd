@@ -190,9 +190,13 @@ A taxonomy — or an individual predicate within one — can be marked **exclusi
 means only one value may apply at a time: for an exclusive *taxonomy*, an event may carry only a
 single tag from that whole namespace; for an exclusive *predicate*, only one value of that
 predicate may be set. `tlp` is the classic example — an event should have exactly one TLP level.
-If you try to add a second, conflicting tag from an exclusive taxonomy or predicate, MISP warns
-you of the conflict rather than applying it. Exclusivity is defined in the taxonomy's JSON, not
-toggled from the UI.
+When an event ends up carrying more than one value from an exclusive taxonomy or predicate — for
+example both `tlp:white` and `tlp:red` — MISP does not silently reconcile them: it applies the
+tags but flags the conflict with a prominent warning in the event's tag area, so you can resolve
+it. (Such a state most often arises from synchronised or API-tagged events.) Exclusivity is
+defined in the taxonomy's JSON, not toggled from the UI.
+
+![An exclusivity conflict: because `tlp` is an exclusive taxonomy, an event tagged both `tlp:white` and `tlp:red` is flagged with a warning in its tag area.](./figures/exclusive-conflict.png)
 
 ### Bulk actions and normalising custom tags
 

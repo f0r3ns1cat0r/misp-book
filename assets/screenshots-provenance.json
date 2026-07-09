@@ -368,7 +368,7 @@
     {
       "file": "misp-objects/figures/object_picker.png",
       "url": "/events/view/7183",
-      "selector": ".popover (#liaddObject \u2192 objectChoice)",
+      "selector": ".popover (#liaddObject → objectChoice)",
       "misp_version": "2.5.42",
       "theme": "light",
       "viewport": "1440x900",
@@ -459,6 +459,16 @@
       "viewport": "1440x900",
       "scale": 2,
       "captured_at": "2026-07-08T14:06:43.885Z"
+    },
+    {
+      "file": "taxonomy/figures/exclusive-conflict.png",
+      "url": "/events/view/7189",
+      "selector": "span.eventTagContainer (.tag-conflict-notice)",
+      "misp_version": "2.5.42",
+      "theme": "light",
+      "viewport": "1440x900",
+      "scale": 2,
+      "captured_at": "2026-07-09T10:36:23.945Z"
     },
     {
       "file": "taxonomy/figures/highlight-event.png",
