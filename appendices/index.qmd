@@ -882,7 +882,7 @@ Run on your MISP instance the following commands.
     ```
 
 ## MISP Config
-1. Go to your **MISP** instances `Server Settings & Maintenance` page, and then to the new [SimpleBackgroundJobs]((https://localhost/servers/serverSettings/SimpleBackgroundJobs)) tab.
+1. Go to your **MISP** instances `Server Settings & Maintenance` page, and then to the new **SimpleBackgroundJobs** tab.
 
 2. Update the `SimpleBackgroundJobs.supervisor_password` with the password you set in the _Install requirements_ section 3.
 

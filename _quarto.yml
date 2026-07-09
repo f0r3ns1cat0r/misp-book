@@ -87,8 +87,13 @@ book:
 
 # Executable PyMISP/REST cells run locally against the dev instance and are
 # frozen into _freeze/ (committed), so CI renders without a live instance (D3/A10).
+# `freeze: true` (not `auto`) is required: CI has no MISP instance or Jupyter
+# kernel, so it must ALWAYS reuse the committed _freeze/ cells and never try to
+# re-execute. To refresh the frozen output, re-render the executable chapter(s)
+# locally against a live instance (QUARTO_PYTHON + MISP_URL/MISP_KEY) and commit
+# the updated _freeze/.
 execute:
-  freeze: auto
+  freeze: true
 
 format:
   html:
