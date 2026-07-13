@@ -1,7 +1,7 @@
 ---
 title: "Appendices"
 ---
-[]{#summary}
+<a id="summary"></a>
 
 
 # Appendix A: External Authentication
@@ -713,7 +713,7 @@ You can also inspect `app/tmp/logs/error.log` for the raw error responses from t
 good troubleshooting order is: set `debug => true`, start with `starttls => false`, and if you hit
 `LDAP user search failed: Operations error`, set `ldapAllowReferrals => 0`.
 
-[]{#migrating-existing-user-to-ldap}
+<a id="migrating-existing-user-to-ldap"></a>
 
 #### Migrating existing users to LDAP
 

@@ -1,14 +1,14 @@
 ---
 title: "Warning Lists"
 ---
-[]{#misp-warninglists}
+<a id="misp-warninglists"></a>
 
 
 MISP warning lists contain well-known indicators that may correspond to false positives, errors, or mistakes.
 There is also a Python module for working with warning lists in a Pythonic way: [PyMISPWarningLists](https://github.com/MISP/PyMISPWarningLists).
 [MISP Warning Lists GitHub Repository](https://github.com/MISP/misp-warninglists)
 
-[]{#misp-warning-lists-introduction-the-dilemma-of-false-positive}
+<a id="misp-warning-lists-introduction-the-dilemma-of-false-positive"></a>
 
 ## Warning Lists and False Positives
 
@@ -86,7 +86,7 @@ refreshed by the update mechanism; use the GUI editor mainly for your own local 
 changes are not overwritten on the next update.
 :::
 
-[]{#creating-a-custom-warninglist}
+<a id="creating-a-custom-warninglist"></a>
 
 ### Creating a custom warninglist on disk
 

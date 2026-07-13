@@ -78,7 +78,7 @@ information about the number of events processed by the service.
 
 ![ZeroMQ diagnostics](./figures/zmq-diagnostics.png)
 
-[]{#testing-with-subpy-tool}
+<a id="testing-with-subpy-tool"></a>
 
 ### Testing with sub.py tool
 
@@ -166,7 +166,7 @@ misp@cpeb:/var/www/MISP/tools/misp-zmq$ python3 -u sub.py  | jq .
 ### Notification Schemas
 Each notification channel uses a slightly different JSON schema. Consult this section to identify which MISP components exist in a channel:
 
-[]{#mispjson---events-published}
+<a id="mispjson---events-published"></a>
 
 #### misp_json - events published
 When an event is published to ZMQ (which is different from being published in MISP) the ZMQ notification will contain the MISP event data along with all its component children.
@@ -284,7 +284,7 @@ Example:
 }
 ```
 
-[]{#mispjsonattribute---attribute-updated-or-created}
+<a id="mispjsonattribute---attribute-updated-or-created"></a>
 
 #### misp_json_attribute - attribute updated or created
 The attributes appear to have the most diversity depending on the action applied to them.
@@ -425,7 +425,7 @@ Delete Example:
 }
 ```
 
-[]{#mispjsonsighting---sighting-added-to-an-attribute-or-an-event}
+<a id="mispjsonsighting---sighting-added-to-an-attribute-or-an-event"></a>
 
 #### misp_json_sighting - sighting added to an attribute or an event
 The message sent for sightings is fairly simple, with the type of sighting (0 = Addition, 1 = False Positive), the date (in seconds-since-epoch format), the id of the attribute it applies to and the id of the attribute's parent event.
@@ -462,7 +462,7 @@ False Positive Example:
 }
 ```
 
-[]{#mispjsonuser---user-updates-or-creation}
+<a id="mispjsonuser---user-updates-or-creation"></a>
 
 #### misp_json_user - user updates or creation
 An update is sent through ZMQ when users log in. There are actually two messages for this - both being fairly sparse.
@@ -520,7 +520,7 @@ User Creation and User Edit Example:
 }
 ```
 
-[]{#mispjsonorganisation---organisation-updates-or-creation}
+<a id="mispjsonorganisation---organisation-updates-or-creation"></a>
 
 #### misp_json_organisation - organisation updates or creation
 Org notifications are sent when Orgs are updated and created, but not when they are deleted. They are generally the same, with the additional fields `created_by` and `date_created` being present when an Org is created.
@@ -577,7 +577,7 @@ Edit Example:
 }
 ```
 
-[]{#mispjsonself----keep-alive-messages-sent-every-minute}
+<a id="mispjsonself----keep-alive-messages-sent-every-minute"></a>
 
 #### misp_json_self -  keep-alive messages sent every minute
 Only really useful to ensure the ZMQ server is running. And for a bit of humor

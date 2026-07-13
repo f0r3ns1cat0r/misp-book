@@ -1,7 +1,7 @@
 ---
 title: "User Stories"
 ---
-[]{#misp-user-stories}
+<a id="misp-user-stories"></a>
 
 
 | User story | Example workflow |

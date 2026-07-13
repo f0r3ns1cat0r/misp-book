@@ -23,7 +23,7 @@ or attribute — but the UI presents it as a first-class object rather than a fl
 tag. For the difference between galaxies and taxonomy tags, see the
 [Taxonomies](../taxonomy/index.qmd) chapter.
 
-[]{#managing-galaxies-in-misp}
+<a id="managing-galaxies-in-misp"></a>
 
 ## Managing galaxies in the UI
 
@@ -79,7 +79,7 @@ in an event highlighted as a heat-map across the tactics.
 
 ![A matrix (ATT&CK-style) galaxy.](./figures/Matrix.png)
 
-[]{#using-galaxies-in-misp-events---example}
+<a id="using-galaxies-in-misp-events---example"></a>
 
 ## Using galaxies in events and attributes
 

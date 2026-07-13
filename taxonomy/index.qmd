@@ -120,7 +120,7 @@ Go to MISP Web GUI taxonomies/index and update the taxonomies once you are happy
 
 Taxonomy tags can drive what MISP shares with connected instances. When you configure a synchronisation server (**Sync Actions → List Servers**), the push and pull rules let you allow or block events by tag — as well as by organisation, attribute type, or object. This makes tags such as `tlp:*` a practical distribution control. See [Synchronisation and Sharing](../sharing/index.qmd) for the full push/pull rule set.
 
-[]{#taxonomies}
+<a id="taxonomies"></a>
 
 ### MISP Taxonomies - tools
 
@@ -156,7 +156,7 @@ Tags can be used to:
 
 * Enrich IDS export with tags to fit your NIDS deployment.
 
-[]{#more-options-to-configure-taxonomies}
+<a id="more-options-to-configure-taxonomies"></a>
 
 ## More options to configure taxonomies.
 

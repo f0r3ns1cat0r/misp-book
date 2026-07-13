@@ -1,7 +1,7 @@
 ---
 title: "Create an Event Based on a Report"
 ---
-[]{#create-an-event-based-on-a-report}
+<a id="create-an-event-based-on-a-report"></a>
 
 
 ::: {.callout-warning}

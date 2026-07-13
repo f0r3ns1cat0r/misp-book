@@ -113,7 +113,7 @@ In MISP 2.5 the workers run under SimpleBackgroundJobs and are managed by Superv
 
 Source: [Getting started with MISP](http://www.vanimpe.eu/2015/05/31/getting-started-misp-malware-information-sharing-platform-threat-sharing-part-3/)
 
-[]{#when-i-try-to-access-my-new-installation-i-am-redirected-to-localhost8443-and-get-an-error}
+<a id="when-i-try-to-access-my-new-installation-i-am-redirected-to-localhost8443-and-get-an-error"></a>
 
 ### When I try to access my new installation, I am redirected to localhost:8443 and get an error.
 
@@ -157,7 +157,7 @@ The simplest option is to select the text in the report and paste it into the fr
 
 Another option is the new [OCR import module](https://github.com/MISP/misp-modules) that can be used via the import modules. You will need to install the OCR software tesseract.
 
-[]{#i-have-many-failed-jobs-when-doing-email-notification-what-should-i-do}
+<a id="i-have-many-failed-jobs-when-doing-email-notification-what-should-i-do"></a>
 
 ### I have many failed jobs when doing email notification. What should I do?
 
@@ -292,7 +292,7 @@ Simply POST your ID list to `/events/delete` in the following format:
 }
 ```
 
-[]{#i-can-no-longer-log-in-how-do-i-reset-the-admin-password}
+<a id="i-can-no-longer-log-in-how-do-i-reset-the-admin-password"></a>
 
 ### I can no longer log in. How do I reset the admin password?
 
@@ -582,7 +582,7 @@ You cannot "break" anything by clicking **Update MISP** worse case it will compl
 
 IF not, please open an [issue](https://github.com/MISP/MISP/issues) on GitHub or come to our [gitter](https://gitter.im/MISP/MISP) chat to see if the community can help.
 
-[]{#error-pathspec-appcomposerjson-did-not-match-any-files-known-to-git}
+<a id="error-pathspec-appcomposerjson-did-not-match-any-files-known-to-git"></a>
 
 ### error: pathspec 'app/composer.json' did not match any file(s) known to git
 
@@ -702,7 +702,7 @@ Note down the role ID you want to upgrade. Let's say this is 1 for the example's
 UPDATE users set role_id = 1 where id = 2;
 ```
 
-[]{#configphp-is-not-writeable}
+<a id="configphp-is-not-writeable"></a>
 
 ## config.php is not writeable
 
@@ -755,7 +755,7 @@ Open the Web developer Network tab in your browser and look for the url /_logs w
 
 The REST client will use the framework's certificate store to validate the contacted host. If your root CA / self-signed certificate is not known by the certificate store, the request will fail. You can skip the SSL validation altogether using the "Skip SSL validation" checkbox.
 
-[]{#what-to-do-if-my-rest-client-cannot-reach-the-host-despite-me-being-able-to-issue-requests-using-curl--postman--etc}
+<a id="what-to-do-if-my-rest-client-cannot-reach-the-host-despite-me-being-able-to-issue-requests-using-curl--postman--etc"></a>
 
 ## What to do if my REST client cannot reach the host, despite me being able to issue requests using Curl / Postman / etc.?
 
@@ -763,7 +763,7 @@ The REST client issues instructions to your MISP server to contact a remote host
 
 If your MISP cannot reach itself via the baseurl the request will fail. You can use the "Use full path - disclose my API key" checkbox along with the full URL in the URL field to instruct MISP to use another path than what it would construct using the baseurl. 
 
-[]{#how-would-one-set-up-a-sharing-group-with-a-remote-org-where-we-only-share-a-mutual-community-instance-ie-we-both-have-sync-users-on-that-instance-on-our-local-instance-they-exist-as-a-remote-org-from-events-that-have-synced-from-their-instance-via-our-shared-community-instance}
+<a id="how-would-one-set-up-a-sharing-group-with-a-remote-org-where-we-only-share-a-mutual-community-instance-ie-we-both-have-sync-users-on-that-instance-on-our-local-instance-they-exist-as-a-remote-org-from-events-that-have-synced-from-their-instance-via-our-shared-community-instance"></a>
 
 ## How would one set up a sharing group with a remote org, where we only share a mutual community instance (i.e. we both have sync users on that instance). On our local instance, they exist as a remote org (from events that have synced from their instance via our shared community instance). 
 
@@ -821,7 +821,7 @@ Users with the site-admin role are able to add objects to events without any err
 
 ## WatchList Customization
 
-[]{#how-to-create-a-customized-watchlist}
+<a id="how-to-create-a-customized-watchlist"></a>
 
 ### How to create a customized WatchList.
 

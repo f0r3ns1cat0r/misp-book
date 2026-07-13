@@ -72,7 +72,7 @@ misp_key = 'Your MISP auth key'   # from My Profile > Auth Keys
 misp_verifycert = True            # set to False only for self-signed certs in testing
 ```
 
-[]{#pymisp---python-library-to-access-misp}
+<a id="pymisp---python-library-to-access-misp"></a>
 
 ### Using PyMISP
 
@@ -132,7 +132,7 @@ current catalogue.
 
 ### Going further
 
-[]{#consuming-feed}
+<a id="consuming-feed"></a>
 
 #### Generating and consuming feeds
 

@@ -1,7 +1,7 @@
 ---
 title: "Automation and MISP API"
 ---
-[]{#automation-api}
+<a id="automation-api"></a>
 
 
 Almost everything you can do in the MISP web interface you can also do
@@ -1179,7 +1179,7 @@ curl \
 
 ## Objects management
 
-[]{#post-objectsdeleteobjectidharddelete}
+<a id="post-objectsdeleteobjectidharddelete"></a>
 
 ### POST /objects/delete/[object_id]/[hard_delete]
 
@@ -1733,7 +1733,7 @@ To export the attributes of all events that are of the type "domain", use the fo
 https://<misp url>/events/csv/download/false/false/false/false/domain
 ~~~~
 
-[]{#update-2482}
+<a id="update-2482"></a>
 
 #### Update 2.4.82
 Since version 2.4.82, the new export format allows to select more columns using the following query format:

@@ -1,7 +1,7 @@
 ---
 title: "User Personas"
 ---
-[]{#misp-user-personas}
+<a id="misp-user-personas"></a>
 
 
 These personas are fictional, but they are based on concrete representations of the people who use MISP.

@@ -1,7 +1,7 @@
 ---
 title: "External Connectors"
 ---
-[]{#external-connectors}
+<a id="external-connectors"></a>
 
 
 MISP is designed to sit at the centre of a security stack, not in isolation. Threat
@@ -54,7 +54,7 @@ setup instructions and version support — they are maintained outside the MISP 
   distributes organisation and sharing-group information across a community; see
   [Sharing](../sharing/index.qmd).
 
-[]{#misp-to-microsoft-graph-security-script}
+<a id="misp-to-microsoft-graph-security-script"></a>
 
 ## Worked example: MISP to Microsoft Graph Security
 

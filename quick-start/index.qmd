@@ -26,7 +26,7 @@ MISP default credentials:
 </tr>
 </table>
 
-[]{#i-forgot-my-admin-password-}
+<a id="i-forgot-my-admin-password-"></a>
 
 ## I forgot my admin password :(
 
@@ -197,7 +197,7 @@ Most taxonomies are disabled out of the box. To start tagging with one, go to
 appear in the tag picker on events and attributes. See the
 [Taxonomies](../taxonomy/index.qmd) chapter for more.
 
-[]{#enable-and-fetch-a-feeds}
+<a id="enable-and-fetch-a-feeds"></a>
 
 ## Enable and fetch a feed
 

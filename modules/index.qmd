@@ -1,7 +1,7 @@
 ---
 title: "Modules"
 ---
-[]{#misp-modules}
+<a id="misp-modules"></a>
 
 
 **MISP modules** extend MISP with expansion, import, export and action services

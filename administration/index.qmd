@@ -392,7 +392,7 @@ When viewing the list of allowlisted addresses, the following data is shown: The
 MISP automatically correlates attributes that share the same value across
 events. Administrators have several tools to tune what correlates.
 
-[]{#managing-correlation-exclusions}
+<a id="managing-correlation-exclusions"></a>
 
 ### Correlation exclusions
 
@@ -440,9 +440,9 @@ The correlation engine is selected with the `MISP.correlation_engine` setting
 computes correlations only when an event is viewed, trading immediate
 correlation for a lower write-time cost.
 
-[]{#browsing-logs}
+<a id="browsing-logs"></a>
 
-[]{#using-misp-logs}
+<a id="using-misp-logs"></a>
 
 ## Logs
 
@@ -529,7 +529,7 @@ The "Jobs" menu item within the Administration menu allows site admins to get an
 
 ![Site administrators can monitor the process of all queued jobs here.](figures/jobs.png)
 
-[]{#scheduling-jobs-and-recurring-jobs}
+<a id="scheduling-jobs-and-recurring-jobs"></a>
 
 ### Scheduling recurring tasks
 
@@ -608,7 +608,7 @@ per-endpoint execution times and query load, viewable under **Administration →
 Benchmarking**. It is a diagnostic aid; leave it off during normal operation.
 
 
-[]{#various-administration-tips--tricks}
+<a id="various-administration-tips--tricks"></a>
 
 ## Various administration tips & tricks
 
@@ -677,7 +677,7 @@ You can add a logo for your organisations in MISP by uploading them via the tab 
 The filename must be exactly the same as the organisation name that you will use in MISP.
 It is recommended to use PNG files of 48x48 pixels.
 
-[]{#the-schdlr-worker-is-not-starting}
+<a id="the-schdlr-worker-is-not-starting"></a>
 
 ### The scheduler worker is not starting
 
@@ -726,7 +726,7 @@ Here is a sample configuration for Apache webserver.
  ```
    Taken from [Koen Van Impe's blog](http://www.vanimpe.eu/2015/05/31/getting-started-misp-malware-information-sharing-platform-threat-sharing-part-3/)
 
-[]{#increase-max-size-of-samples--other-files}
+<a id="increase-max-size-of-samples--other-files"></a>
 
 ### Increase max size of Samples / other files
 
@@ -774,7 +774,7 @@ And then restart apache2
 service apache2 restart
 ```
 
-[]{#support--feature-requests}
+<a id="support--feature-requests"></a>
 
 ### Support & feature requests
 
@@ -1069,7 +1069,7 @@ Under SimpleBackgroundJobs the worker processes are managed by Supervisor, so th
 #### Show Job Status
     MISP/app/Console/cake Worker showJobStatus [worker]
 
-[]{#get-list-of-workers}
+<a id="get-list-of-workers"></a>
 
 #### List Workers
     MISP/app/Console/cake Admin getWorkers [all|dead]

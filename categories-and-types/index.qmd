@@ -2,7 +2,7 @@
 title: "Categories and Types"
 ---
 
-[]{#attribute-categories-vs-types}
+<a id="attribute-categories-vs-types"></a>
 
 ### Attribute Categories vs. Types
 

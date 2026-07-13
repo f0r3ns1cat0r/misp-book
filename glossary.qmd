@@ -31,7 +31,7 @@ Indicator of compromise (IOC or IoC) is an artefact observed on a network or in 
 ## NIDS
 Network Intrusion Detection System eg. Snort, Suricata
 
-[]{#malware-information-sharing-platform-and-threat-sharing}
+<a id="malware-information-sharing-platform-and-threat-sharing"></a>
 
 ## MISP
 **MISP** is a recursive acronym for the **MISP Intelligence Sharing Platform**. The project was originally named the *Malware Information Sharing Platform*, but as its scope grew well beyond malware to cover every kind of threat intelligence, the name was redefined recursively — in the tradition of GNU ("GNU's Not Unix"). It is commonly known simply as MISP.

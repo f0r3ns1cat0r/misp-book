@@ -1,7 +1,7 @@
 ---
 title: "User Management and Global Actions"
 ---
-[]{#user-management-and-global-actions}
+<a id="user-management-and-global-actions"></a>
 
 
 This chapter covers managing your own MISP account — first login, your profile,

@@ -1,7 +1,7 @@
 ---
 title: "Notice Lists"
 ---
-[]{#misp-noticelist}
+<a id="misp-noticelist"></a>
 
 
 Notice lists inform MISP users about the legal, privacy, policy or technical

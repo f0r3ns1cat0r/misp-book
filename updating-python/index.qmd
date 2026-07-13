@@ -16,7 +16,7 @@ If you use the [installation scripts](https://github.com/MISP/MISP/tree/2.5/INST
 
 If you are using an older MISP version, you may want to create the virtual environment manually.
 
-[]{#set-the-virtual-environment-up}
+<a id="set-the-virtual-environment-up"></a>
 
 #### Set Up the Virtual Environment
 ~~~~bash

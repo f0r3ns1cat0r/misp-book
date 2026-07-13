@@ -99,7 +99,7 @@ the event view's left-hand menu; the main entry points are **Add Attribute**,
 also let MISP extract indicators for you with [enrichment](#enrichment) or from an
 [event report](../create-event-report/index.qmd).
 
-[]{#add-attributes-to-the-event}
+<a id="add-attributes-to-the-event"></a>
 
 ### Add Attribute
 
@@ -148,7 +148,7 @@ another (for example, a network-connection object referencing the file that
 initiated it). See the [MISP objects](../misp-objects/index.qmd) chapter for the
 full workflow, including object references and relationships.
 
-[]{#add-attachments-to-the-event}
+<a id="add-attachments-to-the-event"></a>
 
 ### Add Attachment
 
@@ -170,13 +170,13 @@ reports, or artefacts dropped by the malware.
     represent the upload; when advanced extraction is installed, MISP can pull
     additional attributes out of the file (for example from a PE binary).
 
-[]{#freetext-import-tool}
+<a id="freetext-import-tool"></a>
 
-[]{#populate-from-openioc}
+<a id="populate-from-openioc"></a>
 
-[]{#populate-from-template}
+<a id="populate-from-template"></a>
 
-[]{#populate-from-threatconnect}
+<a id="populate-from-threatconnect"></a>
 
 ### Populate from…
 
@@ -214,7 +214,7 @@ decide whether to keep them.
 Raw indicators are only half the story. MISP offers several complementary ways to
 say what your data *means* and how much to trust it.
 
-[]{#tagging}
+<a id="tagging"></a>
 
 ### Tagging: taxonomies, galaxies and tag collections
 
@@ -282,7 +282,7 @@ over time (green while valid, red once it has decayed). Clicking a score opens
 the decay simulation tool. Decaying lets consumers automatically age out stale
 indicators instead of trusting them forever.
 
-[]{#event-view}
+<a id="event-view"></a>
 
 ## The event view
 
@@ -399,7 +399,7 @@ or thread.
 
 ## Collaborating on events
 
-[]{#propose-a-change-to-an-event-that-belongs-to-another-organisation}
+<a id="propose-a-change-to-an-event-that-belongs-to-another-organisation"></a>
 
 ### Proposing changes to another organisation's event
 
@@ -488,7 +488,7 @@ existing event's UUID row. The event view can then show the combined
 (extended) picture, and search filters let you include or isolate extensions. See
 the [Extended events](../extended-events/index.qmd) chapter.
 
-[]{#browsing-past-events}
+<a id="browsing-past-events"></a>
 
 ## Browsing and searching
 
@@ -506,7 +506,7 @@ Use the filter/query controls at the top of the index to narrow the list by any
 combination of criteria, and the scope tabs to switch between your organisation's
 events and everything you can see.
 
-[]{#listing-all-attributes}
+<a id="listing-all-attributes"></a>
 
 ### Listing and searching attributes
 
@@ -520,7 +520,7 @@ category, tag, organisation, date range and more, and export the result set
 directly. Because the search UI and the API share the same filters, anything you
 can find interactively you can also automate.
 
-[]{#updating-and-modifying-events-and-attributes}
+<a id="updating-and-modifying-events-and-attributes"></a>
 
 ## Editing events and attributes
 
@@ -642,7 +642,7 @@ of return formats, and the interactive OpenAPI documentation and built-in REST
 client — lives in the [Automation & API](../automation/index.qmd) chapter. For
 Python, see [PyMISP](../pymisp/index.qmd).
 
-[]{#using-totphotp-multi-factor-authentication}
+<a id="using-totphotp-multi-factor-authentication"></a>
 
 ## Multi-factor authentication (TOTP/HOTP)
 
@@ -682,7 +682,7 @@ subsequent logins.
 
 Enter either a code from your authenticator or one of the numbered paper tokens.
 
-[]{#deleting-and-re-generating-totphotp-tokens}
+<a id="deleting-and-re-generating-totphotp-tokens"></a>
 
 ### Deleting and regenerating tokens
 
