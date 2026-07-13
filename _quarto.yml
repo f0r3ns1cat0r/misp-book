@@ -4,7 +4,7 @@ project:
 
 book:
   title: "MISP User Guide"
-  subtitle: "Open Source Threat Intelligence Sharing Platform"
+  subtitle: "MISP Intelligence Sharing Platform"
   author: "The MISP Project & Contributors"
   date: today
   favicon: assets/misp-2-verti.png

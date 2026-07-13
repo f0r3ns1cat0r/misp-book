@@ -20,6 +20,12 @@ description: Convention Used in MISP-Book
 
 * Used for variable, function or menu names in MISP.
 
+## The MISP name
+
+**MISP** is a recursive acronym: it stands for the **MISP Intelligence Sharing Platform**.
+The project was first named the *Malware Information Sharing Platform*, but as it grew to cover every kind of threat intelligence — not just malware — the name was redefined recursively, in the spirit of GNU ("GNU's Not Unix").
+Throughout this book, *MISP* refers to the MISP Intelligence Sharing Platform.
+
 ## Language
 
 The language in this book is American English.
