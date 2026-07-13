@@ -2,7 +2,7 @@
 title: "Introduction"
 ---
 
-![MISP logo](assets/misp-logo.png){width=280 fig-align="left"}
+![MISP logo](assets/misp-2-verti.png){width=220 fig-align="left"}
 
 This guide introduces MISP, the open source threat intelligence sharing platform.
 It is intended for ICT professionals such as security analysts, incident responders, and malware reverse engineers who share threat intelligence with MISP or integrate MISP into other security monitoring tools.
