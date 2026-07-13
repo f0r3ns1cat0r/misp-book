@@ -30,11 +30,15 @@ Whichever method you choose, keep the instance updated (see the
 and review the [requirements](../requirements/index.qmd) chapter for the supported
 software versions.
 
+[]{#misp-virtual-machine}
+
 ## Evaluation virtual machine
 
 CIRCL maintains an up-to-date MISP virtual machine image, regenerated regularly
 from the MISP repository. It is an easy out-of-the-box option, well suited to
 product evaluation and to training sessions.
+
+[]{#misp-vm-download}
 
 ### Download
 
@@ -43,6 +47,8 @@ available training materials, is the
 [MISP training materials page](https://www.circl.lu/services/misp-training-materials/)
 on the CIRCL website. Download the image and validate its SHA512 fingerprint
 before using it.
+
+[]{#import-appliance}
 
 ### Import the appliance
 
@@ -54,12 +60,16 @@ These instructions cover VirtualBox; for other virtualisation solutions (such as
 VMware) see the notes on the training materials page. ESXi servers have also been
 tested, though you may need to adjust the ATA bus manually.
 
+[]{#misp-vm-credentials}
+
 ### Credentials
 
 *   **GUI admin:** `admin@admin.test` / `admin` — the site-admin account with full
     rights (create your own users and change this immediately).
 *   **Shell/SSH:** `misp` / `Password1234`.
 *   **MySQL:** generated when the VM is built; the details are in `~misp/mysql.txt`.
+
+[]{#networking-on-the-vm}
 
 ### Networking
 

@@ -72,6 +72,8 @@ misp_key = 'Your MISP auth key'   # from My Profile > Auth Keys
 misp_verifycert = True            # set to False only for self-signed certs in testing
 ```
 
+[]{#pymisp---python-library-to-access-misp}
+
 ### Using PyMISP
 
 The core object is `PyMISP`, created with your instance URL and key. Its
@@ -129,6 +131,8 @@ them all — browse the
 current catalogue.
 
 ### Going further
+
+[]{#consuming-feed}
 
 #### Generating and consuming feeds
 

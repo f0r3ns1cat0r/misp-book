@@ -1,6 +1,8 @@
 ---
 title: "Notice Lists"
 ---
+[]{#misp-noticelist}
+
 
 Notice lists inform MISP users about the legal, privacy, policy or technical
 implications of using specific attributes, categories or objects. They are a way

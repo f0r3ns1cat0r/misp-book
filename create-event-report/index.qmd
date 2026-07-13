@@ -1,6 +1,8 @@
 ---
 title: "Create an Event Based on a Report"
 ---
+[]{#create-an-event-based-on-a-report}
+
 
 ::: {.callout-warning}
 A specific permission is required to create an event.

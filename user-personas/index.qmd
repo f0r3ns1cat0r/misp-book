@@ -1,6 +1,8 @@
 ---
 title: "User Personas"
 ---
+[]{#misp-user-personas}
+
 
 These personas are fictional, but they are based on concrete representations of the people who use MISP.
 They help us keep in mind who we are building for, what their needs are, and what MISP should help them accomplish.

@@ -1,6 +1,8 @@
 ---
 title: "Keyboard Shortcuts"
 ---
+[]{#keyboard-shortcuts-in-misp}
+
 
 MISP ships with keyboard shortcuts on the busiest pages. To see which shortcuts are available
 on the page you are currently on, press the small triangle at the bottom-right of the window

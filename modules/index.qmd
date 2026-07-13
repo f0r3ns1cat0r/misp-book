@@ -1,6 +1,8 @@
 ---
 title: "Modules"
 ---
+[]{#misp-modules}
+
 
 **MISP modules** extend MISP with expansion, import, export and action services
 without touching the core. They are self-contained Python 3 programs that run as a

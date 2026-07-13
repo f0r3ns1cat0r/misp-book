@@ -73,6 +73,8 @@ library ships with MISP and is kept up to date from the
 **Update Objects** in the administration menu, or on the command line with
 `cake Admin updateObjectTemplates` (a good candidate for a cron job).
 
+[]{#creating-object}
+
 ### Creating object templates
 
 An object template is a JSON file that follows the

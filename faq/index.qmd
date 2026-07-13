@@ -113,6 +113,8 @@ In MISP 2.5 the workers run under SimpleBackgroundJobs and are managed by Superv
 
 Source: [Getting started with MISP](http://www.vanimpe.eu/2015/05/31/getting-started-misp-malware-information-sharing-platform-threat-sharing-part-3/)
 
+[]{#when-i-try-to-access-my-new-installation-i-am-redirected-to-localhost8443-and-get-an-error}
+
 ### When I try to access my new installation, I am redirected to localhost:8443 and get an error.
 
 By default, MISP runs on a local instance and is setup for local access upon installation. This allows you to setup security and customizations before making it available elsewhere. If you would like to access the MISP instance from a remote host (including another VM host/client), assign an IP to the MISP host and point your browser accordingly. Please refer to [how to set the baseurl from command line](#how-do-i-set-the-baseurl-from-the-command-line). Once the update is done, you should then be able to access the instance using the set IP/DNS name.
@@ -154,6 +156,8 @@ Partial source: [Getting started with MISP](http://www.vanimpe.eu/2015/05/31/get
 The simplest option is to select the text in the report and paste it into the free-text import form. For automated extraction, use the MISP import modules — for example the OCR, PDF or CSV import modules — enabled under **Administration → Server Settings → Plugin settings**.
 
 Another option is the new [OCR import module](https://github.com/MISP/misp-modules) that can be used via the import modules. You will need to install the OCR software tesseract.
+
+[]{#i-have-many-failed-jobs-when-doing-email-notification-what-should-i-do}
 
 ### I have many failed jobs when doing email notification. What should I do?
 
@@ -287,6 +291,8 @@ Simply POST your ID list to `/events/delete` in the following format:
   "id": [1,3,5,7,9]
 }
 ```
+
+[]{#i-can-no-longer-log-in-how-do-i-reset-the-admin-password}
 
 ### I can no longer log in. How do I reset the admin password?
 
@@ -576,6 +582,8 @@ You cannot "break" anything by clicking **Update MISP** worse case it will compl
 
 IF not, please open an [issue](https://github.com/MISP/MISP/issues) on GitHub or come to our [gitter](https://gitter.im/MISP/MISP) chat to see if the community can help.
 
+[]{#error-pathspec-appcomposerjson-did-not-match-any-files-known-to-git}
+
 ### error: pathspec 'app/composer.json' did not match any file(s) known to git
 
 This is **not** an error and can be ignore. Nothing will be impacted by this.
@@ -694,6 +702,8 @@ Note down the role ID you want to upgrade. Let's say this is 1 for the example's
 UPDATE users set role_id = 1 where id = 2;
 ```
 
+[]{#configphp-is-not-writeable}
+
 ## config.php is not writeable
 
 ```
@@ -745,11 +755,15 @@ Open the Web developer Network tab in your browser and look for the url /_logs w
 
 The REST client will use the framework's certificate store to validate the contacted host. If your root CA / self-signed certificate is not known by the certificate store, the request will fail. You can skip the SSL validation altogether using the "Skip SSL validation" checkbox.
 
+[]{#what-to-do-if-my-rest-client-cannot-reach-the-host-despite-me-being-able-to-issue-requests-using-curl--postman--etc}
+
 ## What to do if my REST client cannot reach the host, despite me being able to issue requests using Curl / Postman / etc.?
 
 The REST client issues instructions to your MISP server to contact a remote host (most commonly itself). Always consider how your MISP server can address itself when using the REST client, by default it will prepend the requested relative path in the URL field with the instance's baseurl.
 
 If your MISP cannot reach itself via the baseurl the request will fail. You can use the "Use full path - disclose my API key" checkbox along with the full URL in the URL field to instruct MISP to use another path than what it would construct using the baseurl. 
+
+[]{#how-would-one-set-up-a-sharing-group-with-a-remote-org-where-we-only-share-a-mutual-community-instance-ie-we-both-have-sync-users-on-that-instance-on-our-local-instance-they-exist-as-a-remote-org-from-events-that-have-synced-from-their-instance-via-our-shared-community-instance}
 
 ## How would one set up a sharing group with a remote org, where we only share a mutual community instance (i.e. we both have sync users on that instance). On our local instance, they exist as a remote org (from events that have synced from their instance via our shared community instance). 
 
@@ -806,6 +820,8 @@ One potential resolution is to upgrade MISP to 2.4.107.
 Users with the site-admin role are able to add objects to events without any error. This error was encountered when a user belonged to every role **except** site-admin.
 
 ## WatchList Customization
+
+[]{#how-to-create-a-customized-watchlist}
 
 ### How to create a customized WatchList.
 

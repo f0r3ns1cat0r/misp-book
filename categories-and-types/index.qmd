@@ -2,6 +2,8 @@
 title: "Categories and Types"
 ---
 
+[]{#attribute-categories-vs-types}
+
 ### Attribute Categories vs. Types
 
 ::: {.callout-note}

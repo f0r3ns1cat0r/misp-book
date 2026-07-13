@@ -1,6 +1,8 @@
 ---
 title: "Synchronization and Sharing"
 ---
+[]{#sharing--synchronisation}
+
 
 # Sharing / Synchronisation
 
@@ -256,6 +258,8 @@ Rule of thumb: if the user configured to pull from instance A can see the event 
 | Connected communities      | Event/object/attribute distribution decreased to 'This community only' on B                                                                                                    |
 | All communities   | Event/object/attribute distribution stays all communities on B                                                                                                                 |
 
+[]{#internal-instance-flag--set}
+
 ##### Internal instance flag  set
 The below scenarios are if “Internal instance” has been checked when creating the server. This is the *not* the usual scenario and *potentially dangerous*. The internal instance flag can be used when both instances have the same hosting organisation. 
 
@@ -282,6 +286,8 @@ Rule of thumb: if the user configured to pull from instance A can see the event 
 ### Proposals
 
 Proposals can be used to propose new attribute values that can be reviewed by the event owner.
+
+[]{#forums--threats}
 
 ### Forums / Threats
 

@@ -1,6 +1,8 @@
 ---
 title: "Developer FAQ"
 ---
+[]{#developer-faq}
+
 
 ## Main Developer Resources
 

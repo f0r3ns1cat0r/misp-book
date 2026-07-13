@@ -26,6 +26,8 @@ MISP default credentials:
 </tr>
 </table>
 
+[]{#i-forgot-my-admin-password-}
+
 ## I forgot my admin password :(
 
 You can quickly reset it via the command line. You need to know the Admins E-Mail address.
@@ -194,6 +196,8 @@ Most taxonomies are disabled out of the box. To start tagging with one, go to
 `tlp`), and enable it — you can also enable all of its tags at once. Its tags then
 appear in the tag picker on events and attributes. See the
 [Taxonomies](../taxonomy/index.qmd) chapter for more.
+
+[]{#enable-and-fetch-a-feeds}
 
 ## Enable and fetch a feed
 

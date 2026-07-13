@@ -1,6 +1,8 @@
 ---
 title: "External Connectors"
 ---
+[]{#external-connectors}
+
 
 MISP is designed to sit at the centre of a security stack, not in isolation. Threat
 intelligence stored in MISP is meant to flow *out* to detection and response tooling (SIEM,
@@ -51,6 +53,8 @@ setup instructions and version support — they are maintained outside the MISP 
 - **Trust & directory** — [Cerebrate](https://github.com/cerebrate-project/cerebrate)
   distributes organisation and sharing-group information across a community; see
   [Sharing](../sharing/index.qmd).
+
+[]{#misp-to-microsoft-graph-security-script}
 
 ## Worked example: MISP to Microsoft Graph Security
 

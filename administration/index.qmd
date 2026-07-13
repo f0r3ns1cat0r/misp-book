@@ -392,6 +392,8 @@ When viewing the list of allowlisted addresses, the following data is shown: The
 MISP automatically correlates attributes that share the same value across
 events. Administrators have several tools to tune what correlates.
 
+[]{#managing-correlation-exclusions}
+
 ### Correlation exclusions
 
 Correlation exclusions let you exclude certain **values** from the correlation
@@ -437,6 +439,10 @@ The correlation engine is selected with the `MISP.correlation_engine` setting
 (Default, NoAcl or OnDemand). On very large instances the *OnDemand* engine
 computes correlations only when an event is viewed, trading immediate
 correlation for a lower write-time cost.
+
+[]{#browsing-logs}
+
+[]{#using-misp-logs}
 
 ## Logs
 
@@ -523,6 +529,8 @@ The "Jobs" menu item within the Administration menu allows site admins to get an
 
 ![Site administrators can monitor the process of all queued jobs here.](figures/jobs.png)
 
+[]{#scheduling-jobs-and-recurring-jobs}
+
 ### Scheduling recurring tasks
 
 Site administrators can schedule recurring maintenance tasks under
@@ -600,6 +608,8 @@ per-endpoint execution times and query load, viewable under **Administration →
 Benchmarking**. It is a diagnostic aid; leave it off during normal operation.
 
 
+[]{#various-administration-tips--tricks}
+
 ## Various administration tips & tricks
 
 
@@ -667,6 +677,8 @@ You can add a logo for your organisations in MISP by uploading them via the tab 
 The filename must be exactly the same as the organisation name that you will use in MISP.
 It is recommended to use PNG files of 48x48 pixels.
 
+[]{#the-schdlr-worker-is-not-starting}
+
 ### The scheduler worker is not starting
 
 Under SimpleBackgroundJobs the scheduler runs as one of the Supervisor-managed workers. If it is not running, check `sudo supervisorctl status misp-workers:*` and the Supervisor logs, and confirm the `SimpleBackgroundJobs` settings (Redis host/port/database and the Supervisor host/port/credentials) under **Administration → Server Settings → Diagnostics**.
@@ -714,6 +726,8 @@ Here is a sample configuration for Apache webserver.
  ```
    Taken from [Koen Van Impe's blog](http://www.vanimpe.eu/2015/05/31/getting-started-misp-malware-information-sharing-platform-threat-sharing-part-3/)
 
+[]{#increase-max-size-of-samples--other-files}
+
 ### Increase max size of Samples / other files
 
 Trying to upload a large samples (>50M) might cause the following error:
@@ -759,6 +773,8 @@ And then restart apache2
 ```
 service apache2 restart
 ```
+
+[]{#support--feature-requests}
 
 ### Support & feature requests
 
@@ -1052,6 +1068,8 @@ Under SimpleBackgroundJobs the worker processes are managed by Supervisor, so th
 
 #### Show Job Status
     MISP/app/Console/cake Worker showJobStatus [worker]
+
+[]{#get-list-of-workers}
 
 #### List Workers
     MISP/app/Console/cake Admin getWorkers [all|dead]

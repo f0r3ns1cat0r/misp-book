@@ -1,6 +1,8 @@
 ---
 title: "Automation and MISP API"
 ---
+[]{#automation-api}
+
 
 Almost everything you can do in the MISP web interface you can also do
 programmatically through its **REST API**: creating and updating events and
@@ -1177,6 +1179,8 @@ curl \
 
 ## Objects management
 
+[]{#post-objectsdeleteobjectidharddelete}
+
 ### POST /objects/delete/[object_id]/[hard_delete]
 
 #### Description
@@ -1728,6 +1732,8 @@ To export the attributes of all events that are of the type "domain", use the fo
 ~~~~
 https://<misp url>/events/csv/download/false/false/false/false/domain
 ~~~~
+
+[]{#update-2482}
 
 #### Update 2.4.82
 Since version 2.4.82, the new export format allows to select more columns using the following query format:

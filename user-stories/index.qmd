@@ -1,6 +1,8 @@
 ---
 title: "User Stories"
 ---
+[]{#misp-user-stories}
+
 
 | User story | Example workflow |
 |-|-|

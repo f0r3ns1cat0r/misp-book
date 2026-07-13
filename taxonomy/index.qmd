@@ -120,6 +120,8 @@ Go to MISP Web GUI taxonomies/index and update the taxonomies once you are happy
 
 Taxonomy tags can drive what MISP shares with connected instances. When you configure a synchronisation server (**Sync Actions → List Servers**), the push and pull rules let you allow or block events by tag — as well as by organisation, attribute type, or object. This makes tags such as `tlp:*` a practical distribution control. See [Synchronisation and Sharing](../sharing/index.qmd) for the full push/pull rule set.
 
+[]{#taxonomies}
+
 ### MISP Taxonomies - tools
 
 - [machinetag.py](https://github.com/MISP/misp-taxonomies/blob/main/tools/machinetag.py) is a parsing tool to dump taxonomies expressed in Machine Tags (Triple Tags) and list all valid tags from a specific taxonomy.
@@ -153,6 +155,8 @@ Tags can be used to:
 * Ensure a classification manager classes the events before release (e.g. release of information from air-gapped/classified networks).
 
 * Enrich IDS export with tags to fit your NIDS deployment.
+
+[]{#more-options-to-configure-taxonomies}
 
 ## More options to configure taxonomies.
 

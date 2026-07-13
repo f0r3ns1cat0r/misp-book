@@ -23,6 +23,10 @@ book:
     left: "MISP User Guide — dual-licensed AGPLv3 & CC-BY-SA 4.0"
     right: "Built with [Quarto](https://quarto.org)"
   downloads: [pdf, epub]             # replaces the old manual PDF/EPUB sidebar links
+  # Emit book.pdf / book.epub (not the title-slug default MISP-User-Guide.*) so the
+  # long-standing external links www.circl.lu/doc/misp/book.pdf and .../book.epub keep
+  # resolving after the Honkit->Quarto switch. (MOBI was intentionally dropped.)
+  output-file: book
   # Chapters grouped into thematic parts (PRD B6). The root index.qmd is the
   # preface (before the first part); reading order flows newcomer -> advanced.
   chapters:

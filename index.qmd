@@ -31,7 +31,7 @@ If you want to contribute, see our [contributing guide](https://github.com/MISP/
 
 ## Format
 
-The MISP book is available in [HTML](https://www.circl.lu/doc/misp/), [PDF](https://www.circl.lu/doc/misp/MISP-User-Guide.pdf), and [ePub](https://www.circl.lu/doc/misp/MISP-User-Guide.epub).
+The MISP book is available in [HTML](https://www.circl.lu/doc/misp/), [PDF](https://www.circl.lu/doc/misp/book.pdf), and [ePub](https://www.circl.lu/doc/misp/book.epub).
 
 ## License
 

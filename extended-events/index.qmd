@@ -1,6 +1,8 @@
 ---
 title: "MISP Extended Events"
 ---
+[]{#misp-extended-events}
+
 
 An **extended event** lets you build on top of an existing event without
 modifying it. Instead of editing someone else's event (which you often cannot do)

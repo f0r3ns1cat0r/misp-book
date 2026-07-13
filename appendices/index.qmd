@@ -1,6 +1,8 @@
 ---
 title: "Appendices"
 ---
+[]{#summary}
+
 
 # Appendix A: External Authentication
 
@@ -710,6 +712,8 @@ php app/Plugin/LdapAuth/Controller/Component/Auth/TestLdapAuth.php
 You can also inspect `app/tmp/logs/error.log` for the raw error responses from the LDAP server. A
 good troubleshooting order is: set `debug => true`, start with `starttls => false`, and if you hit
 `LDAP user search failed: Operations error`, set `ldapAllowReferrals => 0`.
+
+[]{#migrating-existing-user-to-ldap}
 
 #### Migrating existing users to LDAP
 
