@@ -1,0 +1,39 @@
+---
+title: "Developer FAQ"
+---
+<a id="developer-faq"></a>
+
+
+## Main Developer Resources
+
+The main developer resources can be found on GitHub in the [MISP Wiki](https://github.com/MISP/MISP/wiki).
+
+The following pages are worth inspecting closer in case you want to actively develop for MISP:
+
+- [The real FAQ](https://github.com/MISP/MISP/wiki/Frequently-Asked-Questions)
+- [Contributor Overview](https://github.com/MISP/MISP/wiki/Contributing-to-MISP-Project)
+- [Some objectives of MISP](https://github.com/MISP/MISP/wiki/Critical-aspects-or-features)
+- [Various deployment tools](https://github.com/MISP/MISP/wiki/DeploymentTools)
+- [MISP Code of Conduct](https://github.com/MISP/MISP/blob/2.5/code_of_conduct.md)
+- [UI coloring scheme](https://github.com/MISP/MISP/wiki/UserInterface)
+- [Notes on MISP and STIX 2](https://github.com/MISP/MISP/wiki/Notes:-MISP-STIX2)
+- [Commit Messages Best Practices](https://github.com/MISP/MISP/wiki/CommitMessageBestPractices)
+- [Internationalization (i18n)](https://www.circl.lu/doc/misp/translation/)
+
+Our [gitter channel](https://gitter.im/MISP/MISP) is a welcome place to ask other community developers in case you are stuck.
+
+## About the codebase
+
+A few orientation points for new contributors to MISP core (2.5):
+
+- MISP core is a **CakePHP 2** application (`app/Controller`, `app/Model`,
+  `app/View`), running on **PHP 8.x**. The data model is captured in
+  `db_schema.json` and the attribute type system in `describeTypes.json`.
+- Background processing runs on **SimpleBackgroundJobs** (Supervisor + Redis) —
+  the legacy CakeResque worker system has been removed. See the
+  [administration](../administration/index.qmd) chapter.
+- Much of MISP's content (galaxies, objects, taxonomies, warninglists,
+  noticelists, event/object templates) lives in companion repositories pulled in
+  as submodules under `app/files/`.
+- The REST API is described by an OpenAPI specification served at `/api/openapi`.
+

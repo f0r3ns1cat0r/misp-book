@@ -1,13 +1,17 @@
 # Temp md files
 *.md~
 
-# Compiled assets
+# Rendered book (Quarto output-dir) and legacy download copies
+_book
 book.pdf
 book.epub
 book.mobi
+MISP-User-Guide.pdf
+MISP-User-Guide.epub
 
-# Compiled book
-_book
+# Quarto working dir (the _freeze/ cache IS committed — do not ignore it)
+/.quarto/
+**/*.quarto_ipynb
 
-# node foo
+# node foo (legacy)
 node_modules

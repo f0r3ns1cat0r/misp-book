@@ -1,0 +1,121 @@
+---
+title: "External Connectors"
+---
+<a id="external-connectors"></a>
+
+
+MISP is designed to sit at the centre of a security stack, not in isolation. Threat
+intelligence stored in MISP is meant to flow *out* to detection and response tooling (SIEM,
+EDR/XDR, firewalls, IDS), and context is meant to flow *in* from those same tools and from
+other intelligence sources. This chapter is an index of the ways MISP connects to external
+systems, with one worked example.
+
+::: {.callout-tip}
+The authoritative, continuously updated catalogue of tools that talk to MISP lives on the
+[MISP project website](https://www.misp-project.org/tools/) and under the
+[MISP GitHub organisation](https://github.com/MISP). When in doubt about the current state of
+a specific integration, check there — third-party connectors evolve independently of MISP
+releases.
+:::
+
+## How MISP connects to other tools
+
+There is rarely just one way to integrate; pick the mechanism that fits the other system.
+
+| Mechanism | Use it for | Covered in |
+|---|---|---|
+| **REST API** | Any programmatic access — query, create, export, orchestrate | [Automation & API](../automation/index.qmd) |
+| **PyMISP** | Python integrations, scripts and glue code | [PyMISP](../pymisp/index.qmd) |
+| **MISP-to-MISP sync** | Sharing with other MISP instances and communities | [Sharing](../sharing/index.qmd) |
+| **STIX 1 / STIX 2 & TAXII 2.x** | Interop with STIX/TAXII-based platforms | [Sharing](../sharing/index.qmd), [Automation](../automation/index.qmd) |
+| **Enrichment / import / export modules** | Pluggable enrichment and format conversion | [Misp-modules](../modules/index.qmd) |
+| **ZeroMQ pub/sub** | Real-time streaming of MISP activity to other systems | [ZeroMQ](../misp-zmq/index.qmd) |
+| **Feeds** | Consuming external indicator feeds into MISP | [Managing feeds](../managing-feeds/index.qmd) |
+
+Most third-party "connectors" are built on top of one of these — typically the REST API (via
+PyMISP) for pulling indicators out, or STIX/TAXII for standards-based exchange.
+
+## Notable integrations
+
+The following are widely used integrations. Consult the linked upstream projects for current
+setup instructions and version support — they are maintained outside the MISP core release.
+
+- **SIEM / log analytics** — Splunk, Elastic/ELK, IBM QRadar and similar platforms typically
+  ingest MISP indicators through the REST API or a dedicated add-on. Several are listed in the
+  MISP tools catalogue.
+- **Microsoft Sentinel & Microsoft Defender** — export IoCs through the Microsoft Graph
+  Security API using the sample script (worked example below).
+- **SOAR / case management** — TheHive and Cortex integrate closely with MISP for alerting,
+  observable enrichment and case handling.
+- **STIX / TAXII platforms** — MISP exports and imports STIX 1 and STIX 2 (via the
+  [misp-stix](https://github.com/MISP/misp-stix) library) and can push to TAXII 2.x servers;
+  see the [Sharing](../sharing/index.qmd) chapter's TAXII section.
+- **Trust & directory** — [Cerebrate](https://github.com/cerebrate-project/cerebrate)
+  distributes organisation and sharing-group information across a community; see
+  [Sharing](../sharing/index.qmd).
+
+<a id="misp-to-microsoft-graph-security-script"></a>
+
+## Worked example: MISP to Microsoft Graph Security
+
+The **MISP to Microsoft Graph Security Script** lets you export custom threat indicators
+(IoCs) from MISP to Microsoft products such as **Microsoft Sentinel** and **Microsoft
+Defender**, through the [Microsoft Graph Security API](https://aka.ms/graphsecuritydocs).
+
+The sample and its most current instructions live in the
+[Microsoft Graph security-api-solutions repository](https://github.com/microsoftgraph/security-api-solutions/tree/master/Samples/MISP)
+([short link](https://aka.ms/tipmispsample)). The summary below reflects that sample at time
+of writing; treat the upstream README as authoritative.
+
+### Prerequisites
+
+- Python 3.x.
+- A Microsoft account or an Office 365 for business account able to register an application in
+  Azure Active Directory.
+
+### Getting started
+
+1. Clone the [sample repository](https://github.com/microsoftgraph/security-api-solutions/tree/master/Samples/MISP).
+2. Change into the `security-api-solutions/Samples/MISP` directory.
+3. Install the dependencies: `pip3 install requests requests-futures pymisp`.
+4. Register an application in the [Azure portal](https://portal.azure.com/) under
+   *App registrations → New registration*. Record the **Application (client) ID**, create a
+   **client secret** under *Certificates & secrets*, and under *API permissions* grant the
+   Microsoft Graph application permission **ThreatIndicators.ReadWrite.OwnedBy**.
+5. Fill in `config.py` with your tenant, client ID and client secret, and your MISP
+   connection details.
+6. Run the script: `PYTHONHASHSEED=0 python3 script.py`.
+
+### Key configuration options (`config.py`)
+
+- **Target product** — `targetProduct = "Azure Sentinel"` or `targetProduct = "Microsoft Defender ATP"`.
+- **MISP connection** — `misp_domain`, `misp_key` (use a dedicated sync/automation key — see
+  [Advanced AuthKeys](../user-management/index.qmd)), and `misp_verifycert`
+  (keep `True` in production with a valid certificate).
+- **Event filters** — `misp_event_filters` is a list of filter dictionaries applied as an
+  *intersection*; within a single filter, a list of values is an *OR*. An empty list
+  (`misp_event_filters = []`) exports all events. The filter keys mirror MISP's
+  [REST search parameters](../automation/index.qmd) (`type_attribute`, `category`, `tags`,
+  `date_from`/`date_to`, `last`, `published`, and so on).
+- **Action** — `alert` (default), `allow`, or `block`, controlling how the indicator is
+  treated in the target product.
+- **Expiry** — `days_to_expire` sets how long indicators live in the Graph Security API
+  (default 30).
+
+### Reading and troubleshooting
+
+- List indicators already pushed: `python3 script.py -r`.
+- Every request is logged as a JSON file under `logs/`; failed requests can be reviewed with
+  `cat logs/*_error_*`.
+- Schedule regular runs with cron, for example every Sunday at 02:00:
+
+```
+0 2 * * Sun /home/user/misp-graph-script/python3 script.py
+```
+
+::: {.callout-note}
+This worked example is adapted from the upstream Microsoft sample and is included to show the
+*shape* of a REST/PyMISP-based connector. For the exact, current steps — including any changes
+to Azure app registration or the script itself — always follow the
+[upstream README](https://aka.ms/tipmispsample).
+:::

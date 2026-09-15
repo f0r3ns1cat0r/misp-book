@@ -1,8 +1,12 @@
 #!/bin/bash
+# Live-preview the book locally with hot reload.
+# (Executable code cells render from the committed _freeze/ cache unless you
+#  export MISP_URL / MISP_KEY / QUARTO_PYTHON — see README.md.)
 
-# Kill any existing instances of "honkit serve"
-ps -Af | grep node | grep "honkit serve" | awk '{print $2}' | xargs kill 2>/dev/null
-if [ "$1" = "shutdown" ]; then echo "Goodbye!"; exit 0; fi;
+if [ "$1" = "shutdown" ]; then
+    pkill -f "quarto preview" 2>/dev/null
+    echo "Goodbye!"
+    exit 0
+fi
 
-# Launch the server
-npx honkit serve . &
+quarto preview .

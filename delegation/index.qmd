@@ -1,0 +1,78 @@
+---
+title: "Delegation"
+---
+
+In information sharing, the privacy of the reporting organization can be important in cases such as:
+
+- when an incident should not be linked to a potential victim.
+- when you want to avoid linking a specific organization to the shared information.
+
+MISP includes a delegation feature that lets another organization publish an event on your behalf and removes the direct link between the shared information and your organization.
+If you want to publish an event without your organization being tied to it, you can delegate publication to another organization.
+That organization becomes the owner of the event.
+You can delegate only to local target organizations, not to remote ones.
+
+::: {.callout-warning}
+You need a role with `Delegation access` to delegate an event.
+:::
+::: {.callout-warning}
+You must also enable the `MISP.delegation` parameter on your instance.
+:::
+
+### Send a delegation request
+
+To do this, you first need to set the event distribution to **Your organization only**.
+![Delegation possible](./figures/delegationpossible.png)
+Otherwise, the delegation option will not be available.
+![Delegation impossible](./figures/delegationimpossible.png)
+
+::: {.callout-note}
+The "distribution must be *Your organization only*" restriction is lifted if the site
+administrator has enabled the `MISP.unpublishedprivate` setting on the instance. When that
+setting is on, an event with any distribution level can be delegated.
+:::
+
+An event can only have **one pending delegation request at a time**. If you need to change
+the target organization or the requested distribution, discard the existing request first,
+then create a new one.
+
+When you click **Delegate Publishing**, a pop-up appears.
+![Delegation Popup](./figures/delagationpopup.png)
+Here you can choose the following options:
+- The organization to which you want to delegate the event.
+  In this example, we ask Setec Astronomy to publish the event for us.
+- The distribution option you would like to request for the event.
+  You can let the recipient organization choose if you do not mind.
+  In this example, we request **All communities**, but this is only a suggestion and the recipient can still change the distribution later.
+![Desired Distribution](./figures/desireddistribution.png)
+- An optional free-form message to the recipient organization.
+![Distribution ready](./figures/delegationpopup2.png)
+
+Once the request is sent, a message appears on the event to remind you that the request is pending.
+![Reminder](./figures/delegationrequested.png)
+You can also view more details by clicking **View request details**.
+![Request Details](./figures/requestdetails.png)
+You can discard the request yourself by using either this pop-up or the link in the left-side menu.
+
+Both the requesting and the recipient organization can review pending delegations at any time
+from the top navigation bar under **Global Actions → View delegation requests** (labelled
+*Delegation Requests*), which lists every request awaiting action.
+
+### Answer a delegation request
+
+As the recipient organization, you receive the delegation request.
+You are notified by a red envelope in the upper-right corner of the screen.
+![Notification](./figures/delegationwaiting.png)
+Open **Global Actions → View delegation requests** to see every event that other organizations want to delegate to your organization. In this example, there is a single request from Acme Factory.
+![Delegated list](./figures/delagated.png)
+Opening the event shows its metadata, including a banner about the pending delegation.
+![Delegated event](./figures/delegatedevent.png)
+Click **View request details** to see the full request — the requesting organization, the distribution level it suggested, and its message.
+![Request details](./figures/recipientdetails.png)
+If your role includes publishing rights, you can manage the delegation request by using one of the two links in the left-side menu.
+You can either discard it:
+![Discard request](./figures/discarddelegation.png)
+Or accept it:
+![Accept request](./figures/acceptdelegation.png)
+Note that the distribution requested by the original sender is not applied automatically.
+If the setting is not changed, the event remains distributed only to your own organization.
