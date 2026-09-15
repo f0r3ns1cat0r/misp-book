@@ -7,8 +7,8 @@ Source of the **MISP User Guide** — the official user guide for
 sharing platform.
 
 Read it online at **<https://www.circl.lu/doc/misp/>** (also available as
-[PDF](https://www.circl.lu/doc/misp/MISP-User-Guide.pdf) and
-[EPUB](https://www.circl.lu/doc/misp/MISP-User-Guide.epub)).
+[PDF](https://www.circl.lu/doc/misp/book.pdf) and
+[EPUB](https://www.circl.lu/doc/misp/book.epub)).
 
 The book is built with [Quarto](https://quarto.org). Each chapter lives in its
 own directory as `index.qmd`, in plain Markdown — you can edit any chapter and
