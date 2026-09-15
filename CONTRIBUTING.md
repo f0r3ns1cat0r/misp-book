@@ -2,7 +2,7 @@
 
 Most MISP documentation pages are stored as plain-text files in this dedicated misp-book repository.
 MISP Book provides general documentation for MISP, including usage, API documentation, best practices, and configuration guidance.
-Installation guides are maintained in the [INSTALL](https://github.com/MISP/MISP/tree/2.4/INSTALL) and [download](https://www.misp-project.org/download/) sections of the core and website repositories respectively.
+Installation guides are maintained in the [INSTALL](https://github.com/MISP/MISP/tree/2.5/INSTALL) and [download](https://www.misp-project.org/download/) sections of the core and website repositories respectively.
 By cloning this repository and pulling regularly, users can maintain an up-to-date offline copy of the documentation instead of relying solely on the web.
 
 MISP Book is generated in HTML, PDF, and EPUB formats using [Quarto](https://quarto.org), a framework for writing documentation in Markdown.
